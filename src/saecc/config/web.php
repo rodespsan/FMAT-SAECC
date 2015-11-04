@@ -22,7 +22,15 @@ $config = [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        'mailer' => [
+        
+		'urlManager'=>[
+		 'showScriptName' => false,
+                            
+          'enablePrettyUrl' => true
+		
+		],
+		
+		'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             // send all mails to a file by default. You have to set
             // 'useFileTransport' to false and configure a transport

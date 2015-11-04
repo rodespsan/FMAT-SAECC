@@ -25,28 +25,16 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
     <div class="wrap">
         <?php
-            NavBar::begin([                
-                'options' => [                    
-					'class' => 'navbar-inverse navbar-top',
+            NavBar::begin([
+                'brandLabel' => 'My Company',
+                'brandUrl' => Yii::$app->homeUrl,
+                'options' => [
+                    'class' => 'navbar-inverse navbar-fixed-top',
                 ],
             ]);
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
-					['label' => 'Client', 'url' => ['/client/index']],
-					['label' => 'ClientType', 'url' => ['/client-type/index']],
-					['label' => 'Discipline', 'url' => ['/discipline/index']],
-					['label' => 'Area', 'url' => ['/area/index']],
-					['label' => 'School', 'url' => ['/school/index']],
-					['label' => 'Equipment', 'url' => ['/equipment/index']],
-					['label' => 'EquipmentType', 'url' => ['/equipment-type/index']],
-					['label' => 'Status', 'url' => ['/status/index']],
-					['label' => 'Room', 'url' => ['/room/index']],
-					['label' => 'User', 'url' => ['/user/index']],
-					['label' => 'Log', 'url' => ['/log/index']],
-					['label' => 'LogType', 'url' => ['/log-type/index']],
-					['label' => 'Incident', 'url' => ['/incident/index']],
-					['label' => 'Assignation', 'url' => ['/assignation/index']],
                     ['label' => 'Home', 'url' => ['/site/index']],
                     ['label' => 'About', 'url' => ['/site/about']],
                     ['label' => 'Contact', 'url' => ['/site/contact']],
