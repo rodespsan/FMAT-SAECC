@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\LogTypeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Log Types';
+$this->title = 'Log Type';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="log-type-index">

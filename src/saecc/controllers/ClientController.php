@@ -62,6 +62,7 @@ class ClientController extends Controller
     {
         $model = new Client();
 
+		$model->active = true;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
