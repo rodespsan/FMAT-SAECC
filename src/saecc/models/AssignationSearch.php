@@ -19,7 +19,7 @@ class AssignationSearch extends Assignation
     {
         return [
             [['id', 'client_id', 'equipment_id', 'room_id', 'duration'], 'integer'],
-            [['location', 'start_date', 'end_date'], 'safe'],
+            [['location', 'start_date', 'end_date', 'purpose'], 'safe'],
         ];
     }
 
@@ -61,7 +61,8 @@ class AssignationSearch extends Assignation
             'duration' => $this->duration,
         ]);
 
-        $query->andFilterWhere(['like', 'location', $this->location]);
+        $query->andFilterWhere(['like', 'location', $this->location])
+            ->andFilterWhere(['like', 'purpose', $this->purpose]);
 
         return $dataProvider;
     }

@@ -22,6 +22,11 @@ CREATE TABLE IF NOT EXISTS `school` (
 ENGINE = InnoDB;
 
 
+INSERT INTO `school` (`id`, `name`) VALUES
+(3, 'Facultad de Ingeniería'),
+(2, 'Facultad de Ingeniería Química'),
+(1, 'Facultad de Matemáticas');
+
 -- -----------------------------------------------------
 -- Table `user`
 -- -----------------------------------------------------
@@ -48,6 +53,16 @@ CREATE TABLE IF NOT EXISTS `status` (
 ENGINE = InnoDB;
 
 
+INSERT INTO `status` (`id`, `status`) VALUES
+(1, 'Activo'),
+(7, 'Asignado'),
+(2, 'Baja'),
+(4, 'En Reparación'),
+(5, 'Garantía'),
+(8, 'Prestado'),
+(6, 'Refacciones'),
+(3, 'Resguardado');
+
 -- -----------------------------------------------------
 -- Table `room`
 -- -----------------------------------------------------
@@ -59,6 +74,55 @@ CREATE TABLE IF NOT EXISTS `room` (
 ENGINE = InnoDB;
 
 
+INSERT INTO `room` (`id`, `name`, `available`) VALUES
+(1, 'CC6', 1),
+(2, 'CC1', 0),
+(3, 'CC3', 0),
+(4, 'CC4', 0),
+(5, 'CC5', 0),
+(6, 'CC7', 0),
+(7, 'CC8', 0),
+(8, 'ASI', 0),
+(9, 'Bodega', 0),
+(10, 'CC9', 0),
+(11, 'S. J. A', 0),
+(12, 'S. J. Dirección', 0),
+(13, 'S. J. E', 0),
+(14, 'D5', 0),
+(15, 'D7', 0),
+(16, 'D8', 0),
+(17, 'LMEC', 0),
+(18, 'Recepción CC', 0),
+(19, 'Edif. A', 0),
+(20, 'Edif. E P. A.', 0),
+(21, 'Edif. E P. B.', 0),
+(22, 'Dirección', 0),
+(23, 'LICOVIR', 0),
+(24, 'C1', 0),
+(25, 'C2', 0),
+(26, 'C3', 0),
+(27, 'C4', 0),
+(28, 'C5', 0),
+(29, 'C6', 0),
+(30, 'C7', 0),
+(31, 'C8', 0),
+(32, 'C9', 0),
+(33, 'C10', 0),
+(34, 'D1', 0),
+(35, 'D2', 0),
+(36, 'D3', 0),
+(37, 'D4', 0),
+(38, 'D6', 0),
+(39, 'F2', 0),
+(40, 'H1', 0),
+(41, 'H2', 0),
+(42, 'H3', 0),
+(43, 'H4', 0),
+(44, 'H5', 0),
+(45, 'H6', 0),
+(46, 'H7', 0),
+(47, 'H8', 0);
+
 -- -----------------------------------------------------
 -- Table `equipment_type`
 -- -----------------------------------------------------
@@ -69,6 +133,21 @@ CREATE TABLE IF NOT EXISTS `equipment_type` (
   UNIQUE INDEX `name_UNIQUE` (`name` ASC))
 ENGINE = InnoDB;
 
+
+INSERT INTO `equipment_type` (`id`, `name`) VALUES
+(5, 'Bocina'),
+(6, 'Disco Duro'),
+(11, 'Duplicador de Video'),
+(7, 'Impresora'),
+(3, 'Laptop'),
+(9, 'Mesa'),
+(2, 'Monitor'),
+(8, 'Pantalla'),
+(1, 'PC'),
+(10, 'Proyector de Acetatos'),
+(13, 'Silla'),
+(12, 'UPS'),
+(4, 'Videoproyector');
 
 -- -----------------------------------------------------
 -- Table `equipment`
@@ -115,6 +194,11 @@ CREATE TABLE IF NOT EXISTS `log_type` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
+
+INSERT INTO `log_type` (`id`, `type`) VALUES
+(1, 'Alta'),
+(2, 'Baja'),
+(3, 'Actualización');
 
 -- -----------------------------------------------------
 -- Table `log`
@@ -167,6 +251,12 @@ CREATE TABLE IF NOT EXISTS `client_type` (
 ENGINE = InnoDB;
 
 
+INSERT INTO `client_type` (`id`, `type`) VALUES
+(2, 'Académico'),
+(3, 'Administrativo'),
+(1, 'Alumno'),
+(4, 'Externo');
+
 -- -----------------------------------------------------
 -- Table `area`
 -- -----------------------------------------------------
@@ -177,6 +267,11 @@ CREATE TABLE IF NOT EXISTS `area` (
   UNIQUE INDEX `name_UNIQUE` (`name` ASC))
 ENGINE = InnoDB;
 
+
+INSERT INTO `area` (`id`, `name`) VALUES
+(1, 'Computación'),
+(2, 'Matemáticas'),
+(3, 'Otra');
 
 -- -----------------------------------------------------
 -- Table `discipline`
@@ -202,6 +297,16 @@ CREATE TABLE IF NOT EXISTS `discipline` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
+INSERT INTO `discipline` (`id`, `school_id`, `name`, `short_name`, `area_id`) VALUES
+(1, 1, 'Licenciatura en Matemáticas', 'LM', 2),
+(2, 1, 'Licenciatura en Enseñanza de las Matemáticas', 'LEM', 2),
+(3, 1, 'Licenciatura en Actuaría', 'LA', 2),
+(4, 1, 'Licenciatura en Ciencias de la Computación', 'LCC', 1),
+(5, 1, 'Licenciatura en Ingeniería de Software', 'LIS', 1),
+(6, 1, 'Licenciatura en Ingeniería en Computación', 'LIC', 1),
+(7, 3, 'Licenciatura en Ingeniería Civil', 'LI', 3),
+(8, 2, 'Licenciatura en Ingeniería Química', 'LIQ', 3);
 
 -- -----------------------------------------------------
 -- Table `client`
