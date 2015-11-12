@@ -32,11 +32,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'inventory',
             'description',
             'serial_number',
-            'status_id',
-            'room_id',
+            'status.status',//Pone el nombre en lugar del id
+            'room.name',//Pone el nombre en lugar del id
             'location',
             'available',
-            'type_id',
+            'type.name',
         ],
     ]) ?>
 
