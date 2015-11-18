@@ -15,6 +15,7 @@ use Yii;
  * @property string $start_date
  * @property string $end_date
  * @property string $duration
+ * @property string $purpose
  *
  * @property Client $client
  * @property Equipment $equipment
@@ -39,7 +40,8 @@ class Assignation extends \yii\db\ActiveRecord
             [['client_id', 'equipment_id', 'location', 'room_id', 'start_date', 'end_date', 'duration'], 'required'],
             [['client_id', 'equipment_id', 'room_id', 'duration'], 'integer'],
             [['start_date', 'end_date'], 'safe'],
-            [['location'], 'string', 'max' => 45]
+            [['location'], 'string', 'max' => 45],
+            [['purpose'], 'string', 'max' => 170]
         ];
     }
 
@@ -57,6 +59,7 @@ class Assignation extends \yii\db\ActiveRecord
             'start_date' => 'Start Date',
             'end_date' => 'End Date',
             'duration' => 'Duration',
+            'purpose' => 'Purpose',
         ];
     }
 

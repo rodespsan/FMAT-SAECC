@@ -36,6 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'start_date',
             'end_date',
             'duration',
+            'purpose',
         ],
     ]) ?>
 

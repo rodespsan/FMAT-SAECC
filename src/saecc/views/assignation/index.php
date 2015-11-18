@@ -30,9 +30,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'equipment_id',
             'location',
             'room_id',
-            // 'start_date',
-            // 'end_date',
-            // 'duration',
+            'start_date',
+            'end_date',
+            'duration',
+            'purpose',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
