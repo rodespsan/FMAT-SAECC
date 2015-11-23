@@ -23,6 +23,22 @@ class UserController extends Controller
                     'delete' => ['post'],
                 ],
             ],
+			'access' => [
+				'class' => 'yii\filters\AccessControl',
+				'rules' => [
+					[
+						'allow' => true,
+						'actions' => ['index', 'create', 'view', 'update', 'delete'],
+						'roles' => ['administrator'],
+					],
+					[
+						'allow' => true,
+						'actions' => ['index', 'create', 'view', 'update'],
+						'roles' => ['@'],
+					],
+				],
+			
+			],
         ];
     }
 
@@ -80,6 +96,7 @@ class UserController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+		$model->scenario = 'update';
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

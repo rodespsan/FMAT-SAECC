@@ -8,6 +8,9 @@ $config = [
     'bootstrap' => ['log'],
 	'language' => 'es-MX',
     'components' => [
+		'authManager' => [
+			'class' => 'yii\rbac\Dbmanager',
+		],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'd83buwnrfy',
@@ -22,14 +25,10 @@ $config = [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        
 		'urlManager'=>[
-		 'showScriptName' => false,
-                            
-          'enablePrettyUrl' => true
-		
+			'enablePrettyUrl' => true,
+			'showScriptName' => false,
 		],
-		
 		'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
             // send all mails to a file by default. You have to set
