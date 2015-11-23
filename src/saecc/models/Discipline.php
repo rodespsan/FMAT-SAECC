@@ -47,10 +47,10 @@ class Discipline extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'school_id' => 'School ID',
+            'school_id' => 'School',
             'name' => 'Name',
             'short_name' => 'Short Name',
-            'area_id' => 'Area ID',
+            'area_id' => 'Area',
         ];
     }
 

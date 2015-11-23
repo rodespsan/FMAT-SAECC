@@ -52,10 +52,10 @@ class Assignation extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'client_id' => 'Client ID',
-            'equipment_id' => 'Equipment ID',
+            'client_id' => 'Client',
+            'equipment_id' => 'Equipment',
             'location' => 'Location',
-            'room_id' => 'Room ID',
+            'room_id' => 'Room',
             'start_date' => 'Start Date',
             'end_date' => 'End Date',
             'duration' => 'Duration',
