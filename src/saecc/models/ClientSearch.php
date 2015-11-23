@@ -12,14 +12,17 @@ use app\models\Client;
  */
 class ClientSearch extends Client
 {
+	public $clientType;
+	public $discipline;
+	
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'client_type_id', 'discipline_id', 'active'], 'integer'],
-            [['client_id', 'first_name', 'last_name'], 'safe'],
+            [['id', 'active'], 'integer'],
+            [['client_id', 'first_name', 'last_name', 'clientType', 'discipline'], 'safe'],
         ];
     }
 
@@ -42,25 +45,44 @@ class ClientSearch extends Client
     public function search($params)
     {
         $query = Client::find();
+		$query->joinWith(['clientType','discipline']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+		
+		$dataProvider->sort->attributes['clientType'] = [
+			// The tables are the ones our relation are configured to
+			// in my case they are prefixed with "tbl_"
+			'asc' => ['client_type.type' => SORT_ASC],
+			'desc' => ['client_type.type' => SORT_DESC],
+		];
+		
+		$dataProvider->sort->attributes['discipline'] = [
+			// The tables are the ones our relation are configured to
+			// in my case they are prefixed with "tbl_"
+			'asc' => ['discipline.name' => SORT_ASC],
+			'desc' => ['discipline.name' => SORT_DESC],
+		];
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
+		
+		
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'client_type_id' => $this->client_type_id,
-            'discipline_id' => $this->discipline_id,			
+            //'client_type_id' => $this->client_type_id,
+            //'discipline_id' => $this->discipline_id,			
             'active' => $this->active,
         ]);
 
         $query->andFilterWhere(['like', 'client_id', $this->client_id])
             ->andFilterWhere(['like', 'first_name', $this->first_name])
-            ->andFilterWhere(['like', 'last_name', $this->last_name]);
+            ->andFilterWhere(['like', 'last_name', $this->last_name])
+			->andFilterWhere(['like', 'client_type.type', $this->clientType])
+			->andFilterWhere(['like', 'discipline.name', $this->discipline]);
 
         return $dataProvider;
     }
