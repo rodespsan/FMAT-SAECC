@@ -51,11 +51,11 @@ class Client extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'client_id' => 'Client ID',
+            'client_id' => 'Client',
             'first_name' => 'First Name',
             'last_name' => 'Last Name',
-            'client_type_id' => 'Client Type ID',
-            'discipline_id' => 'Discipline ID',
+            'client_type_id' => 'Client Type',
+            'discipline_id' => 'Discipline',
             'active' => 'Active',
         ];
     }
