@@ -18,7 +18,7 @@ class ClientSearch extends Client
     public function rules()
     {
         return [
-            [['id', 'client_type_id', 'discipline_id', 'status'], 'integer'],
+            [['id', 'client_type_id', 'discipline_id', 'active'], 'integer'],
             [['client_id', 'first_name', 'last_name'], 'safe'],
         ];
     }
@@ -54,8 +54,8 @@ class ClientSearch extends Client
         $query->andFilterWhere([
             'id' => $this->id,
             'client_type_id' => $this->client_type_id,
-            'discipline_id' => $this->discipline_id,
-            'status' => $this->status,
+            'discipline_id' => $this->discipline_id,			
+            'active' => $this->active,
         ]);
 
         $query->andFilterWhere(['like', 'client_id', $this->client_id])

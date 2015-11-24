@@ -59,11 +59,11 @@ class Equipment extends \yii\db\ActiveRecord
             'inventory' => 'Inventory',
             'description' => 'Description',
             'serial_number' => 'Serial Number',
-            'status_id' => 'Status ID',
-            'room_id' => 'Room ID',
+            'status_id' => 'Status ',
+            'room_id' => 'Room ',
             'location' => 'Location',
             'available' => 'Available',
-            'type_id' => 'Type ID',
+            'type_id' => 'Type ',
         ];
     }
 

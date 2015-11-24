@@ -32,10 +32,14 @@ use app\models\Discipline;
 		ArrayHelper::map(
 			Discipline::find()->all(),
 			'id',
-			'name', 'short_name'))
+			'name'),
+			[
+				'prompt' => Yii::t('app','Select a discipline (for students only)'),
+			]
+		)
 	?>
 
-    <?= $form->field($model, 'status')->checkbox([])->label('Activo'); ?>
+    <?= $form->field($model, 'active')->checkbox([],false); ?>
 	
 
     <div class="form-group">

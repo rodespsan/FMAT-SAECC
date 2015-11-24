@@ -25,12 +25,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
             'user_name',
             'name',
-            'password_hash',
-            'auth_key',
-            // 'access_token',
+            //'password_hash',
+            //'auth_key',
+            //'access_token',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

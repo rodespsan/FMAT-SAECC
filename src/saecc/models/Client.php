@@ -13,7 +13,7 @@ use Yii;
  * @property string $last_name
  * @property string $client_type_id
  * @property string $discipline_id
- * @property integer $status
+ * @property integer $active
  *
  * @property Assignation[] $assignations
  * @property Discipline $discipline
@@ -37,7 +37,7 @@ class Client extends \yii\db\ActiveRecord
     {
         return [
             [['client_id', 'first_name', 'last_name', 'client_type_id'], 'required'],
-            [['client_type_id', 'discipline_id', 'status'], 'integer'],
+            [['client_type_id', 'discipline_id', 'active'], 'integer'],
             [['client_id'], 'string', 'max' => 30],
             [['first_name', 'last_name'], 'string', 'max' => 175],
             [['client_id'], 'unique']
@@ -51,12 +51,12 @@ class Client extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'client_id' => 'Client ID',
+            'client_id' => 'Client',
             'first_name' => 'First Name',
             'last_name' => 'Last Name',
-            'client_type_id' => 'Client Type ID',
-            'discipline_id' => 'Discipline ID',
-            'status' => 'Status',
+            'client_type_id' => 'Client Type',
+            'discipline_id' => 'Discipline',
+            'active' => 'Active',
         ];
     }
 
