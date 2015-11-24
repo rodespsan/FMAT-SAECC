@@ -31,8 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
             //'id',            
             'name',
             'short_name',
-            'area.name',
-			'school.name',
+            'area.name:text:Area',
+			'school.name:text:School',
         ],
     ]) ?>
 

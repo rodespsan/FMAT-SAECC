@@ -28,8 +28,19 @@ $this->params['breadcrumbs'][] = $this->title;
             //'id',
             'name',
             'short_name',
-            'area.name',
-			'school.name',
+            //'area.name',
+			[
+				'attribute' => 'area',
+				'value' => 'area.name',
+				'label' => 'Area',
+			],
+			//'school.name',
+			[
+				'attribute' => 'school',
+				'value' => 'school.name',
+				'label' => 'School',
+			],
+			
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
