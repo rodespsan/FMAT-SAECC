@@ -12,14 +12,16 @@ use app\models\Discipline;
  */
 class DisciplineSearch extends Discipline
 {
+	public $area;
+	public $school;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'school_id', 'area_id'], 'integer'],
-            [['name', 'short_name'], 'safe'],
+            [['id'], 'integer'],
+            [['name', 'short_name', 'school', 'area'], 'safe'],
         ];
     }
 
@@ -42,10 +44,25 @@ class DisciplineSearch extends Discipline
     public function search($params)
     {
         $query = Discipline::find();
-
+		$query->joinWith(['area', 'school']);
+		
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+		
+		$dataProvider->sort->attributes['area'] = [
+			// The tables are the ones our relation are configured to
+			// in my case they are prefixed with "tbl_"
+			'asc' => ['area.name' => SORT_ASC],
+			'desc' => ['area.name' => SORT_DESC],
+		];
+		
+		$dataProvider->sort->attributes['school'] = [
+			// The tables are the ones our relation are configured to
+			// in my case they are prefixed with "tbl_"
+			'asc' => ['school.name' => SORT_ASC],
+			'desc' => ['school.name' => SORT_DESC],
+		];
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
@@ -53,12 +70,14 @@ class DisciplineSearch extends Discipline
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'school_id' => $this->school_id,
-            'area_id' => $this->area_id,
+            //'school_id' => $this->school_id,
+            //'area_id' => $this->area_id,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'short_name', $this->short_name]);
+            ->andFilterWhere(['like', 'short_name', $this->short_name])
+			->andFilterWhere(['like', 'area.name', $this->area])
+			->andFilterWhere(['like', 'school.name', $this->school]);
 
         return $dataProvider;
     }
