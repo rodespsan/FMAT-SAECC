@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\AssignationSearch */
+/* @var $model app\models\LocationSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="assignation-search">
+<div class="location-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -17,23 +17,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id') ?>
 
-    <?= $form->field($model, 'date') ?>
-
-    <?= $form->field($model, 'client_id') ?>
-
-    <?= $form->field($model, 'room_id') ?>
-
     <?= $form->field($model, 'location') ?>
-
-    <?php // echo $form->field($model, 'equipment_id') ?>
-
-    <?php // echo $form->field($model, 'purpose') ?>
-
-    <?php // echo $form->field($model, 'start_time') ?>
-
-    <?php // echo $form->field($model, 'end_time') ?>
-
-    <?php // echo $form->field($model, 'duration') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

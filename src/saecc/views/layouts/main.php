@@ -33,7 +33,9 @@ AppAsset::register($this);
             echo Nav::widget([
                 'options' => ['class' => 'navbar-nav navbar-right'],
                 'items' => [
-					['label' => 'Client', 'url' => ['/client/index']],
+					//['label' => 'Client', 'url' => ['/client/index']],
+					Yii::$app->user->isGuest ?
+                        ['label' => 'Client', 'url' => ['/site/login']] : ['label' => 'Client', 'url' => ['/client/index']],
 					['label' => 'ClientType', 'url' => ['/client-type/index']],
 					['label' => 'Discipline', 'url' => ['/discipline/index']],
 					['label' => 'Area', 'url' => ['/area/index']],
@@ -47,6 +49,7 @@ AppAsset::register($this);
 					['label' => 'LogType', 'url' => ['/log-type/index']],
 					['label' => 'Incident', 'url' => ['/incident/index']],
 					['label' => 'Assignation', 'url' => ['/assignation/index']],
+					['label' => 'Location', 'url' => ['/location/index']],
                     ['label' => 'Home', 'url' => ['/site/index']],
                     ['label' => 'About', 'url' => ['/site/about']],
                     ['label' => 'Contact', 'url' => ['/site/contact']],

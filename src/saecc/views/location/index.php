@@ -3,21 +3,20 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 
-
 /* @var $this yii\web\View */
-/* @var $searchModel app\models\AssignationSearch */
+/* @var $searchModel app\models\LocationSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Assignations');
+$this->title = Yii::t('app', 'Locations');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="assignation-index">
+<div class="location-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Assignation'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Location'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -27,15 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
-            'date',
-            'client_id',
-            'room_id',
             'location',
-            'equipment_id',
-            'purpose',
-            'duration',
-			'start_time',
-            'end_time',            
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

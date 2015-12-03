@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Assignation;
+use app\models\Location;
 
 /**
- * AssignationSearch represents the model behind the search form about `app\models\Assignation`.
+ * LocationSearch represents the model behind the search form about `app\models\Location`.
  */
-class AssignationSearch extends Assignation
+class LocationSearch extends Location
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class AssignationSearch extends Assignation
     public function rules()
     {
         return [
-            [['id', 'client_id', 'room_id', 'equipment_id', 'duration'], 'integer'],
-            [['date', 'location', 'purpose', 'start_time', 'end_time'], 'safe'],
+            [['id'], 'integer'],
+            [['location'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class AssignationSearch extends Assignation
      */
     public function search($params)
     {
-        $query = Assignation::find();
+        $query = Location::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -57,17 +57,9 @@ class AssignationSearch extends Assignation
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'date' => $this->date,
-            'client_id' => $this->client_id,
-            'room_id' => $this->room_id,
-            'equipment_id' => $this->equipment_id,
-            'start_time' => $this->start_time,
-            'end_time' => $this->end_time,
-            'duration' => $this->duration,
         ]);
 
-        $query->andFilterWhere(['like', 'location', $this->location])
-            ->andFilterWhere(['like', 'purpose', $this->purpose]);
+        $query->andFilterWhere(['like', 'location', $this->location]);
 
         return $dataProvider;
     }

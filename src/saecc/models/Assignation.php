@@ -8,14 +8,15 @@ use Yii;
  * This is the model class for table "assignation".
  *
  * @property string $id
+ * @property string $date
  * @property string $client_id
- * @property string $equipment_id
- * @property string $location
  * @property string $room_id
- * @property string $start_date
- * @property string $end_date
- * @property string $duration
+ * @property string $location
+ * @property string $equipment_id
  * @property string $purpose
+ * @property string $start_time
+ * @property string $end_time
+ * @property string $duration
  *
  * @property Client $client
  * @property Equipment $equipment
@@ -37,9 +38,9 @@ class Assignation extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['client_id', 'equipment_id', 'location', 'room_id', 'start_date', 'end_date', 'duration'], 'required'],
-            [['client_id', 'equipment_id', 'room_id', 'duration'], 'integer'],
-            [['start_date', 'end_date'], 'safe'],
+            [['date', 'client_id', 'room_id', 'location', 'equipment_id', 'start_time', 'end_time', 'duration'], 'required'],
+            [['date', 'start_time', 'end_time'], 'safe'],
+            [['client_id', 'room_id', 'equipment_id', 'duration'], 'integer'],
             [['location'], 'string', 'max' => 45],
             [['purpose'], 'string', 'max' => 170]
         ];
@@ -51,15 +52,16 @@ class Assignation extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'client_id' => 'Client',
-            'equipment_id' => 'Equipment',
-            'location' => 'Location',
-            'room_id' => 'Room',
-            'start_date' => 'Start Date',
-            'end_date' => 'End Date',
-            'duration' => 'Duration',
-            'purpose' => 'Purpose',
+            'id' => Yii::t('app', 'ID'),
+            'date' => Yii::t('app', 'Date'),
+            'client_id' => Yii::t('app', 'Client'),
+            'room_id' => Yii::t('app', 'Room'),
+            'location' => Yii::t('app', 'Location'),
+            'equipment_id' => Yii::t('app', 'Equipment'),
+            'purpose' => Yii::t('app', 'Purpose'),
+            'duration' => Yii::t('app', 'Duration'),
+            'start_time' => Yii::t('app', 'Start Time'),
+            'end_time' => Yii::t('app', 'End Time'),
         ];
     }
 
