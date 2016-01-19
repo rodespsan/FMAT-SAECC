@@ -23,17 +23,17 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'room_id') ?>
 
-    <?= $form->field($model, 'location') ?>
+    <?= $form->field($model, 'location_id') ?>
 
     <?php // echo $form->field($model, 'equipment_id') ?>
 
     <?php // echo $form->field($model, 'purpose') ?>
 
+    <?php // echo $form->field($model, 'duration') ?>
+
     <?php // echo $form->field($model, 'start_time') ?>
 
     <?php // echo $form->field($model, 'end_time') ?>
-
-    <?php // echo $form->field($model, 'duration') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

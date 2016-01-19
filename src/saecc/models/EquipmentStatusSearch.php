@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Status;
+use app\models\EquipmentStatus;
 
 /**
- * StatusSearch represents the model behind the search form about `app\models\Status`.
+ * EquipmentStatusSearch represents the model behind the search form about `app\models\EquipmentStatus`.
  */
-class StatusSearch extends Status
+class EquipmentStatusSearch extends EquipmentStatus
 {
     /**
      * @inheritdoc
@@ -41,13 +41,17 @@ class StatusSearch extends Status
      */
     public function search($params)
     {
-        $query = Status::find();
+        $query = EquipmentStatus::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
             return $dataProvider;
         }
 

@@ -51,15 +51,15 @@ class Incident extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'date' => 'Date',
-            'equipment_id' => 'Equipment ID',
-            'room_id' => 'Room ID',
-            'description' => 'Description',
-            'solved' => 'Solved',
-            'date_solved' => 'Date Solved',
-            'client_id' => 'Client ID',
-            'user_id' => 'User ID',
+            'id' => Yii::t('app', 'ID'),
+            'date' => Yii::t('app', 'Date'),
+            'equipment_id' => Yii::t('app', 'Equipment ID'),
+            'room_id' => Yii::t('app', 'Room ID'),
+            'description' => Yii::t('app', 'Description'),
+            'solved' => Yii::t('app', 'Solved'),
+            'date_solved' => Yii::t('app', 'Date Solved'),
+            'client_id' => Yii::t('app', 'Client ID'),
+            'user_id' => Yii::t('app', 'User ID'),
         ];
     }
 

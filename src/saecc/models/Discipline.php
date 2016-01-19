@@ -46,11 +46,11 @@ class Discipline extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'school_id' => 'School',
-            'name' => 'Name',
-            'short_name' => 'Short Name',
-            'area_id' => 'Area',
+            'id' => Yii::t('app', 'ID'),
+            'school_id' => Yii::t('app', 'School ID'),
+            'name' => Yii::t('app', 'Name'),
+            'short_name' => Yii::t('app', 'Short Name'),
+            'area_id' => Yii::t('app', 'Area ID'),
         ];
     }
 

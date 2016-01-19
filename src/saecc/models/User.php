@@ -36,17 +36,12 @@ class User extends \yii\db\ActiveRecord implements
      */
     public function rules()
     {
-        return [
-//[['user_name', 'name', 'password_hash', 'auth_key', 'access_token'], 'required'],
+        return [            
 			[['user_name', 'name'], 'required'],
 			[['password'], 'required', 'except' => ['update']],
-//[['user_name'], 'string', 'max' => 20],
 			[['user_name', 'password'], 'string', 'max' => 20],
-//[['name', 'password_hash'], 'string', 'max' => 175],
 			[['name'], 'string', 'max' => 175],
 			['password_repeat', 'compare', 'compareAttribute' => 'password'],
-//[['auth_key', 'access_token'], 'string', 'max' => 128],
-//[['access_token'], 'unique']
         ];
     }
 
@@ -56,15 +51,16 @@ class User extends \yii\db\ActiveRecord implements
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'user_name' => 'User Name',
-            'name' => 'Name',
-            'password' => 'Password',
-            'auth_key' => 'Auth Key',
-            'access_token' => 'Access Token',
+            'id' => Yii::t('app', 'ID'),
+            'user_name' => Yii::t('app', 'User Name'),
+            'name' => Yii::t('app', 'Name'),
+            'password' => Yii::t('app', 'Password'),
+			'password_repeat' => Yii::t('app', 'Password Repeat'),
+            'auth_key' => Yii::t('app', 'Auth Key'),
+            'access_token' => Yii::t('app', 'Access Token'),
         ];
     }
-
+	
 	public function beforeSave($insert)
 	{
 		if(parent::beforeSave($insert))
@@ -158,7 +154,7 @@ class User extends \yii\db\ActiveRecord implements
 		return Yii::$app->getSecurity()->validatePassword($password,
 		$this->password_hash);
     }
-	
+
     /**
      * @return \yii\db\ActiveQuery
      */

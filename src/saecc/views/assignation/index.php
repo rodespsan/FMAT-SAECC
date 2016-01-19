@@ -3,7 +3,6 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 
-
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\AssignationSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -28,14 +27,34 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'id',
             'date',
-            'client_id',
-            'room_id',
-            'location',
-            'equipment_id',
+            //'client_id',
+			[
+				'attribute' => 'client',
+				'value' => 'client.client_id',
+				'label' => Yii::t('app', 'Client ID'),
+			],
+            //'room_id',
+			[
+				'attribute' => 'room',
+				'value' => 'room.name',
+				'label' => Yii::t('app', 'Room ID'),
+			],
+            //'location_id',
+			[
+				'attribute' => 'location',
+				'value' => 'location.location',
+				'label' => Yii::t('app', 'Location ID'),
+			],
+            //'equipment_id',
+			[
+				'attribute' => 'equipment',
+				'value' => 'equipment.inventory',
+				'label' => Yii::t('app', 'Inventory'),
+			],
             'purpose',
             'duration',
-			'start_time',
-            'end_time',            
+            'start_time',
+            'end_time',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

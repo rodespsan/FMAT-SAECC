@@ -18,8 +18,8 @@ class EquipmentSearch extends Equipment
     public function rules()
     {
         return [
-            [['id', 'status_id', 'room_id', 'available', 'type_id'], 'integer'],
-            [['inventory', 'description', 'serial_number', 'location'], 'safe'],
+            [['id', 'equipment_status_id', 'room_id', 'location_id', 'available', 'type_id'], 'integer'],
+            [['inventory', 'description', 'serial_number'], 'safe'],
         ];
     }
 
@@ -47,22 +47,26 @@ class EquipmentSearch extends Equipment
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
             return $dataProvider;
         }
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'status_id' => $this->status_id,
+            'equipment_status_id' => $this->equipment_status_id,
             'room_id' => $this->room_id,
+            'location_id' => $this->location_id,
             'available' => $this->available,
             'type_id' => $this->type_id,
         ]);
 
         $query->andFilterWhere(['like', 'inventory', $this->inventory])
             ->andFilterWhere(['like', 'description', $this->description])
-            ->andFilterWhere(['like', 'serial_number', $this->serial_number])
-            ->andFilterWhere(['like', 'location', $this->location]);
+            ->andFilterWhere(['like', 'serial_number', $this->serial_number]);
 
         return $dataProvider;
     }

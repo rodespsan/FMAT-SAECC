@@ -12,22 +12,26 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'equipment_id')->textInput(['maxlength' => 10]) ?>
-
-    <?= $form->field($model, 'user_id')->textInput(['maxlength' => 10]) ?>
-
-    <?= $form->field($model, 'status_id')->textInput(['maxlength' => 10]) ?>
+    <?= $form->field($model, 'user_id')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'date')->textInput() ?>
 
-    <?= $form->field($model, 'room_id')->textInput(['maxlength' => 10]) ?>
+    <?= $form->field($model, 'log_type_id')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'location')->textInput(['maxlength' => 45]) ?>
+    <?= $form->field($model, 'equipment_type')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'log_type_id')->textInput(['maxlength' => 10]) ?>
+    <?= $form->field($model, 'inventory')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'equipment_id')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'room_id')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'location')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'equipment_status_id')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

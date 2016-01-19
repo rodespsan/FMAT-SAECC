@@ -11,6 +11,31 @@ use app\models\Discipline;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
+<?php $this->registerJs('
+	
+	function toggleDiscipline()
+	{
+		var clientType = $("[name=\'Client[client_type_id]\']:checked").val();
+		switch( clientType )
+		{
+			case "1": 
+			case "2": 
+			case "3": $("[name=\'Client[discipline_id]\']").removeAttr("disabled");
+			$(".field-client-discipline_id").show();
+			break;
+			case "4": $("[name=\'Client[discipline_id]\']").attr("disabled","disabled");
+			$(".field-client-discipline_id").hide();
+			break;
+		}
+	}
+	
+	$("[name=\'Client[client_type_id]\']").change(function(){
+		toggleDiscipline();	
+	});
+	
+	toggleDiscipline();	
+'); ?>
+
 <div class="client-form">
 
     <?php $form = ActiveForm::begin(); ?>
@@ -32,18 +57,13 @@ use app\models\Discipline;
 		ArrayHelper::map(
 			Discipline::find()->all(),
 			'id',
-			'name'),
-			[
-				'prompt' => Yii::t('app','Select a discipline (for students only)'),
-			]
-		)
+			'name'))
 	?>
 
     <?= $form->field($model, 'active')->checkbox([],false); ?>
-	
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

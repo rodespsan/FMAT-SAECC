@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\ClientType */
 
-$this->title = 'Create Client Type';
-$this->params['breadcrumbs'][] = ['label' => 'Client Types', 'url' => ['index']];
+$this->title = Yii::t('app', 'Create Client Type');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Client Types'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="client-type-create">

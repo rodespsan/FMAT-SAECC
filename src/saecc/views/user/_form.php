@@ -16,18 +16,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => 175]) ?>
 
-    <!-- $form->field($model, 'password_hash')->textInput(['maxlength' => 175]) -->
-	
-	<?= $form->field($model, 'password')->passwordInput(['maxlength' => 20]) ?>
-	
+    <?= $form->field($model, 'password')->passwordInput(['maxlength' => 20]) ?>
+
 	<?= $form->field($model, 'password_repeat')->passwordInput(['maxlength' => 20]) ?>
-
-    <!--?= $form->field($model, 'auth_key')->textInput(['maxlength' => 128]) ?-->
-
-    <!--?= $form->field($model, 'access_token')->textInput(['maxlength' => 128]) ?-->
-
+	
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -5,10 +5,12 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\LogType */
 
-$this->title = 'Update Log Type: ' . ' ' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Log Types', 'url' => ['index']];
+$this->title = Yii::t('app', 'Update {modelClass}: ', [
+    'modelClass' => 'Log Type',
+]) . ' ' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Log Types'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="log-type-update">
 

@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\DisciplineSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Disciplines';
+$this->title = Yii::t('app', 'Disciplines');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="discipline-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Discipline', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Discipline'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -25,22 +25,21 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            //'id',
+            //'id',            
             'name',
             'short_name',
-            //'area.name',
+			//'area.name',
 			[
 				'attribute' => 'area',
 				'value' => 'area.name',
-				'label' => 'Area',
+				'label' => Yii::t('app', 'Area'),
 			],
 			//'school.name',
 			[
 				'attribute' => 'school',
 				'value' => 'school.name',
-				'label' => 'School',
+				'label' => Yii::t('app', 'School'),
 			],
-			
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

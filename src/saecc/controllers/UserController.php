@@ -21,24 +21,24 @@ class UserController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['post'],
+					'access' => [
+						'class' => 'yii\filters\AccessControl',
+						'rules' => [
+							[
+								'allow' => true,
+								'actions' => ['index', 'create', 'view', 'update', 'delete'],
+								'roles' => ['administrator'],
+							],
+							[
+								'allow' => true,
+								'actions' => ['index', 'create', 'view', 'update'],
+								'roles' => ['@'],
+							],
+						],
+					
+					],
                 ],
             ],
-			'access' => [
-				'class' => 'yii\filters\AccessControl',
-				'rules' => [
-					[
-						'allow' => true,
-						'actions' => ['index', 'create', 'view', 'update', 'delete'],
-						'roles' => ['administrator'],
-					],
-					[
-						'allow' => true,
-						'actions' => ['index', 'create', 'view', 'update'],
-						'roles' => ['@'],
-					],
-				],
-			
-			],
         ];
     }
 

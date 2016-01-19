@@ -11,15 +11,16 @@ use Yii;
  * @property string $date
  * @property string $client_id
  * @property string $room_id
- * @property string $location
+ * @property string $location_id
  * @property string $equipment_id
  * @property string $purpose
+ * @property string $duration
  * @property string $start_time
  * @property string $end_time
- * @property string $duration
  *
  * @property Client $client
  * @property Equipment $equipment
+ * @property Location $location
  * @property Room $room
  */
 class Assignation extends \yii\db\ActiveRecord
@@ -38,10 +39,9 @@ class Assignation extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['date', 'client_id', 'room_id', 'location', 'equipment_id', 'start_time', 'end_time', 'duration'], 'required'],
+            [['date', 'client_id', 'room_id', 'location_id', 'equipment_id', 'duration', 'start_time', 'end_time'], 'required'],
             [['date', 'start_time', 'end_time'], 'safe'],
-            [['client_id', 'room_id', 'equipment_id', 'duration'], 'integer'],
-            [['location'], 'string', 'max' => 45],
+            [['client_id', 'room_id', 'location_id', 'equipment_id', 'duration'], 'integer'],
             [['purpose'], 'string', 'max' => 170]
         ];
     }
@@ -54,10 +54,10 @@ class Assignation extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'date' => Yii::t('app', 'Date'),
-            'client_id' => Yii::t('app', 'Client'),
-            'room_id' => Yii::t('app', 'Room'),
-            'location' => Yii::t('app', 'Location'),
-            'equipment_id' => Yii::t('app', 'Equipment'),
+            'client_id' => Yii::t('app', 'Client ID'),
+            'room_id' => Yii::t('app', 'Room ID'),
+            'location_id' => Yii::t('app', 'Location ID'),
+            'equipment_id' => Yii::t('app', 'Equipment ID'),
             'purpose' => Yii::t('app', 'Purpose'),
             'duration' => Yii::t('app', 'Duration'),
             'start_time' => Yii::t('app', 'Start Time'),
@@ -79,6 +79,14 @@ class Assignation extends \yii\db\ActiveRecord
     public function getEquipment()
     {
         return $this->hasOne(Equipment::className(), ['id' => 'equipment_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLocation()
+    {
+        return $this->hasOne(Location::className(), ['id' => 'location_id']);
     }
 
     /**

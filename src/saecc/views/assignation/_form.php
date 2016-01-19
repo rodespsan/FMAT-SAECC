@@ -20,7 +20,7 @@ use app\models\Equipment;
 		//echo "DATE: " . date("Y/m/d") . "<br><br>";
 	?>
 
-    <?= $form->field($model, 'date')->textInput(['value' => date("h:i a d/m/Y"), 'disabled' => true]) ?>
+    <!--?= $form->field($model, 'date')->textInput() ?-->
 
     <?= $form->field($model, 'client_id')->textInput(['maxlength' => true]) ?>
 
@@ -31,8 +31,8 @@ use app\models\Equipment;
 			'name')			
 		)
 	?>
-
-    <?= $form->field($model, 'location')->dropDownList(
+	
+	<?= $form->field($model, 'location_id')->dropDownList(
 		ArrayHelper::map(
 			Location::find()->all(),
 			'id',
@@ -58,12 +58,10 @@ use app\models\Equipment;
 		)
 	
 	?>
-	
-	<?= $form->field($model, 'start_time')->textInput(['value' => date("h:i a"), 'disabled' => true]) ?>
 
-    <?= $form->field($model, 'end_time')->textInput() ?>
+    <!--?= $form->field($model, 'start_time')->textInput() ?-->
 
-    
+    <!--?= $form->field($model, 'end_time')->textInput() ?-->
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

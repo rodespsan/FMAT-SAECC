@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Room */
 
-$this->title = 'Create Room';
-$this->params['breadcrumbs'][] = ['label' => 'Rooms', 'url' => ['index']];
+$this->title = Yii::t('app', 'Create Room');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Rooms'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="room-create">

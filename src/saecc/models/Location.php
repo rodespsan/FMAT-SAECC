@@ -9,9 +9,11 @@ use Yii;
  *
  * @property string $id
  * @property string $location
+ * @property string $room_id
  *
+ * @property Assignation[] $assignations
  * @property Equipment[] $equipments
- * @property Room[] $rooms
+ * @property Room $room
  */
 class Location extends \yii\db\ActiveRecord
 {
@@ -29,7 +31,8 @@ class Location extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['location'], 'required'],
+            [['location', 'room_id'], 'required'],
+            [['room_id'], 'integer'],
             [['location'], 'string', 'max' => 45]
         ];
     }
@@ -42,7 +45,16 @@ class Location extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'location' => Yii::t('app', 'Location'),
+            'room_id' => Yii::t('app', 'Room ID'),
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAssignations()
+    {
+        return $this->hasMany(Assignation::className(), ['location_id' => 'id']);
     }
 
     /**
@@ -56,8 +68,8 @@ class Location extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getRooms()
+    public function getRoom()
     {
-        return $this->hasMany(Room::className(), ['location_id' => 'id']);
+        return $this->hasOne(Room::className(), ['id' => 'room_id']);
     }
 }

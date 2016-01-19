@@ -14,7 +14,6 @@ class ClientSearch extends Client
 {
 	public $clientType;
 	public $discipline;
-	
     /**
      * @inheritdoc
      */
@@ -65,16 +64,18 @@ class ClientSearch extends Client
 			'desc' => ['discipline.name' => SORT_DESC],
 		];
 
-        if (!($this->load($params) && $this->validate())) {
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
             return $dataProvider;
         }
-		
-		
 
         $query->andFilterWhere([
             'id' => $this->id,
             //'client_type_id' => $this->client_type_id,
-            //'discipline_id' => $this->discipline_id,			
+            //'discipline_id' => $this->discipline_id,
             'active' => $this->active,
         ]);
 

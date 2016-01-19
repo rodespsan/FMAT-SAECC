@@ -14,6 +14,7 @@ use Yii;
  * @property Assignation[] $assignations
  * @property Equipment[] $equipments
  * @property Incident[] $incidents
+ * @property Location[] $locations
  */
 class Room extends \yii\db\ActiveRecord
 {
@@ -43,9 +44,9 @@ class Room extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'name' => 'Name',
-            'available' => 'Available',
+            'id' => Yii::t('app', 'ID'),
+            'name' => Yii::t('app', 'Name'),
+            'available' => Yii::t('app', 'Available'),
         ];
     }
 
@@ -71,5 +72,13 @@ class Room extends \yii\db\ActiveRecord
     public function getIncidents()
     {
         return $this->hasMany(Incident::className(), ['room_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLocations()
+    {
+        return $this->hasMany(Location::className(), ['room_id' => 'id']);
     }
 }

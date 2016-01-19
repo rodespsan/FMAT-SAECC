@@ -18,8 +18,8 @@ class LogSearch extends Log
     public function rules()
     {
         return [
-            [['id', 'equipment_id', 'user_id', 'status_id', 'room_id', 'log_type_id'], 'integer'],
-            [['date', 'location'], 'safe'],
+            [['id', 'user_id', 'log_type_id', 'equipment_id', 'room_id', 'equipment_status_id'], 'integer'],
+            [['date', 'equipment_type', 'inventory', 'location'], 'safe'],
         ];
     }
 
@@ -47,21 +47,27 @@ class LogSearch extends Log
             'query' => $query,
         ]);
 
-        if (!($this->load($params) && $this->validate())) {
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
             return $dataProvider;
         }
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'equipment_id' => $this->equipment_id,
             'user_id' => $this->user_id,
-            'status_id' => $this->status_id,
             'date' => $this->date,
-            'room_id' => $this->room_id,
             'log_type_id' => $this->log_type_id,
+            'equipment_id' => $this->equipment_id,
+            'room_id' => $this->room_id,
+            'equipment_status_id' => $this->equipment_status_id,
         ]);
 
-        $query->andFilterWhere(['like', 'location', $this->location]);
+        $query->andFilterWhere(['like', 'equipment_type', $this->equipment_type])
+            ->andFilterWhere(['like', 'inventory', $this->inventory])
+            ->andFilterWhere(['like', 'location', $this->location]);
 
         return $dataProvider;
     }

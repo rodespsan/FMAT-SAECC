@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\EquipmentSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Equipment';
+$this->title = Yii::t('app', 'Equipments');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="equipment-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Equipment', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Equipment'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -25,15 +25,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
             'inventory',
             'description',
             'serial_number',
-            'status.status',
+            'equipmentStatus.status',
             'room.name',
-            'location',
+            'location.name',
             'available',
-            'type_id',
+            'type.name',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

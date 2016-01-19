@@ -12,14 +12,18 @@ use app\models\Assignation;
  */
 class AssignationSearch extends Assignation
 {
+	public $client;
+	public $room;
+	public $location;
+	public $equipment;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'client_id', 'room_id', 'equipment_id', 'duration'], 'integer'],
-            [['date', 'location', 'purpose', 'start_time', 'end_time'], 'safe'],
+            [['id', 'duration'], 'integer'],
+            [['date', 'purpose', 'start_time', 'end_time', 'client', 'room', 'location', 'equipment'], 'safe'],
         ];
     }
 
@@ -42,10 +46,39 @@ class AssignationSearch extends Assignation
     public function search($params)
     {
         $query = Assignation::find();
+		$query->joinWith(['client', 'room', 'location', 'equipment']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+		
+		$dataProvider->sort->attributes['client'] = [
+			// The tables are the ones our relation are configured to
+			// in my case they are prefixed with "tbl_"
+			'asc' => ['client.client_id' => SORT_ASC],
+			'desc' => ['client.client_id' => SORT_DESC],
+		];
+		
+		$dataProvider->sort->attributes['room'] = [
+			// The tables are the ones our relation are configured to
+			// in my case they are prefixed with "tbl_"
+			'asc' => ['room.name' => SORT_ASC],
+			'desc' => ['room.name' => SORT_DESC],
+		];
+		
+		$dataProvider->sort->attributes['location'] = [
+			// The tables are the ones our relation are configured to
+			// in my case they are prefixed with "tbl_"
+			'asc' => ['location.name' => SORT_ASC],
+			'desc' => ['location.location' => SORT_DESC],
+		];
+		
+		$dataProvider->sort->attributes['equipment'] = [
+			// The tables are the ones our relation are configured to
+			// in my case they are prefixed with "tbl_"
+			'asc' => ['equipment.inventory' => SORT_ASC],
+			'desc' => ['equipment.inventory' => SORT_DESC],
+		];
 
         $this->load($params);
 
@@ -58,16 +91,20 @@ class AssignationSearch extends Assignation
         $query->andFilterWhere([
             'id' => $this->id,
             'date' => $this->date,
-            'client_id' => $this->client_id,
-            'room_id' => $this->room_id,
-            'equipment_id' => $this->equipment_id,
+            //'client_id' => $this->client_id,
+            //'room_id' => $this->room_id,
+            //'location_id' => $this->location_id,
+            //'equipment_id' => $this->equipment_id,
+            'duration' => $this->duration,
             'start_time' => $this->start_time,
             'end_time' => $this->end_time,
-            'duration' => $this->duration,
         ]);
 
-        $query->andFilterWhere(['like', 'location', $this->location])
-            ->andFilterWhere(['like', 'purpose', $this->purpose]);
+        $query->andFilterWhere(['like', 'purpose', $this->purpose])
+			->andFilterWhere(['like', 'client.client_id', $this->client])
+            ->andFilterWhere(['like', 'room.name', $this->room])
+			->andFilterWhere(['like', 'location.location', $this->location])
+			->andFilterWhere(['like', 'equipment.inventory', $this->equipment]);
 
         return $dataProvider;
     }

@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\ClientTypeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Client Types';
+$this->title = Yii::t('app', 'Client Types');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="client-type-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Client Type', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Client Type'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
             'type',
 
             ['class' => 'yii\grid\ActionColumn'],

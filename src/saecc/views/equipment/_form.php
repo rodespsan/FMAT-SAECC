@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use app\models\Status;//Exporta a status
+use app\models\EquipmentStatus;//Exporta a equipmentStatus
 use app\models\Room;//Exporta a Room
 use app\models\EquipmentType;//Exporta equipmentType
 use yii\helpers\ArrayHelper;
@@ -22,8 +22,8 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'serial_number')->textInput(['maxlength' => 175]) ?>
 
-    <?= $form->field($model, 'status_id')->dropDownList(
-	ArrayHelper::map(Status::find()->all(),
+    <?= $form->field($model, 'equipment_status_id')->dropDownList(
+	ArrayHelper::map(EquipmentStatus::find()->all(),
 	'id',
 	'status'
 	
@@ -48,7 +48,7 @@ use yii\helpers\ArrayHelper;
 	
 	) ?>
 
-    <?= $form->field($model, 'location')->textInput(['maxlength' => 45]) ?>
+    <?= $form->field($model, 'location_id')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'available')->Checkbox(
 	[
@@ -71,7 +71,7 @@ use yii\helpers\ArrayHelper;
 	) ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

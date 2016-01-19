@@ -11,16 +11,17 @@ use Yii;
  * @property string $inventory
  * @property string $description
  * @property string $serial_number
- * @property string $status_id
+ * @property string $equipment_status_id
  * @property string $room_id
- * @property string $location
+ * @property string $location_id
  * @property integer $available
  * @property string $type_id
  *
  * @property Assignation[] $assignations
  * @property Room $room
- * @property Status $status
+ * @property EquipmentStatus $equipmentStatus
  * @property EquipmentType $type
+ * @property Location $location
  * @property Incident[] $incidents
  * @property Log[] $logs
  */
@@ -40,11 +41,10 @@ class Equipment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['inventory', 'description', 'serial_number', 'status_id', 'room_id', 'location', 'type_id'], 'required'],
-            [['status_id', 'room_id', 'available', 'type_id'], 'integer'],
+            [['inventory', 'description', 'serial_number', 'equipment_status_id', 'room_id', 'type_id'], 'required'],
+            [['equipment_status_id', 'room_id', 'location_id', 'available', 'type_id'], 'integer'],
             [['inventory'], 'string', 'max' => 30],
             [['description', 'serial_number'], 'string', 'max' => 175],
-            [['location'], 'string', 'max' => 45],
             [['inventory'], 'unique']
         ];
     }
@@ -55,15 +55,15 @@ class Equipment extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'inventory' => 'Inventory',
-            'description' => 'Description',
-            'serial_number' => 'Serial Number',
-            'status_id' => 'Status ID',
-            'room_id' => 'Room ID',
-            'location' => 'Location',
-            'available' => 'Available',
-            'type_id' => 'Type ID',
+            'id' => Yii::t('app', 'ID'),
+            'inventory' => Yii::t('app', 'Inventory'),
+            'description' => Yii::t('app', 'Description'),
+            'serial_number' => Yii::t('app', 'Serial Number'),
+            'equipment_status_id' => Yii::t('app', 'Equipment Status ID'),
+            'room_id' => Yii::t('app', 'Room ID'),
+            'location_id' => Yii::t('app', 'Location ID'),
+            'available' => Yii::t('app', 'Available'),
+            'type_id' => Yii::t('app', 'Type ID'),
         ];
     }
 
@@ -86,9 +86,9 @@ class Equipment extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getStatus()
+    public function getEquipmentStatus()
     {
-        return $this->hasOne(Status::className(), ['id' => 'status_id']);
+        return $this->hasOne(EquipmentStatus::className(), ['id' => 'equipment_status_id']);
     }
 
     /**
@@ -97,6 +97,14 @@ class Equipment extends \yii\db\ActiveRecord
     public function getType()
     {
         return $this->hasOne(EquipmentType::className(), ['id' => 'type_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLocation()
+    {
+        return $this->hasOne(Location::className(), ['id' => 'location_id']);
     }
 
     /**

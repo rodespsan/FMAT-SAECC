@@ -12,6 +12,7 @@ use app\models\Location;
  */
 class LocationSearch extends Location
 {
+	public $room;
     /**
      * @inheritdoc
      */
@@ -19,7 +20,7 @@ class LocationSearch extends Location
     {
         return [
             [['id'], 'integer'],
-            [['location'], 'safe'],
+            [['location', 'room'], 'safe'],
         ];
     }
 
@@ -42,11 +43,19 @@ class LocationSearch extends Location
     public function search($params)
     {
         $query = Location::find();
+		$query->joinWith(['room']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
 
+		$dataProvider->sort->attributes['room'] = [
+			// The tables are the ones our relation are configured to
+			// in my case they are prefixed with "tbl_"
+			'asc' => ['room.name' => SORT_ASC],
+			'desc' => ['room.name' => SORT_DESC],
+		];
+		
         $this->load($params);
 
         if (!$this->validate()) {
@@ -57,9 +66,11 @@ class LocationSearch extends Location
 
         $query->andFilterWhere([
             'id' => $this->id,
+            //'room_id' => $this->room_id,
         ]);
 
-        $query->andFilterWhere(['like', 'location', $this->location]);
+        $query->andFilterWhere(['like', 'location', $this->location])
+			->andFilterWhere(['like', 'room.name', $this->room]);
 
         return $dataProvider;
     }

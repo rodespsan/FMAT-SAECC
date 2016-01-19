@@ -61,7 +61,8 @@ class RoomController extends Controller
     public function actionCreate()
     {
         $model = new Room();
-        $model->available=true;
+		$model->available=true;
+		
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {

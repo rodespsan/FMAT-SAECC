@@ -8,17 +8,19 @@ use Yii;
  * This is the model class for table "log".
  *
  * @property string $id
- * @property string $equipment_id
  * @property string $user_id
- * @property string $status_id
  * @property string $date
+ * @property string $log_type_id
+ * @property string $equipment_type
+ * @property string $inventory
+ * @property string $equipment_id
  * @property string $room_id
  * @property string $location
- * @property string $log_type_id
+ * @property string $equipment_status_id
  *
  * @property Equipment $equipment
  * @property LogType $logType
- * @property Status $status
+ * @property EquipmentStatus $equipmentStatus
  * @property User $user
  */
 class Log extends \yii\db\ActiveRecord
@@ -37,10 +39,11 @@ class Log extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['equipment_id', 'user_id', 'status_id', 'date', 'room_id', 'location', 'log_type_id'], 'required'],
-            [['equipment_id', 'user_id', 'status_id', 'room_id', 'log_type_id'], 'integer'],
+            [['user_id', 'date', 'log_type_id', 'equipment_type', 'inventory', 'equipment_id', 'room_id', 'location', 'equipment_status_id'], 'required'],
+            [['user_id', 'log_type_id', 'equipment_id', 'room_id', 'equipment_status_id'], 'integer'],
             [['date'], 'safe'],
-            [['location'], 'string', 'max' => 45]
+            [['equipment_type', 'location'], 'string', 'max' => 45],
+            [['inventory'], 'string', 'max' => 30]
         ];
     }
 
@@ -50,14 +53,16 @@ class Log extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'equipment_id' => 'Equipment ID',
-            'user_id' => 'User ID',
-            'status_id' => 'Status ID',
-            'date' => 'Date',
-            'room_id' => 'Room ID',
-            'location' => 'Location',
-            'log_type_id' => 'Log Type ID',
+            'id' => Yii::t('app', 'ID'),
+            'user_id' => Yii::t('app', 'User ID'),
+            'date' => Yii::t('app', 'Date'),
+            'log_type_id' => Yii::t('app', 'Log Type ID'),
+            'equipment_type' => Yii::t('app', 'Equipment Type'),
+            'inventory' => Yii::t('app', 'Inventory'),
+            'equipment_id' => Yii::t('app', 'Equipment ID'),
+            'room_id' => Yii::t('app', 'Room ID'),
+            'location' => Yii::t('app', 'Location'),
+            'equipment_status_id' => Yii::t('app', 'Equipment Status ID'),
         ];
     }
 
@@ -80,9 +85,9 @@ class Log extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getStatus()
+    public function getEquipmentStatus()
     {
-        return $this->hasOne(Status::className(), ['id' => 'status_id']);
+        return $this->hasOne(EquipmentStatus::className(), ['id' => 'equipment_status_id']);
     }
 
     /**

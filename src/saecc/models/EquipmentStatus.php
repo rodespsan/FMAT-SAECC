@@ -5,7 +5,7 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "status".
+ * This is the model class for table "equipment_status".
  *
  * @property string $id
  * @property string $status
@@ -13,14 +13,14 @@ use Yii;
  * @property Equipment[] $equipments
  * @property Log[] $logs
  */
-class Status extends \yii\db\ActiveRecord
+class EquipmentStatus extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'status';
+        return 'equipment_status';
     }
 
     /**
@@ -41,8 +41,8 @@ class Status extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'status' => 'Status',
+            'id' => Yii::t('app', 'ID'),
+            'status' => Yii::t('app', 'Status'),
         ];
     }
 

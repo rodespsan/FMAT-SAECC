@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Incident */
 
-$this->title = 'Create Incident';
-$this->params['breadcrumbs'][] = ['label' => 'Incidents', 'url' => ['index']];
+$this->title = Yii::t('app', 'Create Incident');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Incidents'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="incident-create">

@@ -50,13 +50,13 @@ class Client extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'client_id' => 'Client',
-            'first_name' => 'First Name',
-            'last_name' => 'Last Name',
-            'client_type_id' => 'Client Type',
-            'discipline_id' => 'Discipline',
-            'active' => 'Active',
+            'id' => Yii::t('app', 'ID'),
+            'client_id' => Yii::t('app', 'Client ID'),
+            'first_name' => Yii::t('app', 'First Name'),
+            'last_name' => Yii::t('app', 'Last Name'),
+            'client_type_id' => Yii::t('app', 'Client Type ID'),
+            'discipline_id' => Yii::t('app', 'Discipline ID'),
+            'active' => Yii::t('app', 'Active'),
         ];
     }
 

@@ -40,8 +40,8 @@ class ClientType extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'type' => 'Type',
+            'id' => Yii::t('app', 'ID'),
+            'type' => Yii::t('app', 'Type'),
         ];
     }
 

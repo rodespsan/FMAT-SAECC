@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\LogTypeSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Log Type';
+$this->title = Yii::t('app', 'Log Types');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="log-type-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Log Type', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Log Type'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([

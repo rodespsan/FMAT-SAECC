@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\LogSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Logs';
+$this->title = Yii::t('app', 'Logs');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="log-index">
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Log', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Log'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -25,14 +25,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
-            'equipment_id',
+            //'id',
             'user_id',
-            'status_id',
             'date',
-            // 'room_id',
-            // 'location',
-            // 'log_type_id',
+            'log_type_id',
+            'equipment_type',
+            'inventory',
+            'equipment_id',
+            'room_id',
+            'location',
+            'equipment_status_id',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],
