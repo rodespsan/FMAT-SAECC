@@ -19,8 +19,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'room_id')->textInput(['maxlength' => 10]) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
-
-    <?= $form->field($model, 'solved')->textInput() ?>
+    
+	<?= $form->field($model, 'solved')->checkbox([],false); ?>
 
     <?= $form->field($model, 'date_solved')->textInput() ?>
 

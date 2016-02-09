@@ -22,6 +22,7 @@ class User extends \yii\db\ActiveRecord implements
 {
 	public $password_repeat;
 	public $password;
+	public $rol;
 	
     /**
      * @inheritdoc
@@ -40,6 +41,7 @@ class User extends \yii\db\ActiveRecord implements
 			[['user_name', 'name'], 'required'],
 			[['password'], 'required', 'except' => ['update']],
 			[['user_name', 'password'], 'string', 'max' => 20],
+			[['rol'], 'in', 'range'=>['operator','administrator','normaluser']],
 			[['name'], 'string', 'max' => 175],
 			['password_repeat', 'compare', 'compareAttribute' => 'password'],
         ];
@@ -73,6 +75,7 @@ class User extends \yii\db\ActiveRecord implements
 				generateRandomString();
 				$this->access_token = Yii::$app->getSecurity()->
 				generateRandomString();
+				// creas codigo para asignar permiso
 			}else
 			{
 				if(!empty($this->password))
@@ -80,7 +83,9 @@ class User extends \yii\db\ActiveRecord implements
 					$this->password_hash = Yii::$app->getSecurity()->
 					generatePasswordHash($this->password);
 				}
+				// creas codigo para desasignar y luego asignar permiso
 			}
+			
 			return true;
 		}
 		return false;

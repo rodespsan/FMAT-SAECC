@@ -12,14 +12,18 @@ use app\models\Log;
  */
 class LogSearch extends Log
 {
+	public $user;
+	public $logType;
+	public $equipment;
+	public $equipmentStatus;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['id', 'user_id', 'log_type_id', 'equipment_id', 'room_id', 'equipment_status_id'], 'integer'],
-            [['date', 'equipment_type', 'inventory', 'location'], 'safe'],
+            [['id', 'room_id'], 'integer'],
+            [['date', 'equipment_type', 'inventory', 'location', 'user', 'logType', 'equipment', 'equipmentStatus'], 'safe'],
         ];
     }
 
@@ -42,10 +46,39 @@ class LogSearch extends Log
     public function search($params)
     {
         $query = Log::find();
-
+		$query->joinWith(['user', 'logType', 'equipment', 'equipmentStatus']);
+		
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+		
+		$dataProvider->sort->attributes['user'] = [
+			// The tables are the ones our relation are configured to
+			// in my case they are prefixed with "tbl_"
+			'asc' => ['user.name' => SORT_ASC],
+			'desc' => ['user.name' => SORT_DESC],
+		];
+		
+		$dataProvider->sort->attributes['logType'] = [
+			// The tables are the ones our relation are configured to
+			// in my case they are prefixed with "tbl_"
+			'asc' => ['log_type.type' => SORT_ASC],
+			'desc' => ['log_type.type' => SORT_DESC],
+		];
+		
+		$dataProvider->sort->attributes['equipment'] = [
+			// The tables are the ones our relation are configured to
+			// in my case they are prefixed with "tbl_"
+			'asc' => ['equipment.serial_number' => SORT_ASC],
+			'desc' => ['equipment.serial_number' => SORT_DESC],
+		];				
+		
+		$dataProvider->sort->attributes['equipmentStatus'] = [
+			// The tables are the ones our relation are configured to
+			// in my case they are prefixed with "tbl_"
+			'asc' => ['equipment_status.status' => SORT_ASC],
+			'desc' => ['equipment_status.status' => SORT_DESC],
+		];
 
         $this->load($params);
 
@@ -57,15 +90,19 @@ class LogSearch extends Log
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'user_id' => $this->user_id,
+            //'user_id' => $this->user_id,
             'date' => $this->date,
-            'log_type_id' => $this->log_type_id,
-            'equipment_id' => $this->equipment_id,
+            //'log_type_id' => $this->log_type_id,
+            //'equipment_id' => $this->equipment_id,
             'room_id' => $this->room_id,
-            'equipment_status_id' => $this->equipment_status_id,
+            //'equipment_status_id' => $this->equipment_status_id,
         ]);
 
         $query->andFilterWhere(['like', 'equipment_type', $this->equipment_type])
+			->andFilterWhere(['like', 'user.name', $this->user])
+			->andFilterWhere(['like', 'log_type.type', $this->logType])
+			->andFilterWhere(['like', 'equipment.serial_number', $this->equipment])			
+			->andFilterWhere(['like', 'equipment_status.status', $this->equipmentStatus])			
             ->andFilterWhere(['like', 'inventory', $this->inventory])
             ->andFilterWhere(['like', 'location', $this->location]);
 

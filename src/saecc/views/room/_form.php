@@ -14,11 +14,12 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => 45]) ?>
 
-    <?= $form->field($model, 'available')->checkbox([
+    <!--?= $form->field($model, 'available')->checkbox([
 
 	
 	],true
-	) ?>
+	) ?-->
+	<?= $form->field($model, 'available')->checkbox([],false); ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

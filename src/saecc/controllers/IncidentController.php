@@ -61,6 +61,7 @@ class IncidentController extends Controller
     public function actionCreate()
     {
         $model = new Incident();
+		$model->solved = false;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

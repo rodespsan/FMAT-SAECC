@@ -19,19 +19,19 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'inventory') ?>
 
+    <?= $form->field($model, 'equipment_type_id') ?>
+
     <?= $form->field($model, 'description') ?>
 
     <?= $form->field($model, 'serial_number') ?>
 
-    <?= $form->field($model, 'equipment_status_id') ?>
+    <?php // echo $form->field($model, 'equipment_status_id') ?>
 
     <?php // echo $form->field($model, 'room_id') ?>
 
     <?php // echo $form->field($model, 'location_id') ?>
 
     <?php // echo $form->field($model, 'available') ?>
-
-    <?php // echo $form->field($model, 'type_id') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

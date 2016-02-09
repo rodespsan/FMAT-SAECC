@@ -20,6 +20,12 @@ use yii\widgets\ActiveForm;
 
 	<?= $form->field($model, 'password_repeat')->passwordInput(['maxlength' => 20]) ?>
 	
+	<?= $form->field($model, 'rol')->dropDownList([
+		'operator'=>'operator',
+		'normaluser'=>'normaluser',
+		'administrator'=>'administrator',
+	]) ?>
+	
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>

@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\RoomSearch */
@@ -27,7 +28,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'id',
             'name',
-            'available',
+            //'available',
+			[
+				'attribute' => 'available',
+				'value' => function ($model, $key, $index, $column) {
+					return ($model->available) ? 'Si' : 'No';
+				} ,
+				'filter' => ArrayHelper::map([
+					['id'=>1, 'text'=>'Si'],
+					['id'=>0, 'text'=>'No'],
+				], 'id', 'text'),
+			],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

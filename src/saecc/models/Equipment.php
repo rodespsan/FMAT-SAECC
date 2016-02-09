@@ -9,19 +9,19 @@ use Yii;
  *
  * @property string $id
  * @property string $inventory
+ * @property string $equipment_type_id
  * @property string $description
  * @property string $serial_number
  * @property string $equipment_status_id
  * @property string $room_id
  * @property string $location_id
  * @property integer $available
- * @property string $type_id
  *
  * @property Assignation[] $assignations
- * @property Room $room
  * @property EquipmentStatus $equipmentStatus
- * @property EquipmentType $type
+ * @property EquipmentType $equipmentType
  * @property Location $location
+ * @property Room $room
  * @property Incident[] $incidents
  * @property Log[] $logs
  */
@@ -41,8 +41,8 @@ class Equipment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['inventory', 'description', 'serial_number', 'equipment_status_id', 'room_id', 'type_id'], 'required'],
-            [['equipment_status_id', 'room_id', 'location_id', 'available', 'type_id'], 'integer'],
+            [['inventory', 'equipment_type_id', 'description', 'serial_number', 'equipment_status_id', 'room_id'], 'required'],
+            [['equipment_type_id', 'equipment_status_id', 'room_id', 'location_id', 'available'], 'integer'],
             [['inventory'], 'string', 'max' => 30],
             [['description', 'serial_number'], 'string', 'max' => 175],
             [['inventory'], 'unique']
@@ -57,13 +57,13 @@ class Equipment extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'inventory' => Yii::t('app', 'Inventory'),
+            'equipment_type_id' => Yii::t('app', 'Equipment Type ID'),
             'description' => Yii::t('app', 'Description'),
             'serial_number' => Yii::t('app', 'Serial Number'),
             'equipment_status_id' => Yii::t('app', 'Equipment Status ID'),
             'room_id' => Yii::t('app', 'Room ID'),
             'location_id' => Yii::t('app', 'Location ID'),
             'available' => Yii::t('app', 'Available'),
-            'type_id' => Yii::t('app', 'Type ID'),
         ];
     }
 
@@ -78,14 +78,6 @@ class Equipment extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getRoom()
-    {
-        return $this->hasOne(Room::className(), ['id' => 'room_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
     public function getEquipmentStatus()
     {
         return $this->hasOne(EquipmentStatus::className(), ['id' => 'equipment_status_id']);
@@ -94,9 +86,9 @@ class Equipment extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getType()
+    public function getEquipmentType()
     {
-        return $this->hasOne(EquipmentType::className(), ['id' => 'type_id']);
+        return $this->hasOne(EquipmentType::className(), ['id' => 'equipment_type_id']);
     }
 
     /**
@@ -105,6 +97,14 @@ class Equipment extends \yii\db\ActiveRecord
     public function getLocation()
     {
         return $this->hasOne(Location::className(), ['id' => 'location_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRoom()
+    {
+        return $this->hasOne(Room::className(), ['id' => 'room_id']);
     }
 
     /**

@@ -10,16 +10,19 @@ return [
 	'Active' => 'Activo',
 	'Create Client' => 'Crear Cliente',
 	'Clients' => 'Clientes',
+	
 	//CLIENT-TYPE
 	'ClientType' => 'Tipo de Cliente',
 	'Type' => 'Tipo',
 	'Create Client Type' => 'Crear Tipo de Cliente',
 	'Client Types' => 'Tipos de Cliente',
+	
 	//SCHOOL
 	'School' => 'Dependencia',
 	'Name' => 'Nombre',
 	'Create School' => 'Crear Dependencia',
 	'Schools' => 'Dependencias',
+	
 	//DISCIPLINE
 	'Discipline' => 'Plan de Estudio',
 	'School ID' => 'Dependencia',
@@ -27,10 +30,12 @@ return [
 	'Area ID' => 'Área',
 	'Create Discipline' => 'Crear Plan de Estudio',
 	'Disciplines' => 'Planes de Estudio',
+	
 	//AREA
 	'Area' => 'Área',
 	'Create Area' => 'Crear Área',
 	'Areas' => 'Áreas',
+	
 	//USER
 	'User' => 'Usuario',
 	'User Name' => 'Usuario',
@@ -38,11 +43,13 @@ return [
 	'Password Repeat' => 'Repetir Contraseña',
 	'Create User' => 'Crear Usuario',
 	'Users' => 'Usuarios',
+	
 	//LOCATION
 	'Location' => 'Ubicación',
 	'Room ID' => 'Salón',
 	'Create Location' => 'Crear Ubicación',
 	'Locations' => 'Ubicaciones',
+	
 	//ASSIGNATION
 	'Assignation' => 'Asignación',
 	'Date' => 'Fecha',
@@ -56,42 +63,60 @@ return [
 	'Assignations' => 'Asignaciones',
 	'Select a period of time' => 'Selecciona un periodo de tiempo',
 	
+	//LOG
+	'Log' => 'Registro',
+	'User ID' => 'Usuario',
+	'Log Type ID' => 'Tipo de Registro',
+	'Equipment Type' => 'Tipo de Equipo',
+	'Inventory' => 'No. de Inventario',
+	//'Equipment ID' => cambiar en el Index a 'No. de Inventario'
+	'Equipment Status ID' => 'Estado del Equipo',
+	'Create Log' => 'Crear Registro',
+	'Logs' => 'Registros',
 	
+	//LOG-TYPE
+	'LogType' => 'Tipo de Registro',
+	'Create Log Type' => 'Crear Tipo de Registro',
+	'Log Types' => 'Tipos de Registro',
+	
+	//EQUIPMENT-TYPE
+	'EquipmentType' => 'Tipo de Equipo',
+	'Create Equipment Type' => 'Crear Tipo de Equipo',
+	'Equipment Types' => 'Tipos de Equipo',
+	
+	//EQUIPMENT-STATUS
+	'EquipmentStatus' => 'Estado del Equipo',
+	'Status' => 'Estado',
+	'Create Equipment Status' => 'Crear Estado de Equipo',
+	'Equipment Statuses' => 'Estados de Equipo',
+	
+	//ROOM
+	'Room' => 'Salón',
+	'Available' => 'Disponible',
+	'Create Room' => 'Crear Salón',
+	'Rooms' => 'Salones',
+	
+	//EQUIPMENT
+	'Equipment' => 'Equipo',
+	'Description' => 'Descripción',
+	'Serial Number' => 'No. de Serie',
+	'Equipment Status ID' => 'Estado del Equipo',
+	'Room ID' => 'Salón',
+	'Equipment Type ID' => 'Tipo de Equipo',
+	'Create Equipment' => 'Crear Equipo',
+	'Equipments' => 'Equipos',
+	
+	//INCIDENT
+	'Incident' => 'Incidente',
+	'Solved' => 'Resuelto',
+	'Date Solved' => 'Fecha de Resolución',
+	'Create Incident' => 'Crear Incidente',
+	'Incidents' => 'Incidentes',		
+	
+	//Movimientos
 	'Create' => 'Crear',
 	'Update' => 'Modificar',
 	'Delete' => 'Borrar',
 	'View' => 'Ver',
-	
-	
-	
-/* 	'Equipment' => 'Equipo',
-	'Inventory' => 'No. de Inventario',
-	'Description' => 'Descripción',
-	'Serial Number' => 'No. de Serie',	
-	'Status' => 'Estado',
-	'Room' => 'Salón',	
-	'Available' => 'Disponible',
-	'Equipment Type' => 'Tipo de Equipo',
-	'Equipment Status' => 'Estado del Equipo',
-	'Log' => 'Registro',	
-	'Log Type' => 'Tipo de Registro',
-	'Incident' => 'Incidente',
-	'Solved' => 'Resuelto',
-	'Date Solved' => 'Fecha de Resolución',
-	'Create Equipment' => 'Crear Equipo',
-	'Create Equipment Type' => 'Crear Tipo de Equipo',
-	'Create Status' => 'Crear Estado',
-	'Create Room' => 'Crear Salón',	
-	'Create Log' => 'Crear Registro',
-	'Create Log Type' => 'Crear Tipo de Registro',
-	'Create Incident' => 'Crear Incidente',	
-	'Equipments' => 'Equipos',
-	'Equipment Types' => 'Tipos de Equipo',	
-	'Rooms' => 'Salones',	
-	'Logs' => 'Registros',
-	'Log Types' => 'Tipos de Registro',
-	'Incidents' => 'Incidentes',
-	'EquipmentType' => 'Tipo de Equipo',
-	'LogType' => 'Tipo de Registro', */		
 ];
 ?>

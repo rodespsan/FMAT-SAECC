@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\LogType */
 
-$this->title = $model->id;
+//$this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Log Types'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+            //'id',
             'type',
         ],
     ]) ?>

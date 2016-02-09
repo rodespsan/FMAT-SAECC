@@ -45,11 +45,21 @@ class RoomSearch extends Room
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+			'sort' => [
+				'defaultOrder' => [
+					'name' => SORT_ASC, 
+				]
+			],
         ]);
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
+		/* if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        } */
 
         $query->andFilterWhere([
             'id' => $this->id,

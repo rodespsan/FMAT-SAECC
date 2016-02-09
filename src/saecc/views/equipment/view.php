@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\models\Equipment */
 
-$this->title = $model->id;
+/* $this->title = $model->id; */
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Equipments'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -28,15 +28,27 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+            //'id',
             'inventory',
+            //'equipment_type_id',
+			'equipmentType.name:text:Tipo de Equipo',
             'description',
             'serial_number',
-            'equipmentStatus.status',
-            'room.name',
-            'location.location',
-            'available',
-            'type.name',
+            //'equipment_status_id',
+			'equipmentStatus.status',
+            //'room_id',
+			'room.name:text:Salón',
+            //'location_id',
+			'location.location',
+            //'available',
+			/* [
+				'attribute' => 'available',
+				'value' => ($model->available) ? 'Si' : 'No',
+			], */
+			[
+				'attribute' => 'available',
+				'value' => ($model->available) ? 'Si' : 'No',
+			],
         ],
     ]) ?>
 

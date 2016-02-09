@@ -38,9 +38,11 @@ class Assignation extends \yii\db\ActiveRecord
      */
     public function rules()
     {
-        return [
-            [['date', 'client_id', 'room_id', 'location_id', 'equipment_id', 'duration', 'start_time', 'end_time'], 'required'],
-            [['date', 'start_time', 'end_time'], 'safe'],
+        return [	
+			//[['date'], 'default', 'on'=>'insert', 'value' => new \yii\db\Expression('NOW()')],		
+			//[['date'], 'default', 'on'=>'insert', 'value' => new date()],		
+            [['client_id', 'room_id', 'location_id', 'equipment_id', 'duration', 'start_time', 'end_time'], 'required'],
+            [['date', 'start_time', 'end_time'], 'safe'],			
             [['client_id', 'room_id', 'location_id', 'equipment_id', 'duration'], 'integer'],
             [['purpose'], 'string', 'max' => 170]
         ];
@@ -96,4 +98,26 @@ class Assignation extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Room::className(), ['id' => 'room_id']);
     }
+	
+	public function beforeSave($insert)
+	{
+		if(parent::beforeSave($insert))
+		{
+			if($this->isNewRecord)
+			{
+				date_default_timezone_set("America/Mexico_City");
+				$this->date = date("Y-m-d H:i:s"); // crear fecha
+				//$this->date = date('Y-m-d'); // crear fecha
+				//$this->start_time = date('H:i:s'); // crear hora inicial
+				// crear duracion
+				// calcular hora final y asignarla
+				
+				return true;
+			}
+			else
+			{
+				// actualizar hora final y duracion
+			}
+		}
+	}
 }

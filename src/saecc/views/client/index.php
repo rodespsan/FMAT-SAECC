@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 use yii\grid\GridView;
 
 /* @var $this yii\web\View */
@@ -44,6 +45,10 @@ $this->params['breadcrumbs'][] = $this->title;
 				'value' => function ($model, $key, $index, $column) {
 					return ($model->active) ? 'Si' : 'No';
 				} ,
+				'filter' => ArrayHelper::map([
+					['id'=>1, 'text'=>'Si'],
+					['id'=>0, 'text'=>'No'],
+				], 'id', 'text'),
 			],
 
             ['class' => 'yii\grid\ActionColumn'],

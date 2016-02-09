@@ -22,6 +22,8 @@ class ClientSearch extends Client
         return [
             [['id', 'active'], 'integer'],
             [['client_id', 'first_name', 'last_name', 'clientType', 'discipline'], 'safe'],
+            //[['id'], 'integer'],
+            //[['client_id', 'first_name', 'last_name', 'clientType', 'discipline', 'active'], 'safe'],
         ];
     }
 
@@ -77,6 +79,7 @@ class ClientSearch extends Client
             //'client_type_id' => $this->client_type_id,
             //'discipline_id' => $this->discipline_id,
             'active' => $this->active,
+			//'active' => ($this->active) ? 'Si' : 'No',
         ]);
 
         $query->andFilterWhere(['like', 'client_id', $this->client_id])
@@ -84,6 +87,7 @@ class ClientSearch extends Client
             ->andFilterWhere(['like', 'last_name', $this->last_name])
 			->andFilterWhere(['like', 'client_type.type', $this->clientType])
 			->andFilterWhere(['like', 'discipline.name', $this->discipline]);
+			//->andFilterWhere(['like', 'active', ($this->active) ? 'Si' : 'No']);
 
         return $dataProvider;
     }

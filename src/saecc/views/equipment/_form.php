@@ -2,9 +2,10 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-use app\models\EquipmentStatus;//Exporta a equipmentStatus
-use app\models\Room;//Exporta a Room
-use app\models\EquipmentType;//Exporta equipmentType
+use app\models\EquipmentStatus;
+use app\models\Room;
+use app\models\EquipmentType;
+use app\models\Location;
 use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
@@ -16,59 +17,46 @@ use yii\helpers\ArrayHelper;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'inventory')->textInput(['maxlength' => 30]) ?>
+    <?= $form->field($model, 'inventory')->textInput(['maxlength' => true]) ?>
+    
+	<?= $form->field($model, 'equipment_type_id')->dropDownList(
+		ArrayHelper::map(
+			EquipmentType::find()->all(),
+			'id',
+			'name')
+		)
+	?>
 
-    <?= $form->field($model, 'description')->textInput(['maxlength' => 175]) ?>
+    <?= $form->field($model, 'description')->textArea(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'serial_number')->textInput(['maxlength' => 175]) ?>
-
-    <?= $form->field($model, 'equipment_status_id')->dropDownList(
-	ArrayHelper::map(EquipmentStatus::find()->all(),
-	'id',
-	'status'
-	
-	
-	
-	)
-	
-	
-	
-	
-	) ?>
+    <?= $form->field($model, 'serial_number')->textInput(['maxlength' => true]) ?>
+    
+	<?= $form->field($model, 'equipment_status_id')->dropDownList(
+		ArrayHelper::map(
+			EquipmentStatus::find()->all(),
+			'id',
+			'status')
+		)
+	?>
 
     <?= $form->field($model, 'room_id')->dropDownList(
-	
-	ArrayHelper::map(Room::find()->all(),
-	'id',
-	'name'
-	
-	
-	
-	)
-	
-	) ?>
+		ArrayHelper::map(
+			Room::find()->all(),
+			'id',
+			'name')
+		)
+	?>
 
-    <?= $form->field($model, 'location_id')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'location_id')->dropDownList(
+		ArrayHelper::map(
+			Location::find()->all(),
+			'id',
+			'location')			
+		)
+	?>
 
-    <?= $form->field($model, 'available')->Checkbox(
-	[
-	
-	],true
-	
-	) ?>
-
-    <?= $form->field($model, 'type_id')->dropDownList(
-	
-	ArrayHelper::map(EquipmentType::find()->all(),
-	'id',
-	'name'
-	
-	
-	
-	)
-	
-	
-	) ?>
+    <!--?= $form->field($model, 'available')->Checkbox([],false) ?-->
+	<?= $form->field($model, 'available')->checkbox([],false); ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
