@@ -15,9 +15,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Log'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    
+        <!--?= Html::a(Yii::t('app', 'Create Log'), ['create'], ['class' => 'btn btn-success']) ?-->
+    
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -35,11 +35,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'date',
             //'log_type_id',
 			[
+				'attribute' => 'equipmentType',
+				'value' => 'equipment.equipmentType.name',
+				'label' => Yii::t('app', 'Equipment Type'),
+			],
+			[
 				'attribute' => 'logType',
-				'value' => 'log_type.type',
+				'value' => 'logType.type',
 				'label' => Yii::t('app', 'Log Type ID'),
 			],
-            'equipment_type',	
             'inventory',
             //'equipment_id',
 			[
@@ -52,11 +56,11 @@ $this->params['breadcrumbs'][] = $this->title;
             //'equipment_status_id',
 			[
 				'attribute' => 'equipmentStatus',
-				'value' => 'equipment_status.status',
+				'value' => 'equipmentStatus.status',
 				'label' => Yii::t('app', 'Equipment Status'),
 			],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            //['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 

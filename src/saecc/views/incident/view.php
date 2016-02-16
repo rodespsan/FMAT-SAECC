@@ -30,13 +30,21 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             //'id',
             'date',
-            'equipment_id',
-            'room_id',
+            //'equipment_id',
+			'equipment.inventory',
+            //'room_id',
+			'room.name:text:Salón',
             'description:ntext',
-            'solved',
+            //'solved',
+			[
+				'attribute' => 'solved',
+				'value' => ($model->solved) ? 'Si' : 'No',
+			],	
             'date_solved',
-            'client_id',
-            'user_id',
+            //'client_id',
+			'client.client_id:text:Cliente',
+            //'user_id',
+			'user.user_name:text:Usuario',
         ],
     ]) ?>
 

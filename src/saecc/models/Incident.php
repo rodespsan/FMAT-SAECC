@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\validators\DefaultValueValidators;
 
 /**
  * This is the model class for table "incident".
@@ -38,8 +39,8 @@ class Incident extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['date', 'room_id', 'description', 'user_id'], 'required'],
-            [['date', 'date_solved'], 'safe'],
+			[['room_id', 'description', 'user_id'], 'required'],
+            [['date', 'date_solved'], 'safe'],			
             [['equipment_id', 'room_id', 'solved', 'client_id', 'user_id'], 'integer'],
             [['description'], 'string']
         ];
@@ -94,4 +95,25 @@ class Incident extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
+	
+	public function beforeSave($insert)
+	{
+		if(parent::beforeSave($insert))
+		{
+			if($this->isNewRecord)
+			{				
+				$this->date = new \yii\db\Expression('NOW()'); // crear fecha			
+				//$this->date = date('Y-m-d'); // crear fecha
+				//$this->start_time = date('H:i:s'); // crear hora inicial
+				// crear duracion
+				// calcular hora final y asignarla
+				
+				return true;
+			}
+			else
+			{
+				// actualizar hora final y duracion
+			}
+		}
+	}
 }

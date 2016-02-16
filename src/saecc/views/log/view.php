@@ -32,11 +32,16 @@ $this->params['breadcrumbs'][] = $this->title;
             'user_id',
             'date',
             'log_type_id',
+			'equipment.equipmentType.name'
             'equipment_type',
+			//'equipment_id.equipment_type_id:text:xxxxTipo de Equipo',
             'inventory',
             'equipment_id',
             'room_id',
-            'location',
+			
+			//'room	
+            
+			'location',
             'equipment_status_id',
         ],
     ]) ?>
