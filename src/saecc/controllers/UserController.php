@@ -20,25 +20,19 @@ class UserController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['post'],
-					'access' => [
-						'class' => 'yii\filters\AccessControl',
-						'rules' => [
-							[
-								'allow' => true,
-								'actions' => ['index', 'create', 'view', 'update', 'delete'],
-								'roles' => ['administrator'],
-							],
-							[
-								'allow' => true,
-								'actions' => ['index', 'create', 'view', 'update'],
-								'roles' => ['@'],
-							],
-						],
-					
-					],
-                ],
+                    'delete' => ['post'],	
+				],
             ],
+			'access' => [
+				'class' => 'yii\filters\AccessControl',
+				'rules' => [
+					[
+						'allow' => true,
+						'actions' => ['index', 'view', 'update', 'create'],
+						'roles' => ['@'],
+					],
+				],
+			],
         ];
     }
 
@@ -78,6 +72,7 @@ class UserController extends Controller
     {
         $model = new User();
 
+		$model->active = true;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {

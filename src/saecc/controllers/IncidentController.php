@@ -23,6 +23,16 @@ class IncidentController extends Controller
                     'delete' => ['post'],
                 ],
             ],
+			'access' => [
+				'class' => 'yii\filters\AccessControl',
+				'rules' => [
+					[
+						'allow' => true,
+						'actions' => ['index', 'view', 'update', 'create'],
+						'roles' => ['@'],
+					],
+				],
+			],
         ];
     }
 

@@ -9,6 +9,7 @@ use Yii;
  *
  * @property string $id
  * @property string $status
+ * @property integer $active
  *
  * @property Equipment[] $equipments
  * @property Log[] $logs
@@ -29,6 +30,7 @@ class EquipmentStatus extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+			[['active'], 'integer'],
             [['status'], 'required'],
             [['status'], 'string', 'max' => 45],
             [['status'], 'unique']
@@ -43,6 +45,7 @@ class EquipmentStatus extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'status' => Yii::t('app', 'Status'),
+			'active' => Yii::t('app', 'Active'),
         ];
     }
 

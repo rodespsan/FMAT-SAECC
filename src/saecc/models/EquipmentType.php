@@ -9,6 +9,7 @@ use Yii;
  *
  * @property string $id
  * @property string $name
+ * @property integer $active
  *
  * @property Equipment[] $equipments
  */
@@ -28,6 +29,7 @@ class EquipmentType extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+			[['active'], 'integer'],
             [['name'], 'required'],
             [['name'], 'string', 'max' => 45],
             [['name'], 'unique']
@@ -42,6 +44,7 @@ class EquipmentType extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
+			'active' => Yii::t('app', 'Active'),
         ];
     }
 

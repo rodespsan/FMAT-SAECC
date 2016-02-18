@@ -33,6 +33,10 @@ $this->params['breadcrumbs'][] = $this->title;
 			'short_name',
             'area.name:text:Àrea',
 			'school.name:text:Dependencia',
+			[
+				'attribute' => 'active',
+				'value' => ($model->active) ? 'Si' : 'No',
+			],
         ],
     ]) ?>
 

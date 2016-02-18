@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use app\models\Room;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Incident */
@@ -16,7 +18,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'equipment_id')->textInput(['maxlength' => 10]) ?>
 
-    <?= $form->field($model, 'room_id')->textInput(['maxlength' => 10]) ?>
+    <!--?= $form->field($model, 'room_id')->textInput(['maxlength' => 10]) ?-->
+	
+	<?= $form->field($model, 'room_id')->dropDownList(
+		ArrayHelper::map(
+			Room::find()->all(),
+			'id',
+			'name')			
+		)
+	?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
     

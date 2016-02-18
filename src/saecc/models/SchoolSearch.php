@@ -18,7 +18,7 @@ class SchoolSearch extends School
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'active'], 'integer'],
             [['name'], 'safe'],
         ];
     }
@@ -57,6 +57,7 @@ class SchoolSearch extends School
 
         $query->andFilterWhere([
             'id' => $this->id,
+			'active' => $this->active,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name]);

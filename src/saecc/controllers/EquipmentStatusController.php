@@ -23,6 +23,16 @@ class EquipmentStatusController extends Controller
                     'delete' => ['post'],
                 ],
             ],
+			'access' => [
+				'class' => 'yii\filters\AccessControl',
+				'rules' => [
+					[
+						'allow' => true,
+						'actions' => ['index', 'view', 'update', 'create'],
+						'roles' => ['@'],
+					],
+				],
+			],
         ];
     }
 
@@ -62,6 +72,7 @@ class EquipmentStatusController extends Controller
     {
         $model = new EquipmentStatus();
 
+		$model->active = true;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {

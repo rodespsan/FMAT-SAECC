@@ -22,6 +22,8 @@ use app\models\Room;
 			'id',
 			'name'))
 	?>
+	
+	<?= $form->field($model, 'active')->checkbox([],false); ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

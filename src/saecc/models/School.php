@@ -28,6 +28,7 @@ class School extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+			[['active'], 'integer'],
             [['name'], 'required'],
             [['name'], 'string', 'max' => 175],
             [['name'], 'unique']
@@ -42,6 +43,7 @@ class School extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
+			'active' => Yii::t('app', 'Active'),
         ];
     }
 

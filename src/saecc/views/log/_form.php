@@ -18,15 +18,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'log_type_id')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'equipment_type')->textInput(['maxlength' => true]) ?>
+    <!--?= $form->field($model, 'equipment_type')->textInput(['maxlength' => true]) ?-->
 
-    <?= $form->field($model, 'inventory')->textInput(['maxlength' => true]) ?>
+    <!--?= $form->field($model, 'inventory')->textInput(['maxlength' => true]) ?-->
 
     <?= $form->field($model, 'equipment_id')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'room_id')->textInput(['maxlength' => true]) ?>
+    <!--?= $form->field($model, 'room_id')->textInput(['maxlength' => true]) ?-->
 
-    <?= $form->field($model, 'location')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'location_id')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'equipment_status_id')->textInput(['maxlength' => true]) ?>
 

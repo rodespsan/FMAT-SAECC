@@ -14,24 +14,20 @@ class LogSearch extends Log
 {
 	public $user;
 	public $logType;
+	public $equipmentType;	
 	public $equipment;
-	public $equipmentStatus;
-	
-	public $equipmentType;
-	public $inventory;
-	public $location;
 	public $room;
+	public $location;
+	public $equipmentStatus;		
 	
     /**
      * @inheritdoc
      */
     public function rules()
     {
-        return [
-            [['id', 'room_id'], 'integer'],
-            [['date', 'inventory', 'location', 'user', 'logType', 'equipment', 'equipmentStatus'
-				, 'equipmentType' //, 'inventory', 'location', 'room',
-			], 'safe'],
+        return [            
+			[['id'], 'integer'],
+            [['user', 'date', 'logType', 'equipmentType', 'equipment', 'room', 'location', 'equipmentStatus'], 'safe'],
         ];
     }
 
@@ -53,10 +49,8 @@ class LogSearch extends Log
      */
     public function search($params)
     {
-        $query = Log::find();
-		$query->joinWith(['user', 'logType', 'equipment', 'equipment.equipmentType', 'equipmentStatus'
-			//, 'inventory', 'location', 'room',
-		]);
+        $query = Log::find();		
+		$query->joinWith(['user', 'logType', 'equipment.equipmentType', 'equipment', 'equipment.room', 'location', 'equipmentStatus']);
 		
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -76,57 +70,41 @@ class LogSearch extends Log
 			'desc' => ['log_type.type' => SORT_DESC],
 		];
 		
+		$dataProvider->sort->attributes['equipmentType'] = [
+			// The tables are the ones our relation are configured to
+			// in my case they are prefixed with "tbl_"
+			'asc' => ['equipment_type.name' => SORT_ASC],
+			'desc' => ['equipment_type.name' => SORT_DESC],
+		];						
+		
 		$dataProvider->sort->attributes['equipment'] = [
 			// The tables are the ones our relation are configured to
 			// in my case they are prefixed with "tbl_"
-			'asc' => ['equipment.serial_number' => SORT_ASC],
-			'desc' => ['equipment.serial_number' => SORT_DESC],
-		];				
+			'asc' => ['equipment.inventory' => SORT_ASC],
+			'desc' => ['equipment.inventory' => SORT_DESC],
+		];
+		
+		$dataProvider->sort->attributes['room'] = [
+			// The tables are the ones our relation are configured to
+			// in my case they are prefixed with "tbl_"
+			'asc' => ['room.name' => SORT_ASC],
+			'desc' => ['room.name' => SORT_DESC],
+		];
+		
+		$dataProvider->sort->attributes['location'] = [
+			// The tables are the ones our relation are configured to
+			// in my case they are prefixed with "tbl_"
+			'asc' => ['location.location' => SORT_ASC],
+			'desc' => ['location.location' => SORT_DESC],
+		];
 		
 		$dataProvider->sort->attributes['equipmentStatus'] = [
 			// The tables are the ones our relation are configured to
 			// in my case they are prefixed with "tbl_"
 			'asc' => ['equipment_status.status' => SORT_ASC],
 			'desc' => ['equipment_status.status' => SORT_DESC],
-		];
+		];							
 		
-		
-		
-		
-		//, 'equipmentType', 'inventory', 'location', 'room',
-		$dataProvider->sort->attributes['equipmentType'] = [
-			// The tables are the ones our relation are configured to
-			// in my case they are prefixed with "tbl_"
-			'asc' => ['equipment_type.name' => SORT_ASC],
-			'desc' => ['equipment_type.name' => SORT_DESC],
-		];				
-		
-		/* $dataProvider->sort->attributes['equipment'] = [
-			// The tables are the ones our relation are configured to
-			// in my case they are prefixed with "tbl_"
-			'asc' => ['equipment.serial_number' => SORT_ASC],
-			'desc' => ['equipment.serial_number' => SORT_DESC],
-		];				
-		
-		$dataProvider->sort->attributes['equipment'] = [
-			// The tables are the ones our relation are configured to
-			// in my case they are prefixed with "tbl_"
-			'asc' => ['equipment.serial_number' => SORT_ASC],
-			'desc' => ['equipment.serial_number' => SORT_DESC],
-		];				
-		
-		$dataProvider->sort->attributes['equipment'] = [
-			// The tables are the ones our relation are configured to
-			// in my case they are prefixed with "tbl_"
-			'asc' => ['equipment.serial_number' => SORT_ASC],
-			'desc' => ['equipment.serial_number' => SORT_DESC],
-		];	 */			
-		
-		
-		
-		
-		
-
         $this->load($params);
 
         if (!$this->validate()) {
@@ -137,21 +115,16 @@ class LogSearch extends Log
 
         $query->andFilterWhere([
             'id' => $this->id,
-            //'user_id' => $this->user_id,
             'date' => $this->date,
-            //'log_type_id' => $this->log_type_id,
-            //'equipment_id' => $this->equipment_id,
-            'room_id' => $this->room_id,
-            //'equipment_status_id' => $this->equipment_status_id,
         ]);
 
-        $query->andFilterWhere(['like', 'equipment_type.name', $this->equipmentType])
-			->andFilterWhere(['like', 'user.name', $this->user])
+        $query->andFilterWhere(['like', 'user.name', $this->user])
 			->andFilterWhere(['like', 'log_type.type', $this->logType])
-			->andFilterWhere(['like', 'equipment.serial_number', $this->equipment])			
-			->andFilterWhere(['like', 'equipment_status.status', $this->equipmentStatus])			
-            ->andFilterWhere(['like', 'inventory', $this->inventory])
-            ->andFilterWhere(['like', 'location', $this->location]);
+			->andFilterWhere(['like', 'equipment_type.name', $this->equipmentType])
+			->andFilterWhere(['like', 'equipment.inventory', $this->equipment])
+			->andFilterWhere(['like', 'room.name', $this->room])
+			->andFilterWhere(['like', 'location.location', $this->location])
+			->andFilterWhere(['like', 'equipment_status.status', $this->equipmentStatus]);            
 
         return $dataProvider;
     }

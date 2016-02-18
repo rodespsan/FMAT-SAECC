@@ -9,6 +9,7 @@ use Yii;
  *
  * @property string $id
  * @property string $type
+ * @property integer $active
  *
  * @property Client[] $clients
  */
@@ -28,6 +29,7 @@ class ClientType extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+			[['active'], 'integer'],
             [['type'], 'required'],
             [['type'], 'string', 'max' => 45],
             [['type'], 'unique']
@@ -42,6 +44,7 @@ class ClientType extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'type' => Yii::t('app', 'Type'),
+			'active' => Yii::t('app', 'Active'),
         ];
     }
 

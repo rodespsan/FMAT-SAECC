@@ -19,7 +19,7 @@ class LocationSearch extends Location
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'active'], 'integer'],
             [['location', 'room'], 'safe'],
         ];
     }
@@ -67,6 +67,7 @@ class LocationSearch extends Location
         $query->andFilterWhere([
             'id' => $this->id,
             //'room_id' => $this->room_id,
+			'active' => $this->active,
         ]);
 
         $query->andFilterWhere(['like', 'location', $this->location])

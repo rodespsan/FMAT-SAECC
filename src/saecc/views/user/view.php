@@ -35,6 +35,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'password_hash',
             //'auth_key',
             //'access_token',
+			[
+				'attribute' => 'active',
+				'value' => ($model->active) ? 'Si' : 'No',
+			],
         ],
     ]) ?>
 

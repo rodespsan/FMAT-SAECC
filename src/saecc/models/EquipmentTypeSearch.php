@@ -18,7 +18,7 @@ class EquipmentTypeSearch extends EquipmentType
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'active'], 'integer'],
             [['name'], 'safe'],
         ];
     }
@@ -58,6 +58,7 @@ class EquipmentTypeSearch extends EquipmentType
 
         $query->andFilterWhere([
             'id' => $this->id,
+			'active' => $this->active,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name]);

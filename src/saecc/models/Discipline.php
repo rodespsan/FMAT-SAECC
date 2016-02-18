@@ -12,6 +12,7 @@ use Yii;
  * @property string $name
  * @property string $short_name
  * @property string $area_id
+ * @property integer $active
  *
  * @property Client[] $clients
  * @property Area $area
@@ -34,7 +35,7 @@ class Discipline extends \yii\db\ActiveRecord
     {
         return [
             [['school_id', 'name', 'short_name', 'area_id'], 'required'],
-            [['school_id', 'area_id'], 'integer'],
+            [['school_id', 'area_id', 'active'], 'integer'],
             [['name'], 'string', 'max' => 175],
             [['short_name'], 'string', 'max' => 20]
         ];
@@ -51,6 +52,7 @@ class Discipline extends \yii\db\ActiveRecord
             'name' => Yii::t('app', 'Name'),
             'short_name' => Yii::t('app', 'Short Name'),
             'area_id' => Yii::t('app', 'Area ID'),
+			'active' => Yii::t('app', 'Active'),
         ];
     }
 

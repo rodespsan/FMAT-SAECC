@@ -35,24 +35,33 @@ $this->params['breadcrumbs'][] = $this->title;
             'date',
             //'log_type_id',
 			[
-				'attribute' => 'equipmentType',
-				'value' => 'equipment.equipmentType.name',
-				'label' => Yii::t('app', 'Equipment Type'),
-			],
-			[
 				'attribute' => 'logType',
 				'value' => 'logType.type',
 				'label' => Yii::t('app', 'Log Type ID'),
 			],
-            'inventory',
+			[
+				'attribute' => 'equipmentType',
+				'value' => 'equipment.equipmentType.name',
+				'label' => Yii::t('app', 'Equipment Type'),
+			],            
             //'equipment_id',
 			[
 				'attribute' => 'equipment',
-				'value' => 'equipment.serial_number',
-				'label' => Yii::t('app', 'Serial Number'),
+				'value' => 'equipment.inventory',
+				'label' => Yii::t('app', 'Inventory'),
 			],
-            'room_id',
-            'location',
+            //'room_id',
+			[
+				'attribute' => 'room',
+				'value' => 'equipment.room.name',
+				'label' => Yii::t('app', 'Room'),
+			],
+            //'location',
+			[
+				'attribute' => 'location',
+				'value' => 'location.location',
+				'label' => Yii::t('app', 'Location'),
+			],
             //'equipment_status_id',
 			[
 				'attribute' => 'equipmentStatus',

@@ -26,6 +26,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'auth_key') ?>
 
     <?php // echo $form->field($model, 'access_token') ?>
+	
+	<?php // echo $form->field($model, 'active') ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Search'), ['class' => 'btn btn-primary']) ?>

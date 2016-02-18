@@ -20,7 +20,7 @@ class DisciplineSearch extends Discipline
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'active'], 'integer'],
             [['name', 'short_name', 'school', 'area'], 'safe'],
         ];
     }
@@ -76,9 +76,10 @@ class DisciplineSearch extends Discipline
             'id' => $this->id,
             //'school_id' => $this->school_id,
             //'area_id' => $this->area_id,
+			'discipline.active' => $this->active,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
+        $query->andFilterWhere(['like', 'discipline.name', $this->name])
             ->andFilterWhere(['like', 'short_name', $this->short_name])
 			->andFilterWhere(['like', 'area.name', $this->area])
 			->andFilterWhere(['like', 'school.name', $this->school]);

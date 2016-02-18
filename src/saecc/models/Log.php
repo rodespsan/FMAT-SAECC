@@ -38,12 +38,10 @@ class Log extends \yii\db\ActiveRecord
      */
     public function rules()
     {
-        return [
-            [['user_id', 'date', 'log_type_id', 'equipment_type', 'inventory', 'equipment_id', 'room_id', 'location', 'equipment_status_id'], 'required'],
-            [['user_id', 'log_type_id', 'equipment_id', 'room_id', 'equipment_status_id'], 'integer'],
-            [['date'], 'safe'],
-            [['equipment_type', 'location'], 'string', 'max' => 45],
-            [['inventory'], 'string', 'max' => 30]
+        return [			
+            [['user_id', 'date', 'log_type_id', 'equipment_id', 'location_id', 'equipment_status_id'], 'required'],
+            [['user_id', 'log_type_id', 'equipment_id', 'equipment_status_id'], 'integer'],
+            [['date'], 'safe'],            
         ];
     }
 
@@ -56,12 +54,9 @@ class Log extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'user_id' => Yii::t('app', 'User ID'),
             'date' => Yii::t('app', 'Date'),
-            'log_type_id' => Yii::t('app', 'Log Type ID'),
-            'equipment_type' => Yii::t('app', 'Equipment Type'),
-            'inventory' => Yii::t('app', 'Inventory'),
-            'equipment_id' => Yii::t('app', 'Equipment ID'),
-            'room_id' => Yii::t('app', 'Room ID'),
-            'location' => Yii::t('app', 'Location'),
+            'log_type_id' => Yii::t('app', 'Log Type ID'),            
+            'equipment_id' => Yii::t('app', 'Equipment ID'),            
+            'location_id' => Yii::t('app', 'Location'),
             'equipment_status_id' => Yii::t('app', 'Equipment Status ID'),
         ];
     }
@@ -96,5 +91,13 @@ class Log extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+	
+	/**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLocation()
+    {
+        return $this->hasOne(Location::className(), ['id' => 'location_id']);
     }
 }

@@ -78,7 +78,7 @@ class ClientSearch extends Client
             'id' => $this->id,
             //'client_type_id' => $this->client_type_id,
             //'discipline_id' => $this->discipline_id,
-            'active' => $this->active,
+            'client.active' => $this->active,
 			//'active' => ($this->active) ? 'Si' : 'No',
         ]);
 

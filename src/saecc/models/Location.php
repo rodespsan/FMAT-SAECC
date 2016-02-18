@@ -10,6 +10,7 @@ use Yii;
  * @property string $id
  * @property string $location
  * @property string $room_id
+ * @property integer $active
  *
  * @property Assignation[] $assignations
  * @property Equipment[] $equipments
@@ -32,7 +33,7 @@ class Location extends \yii\db\ActiveRecord
     {
         return [
             [['location', 'room_id'], 'required'],
-            [['room_id'], 'integer'],
+            [['room_id', 'active'], 'integer'],
             [['location'], 'string', 'max' => 45]
         ];
     }
@@ -46,6 +47,7 @@ class Location extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'location' => Yii::t('app', 'Location'),
             'room_id' => Yii::t('app', 'Room ID'),
+			'active' => Yii::t('app', 'Active'),
         ];
     }
 

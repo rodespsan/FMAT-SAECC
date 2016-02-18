@@ -2,7 +2,7 @@
 return [
 	//CLIENT
 	'Client' => 'Cliente',
-	'Client ID' => 'Clave',
+	'Client ID' => 'ID del Cliente',
 	'First Name' => 'Nombre(s)',
 	'Last Name' => 'Apellido(s)',
 	'Client Type ID' => 'Tipo de Cliente',

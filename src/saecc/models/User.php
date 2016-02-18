@@ -13,6 +13,7 @@ use Yii;
  * @property string $password_hash
  * @property string $auth_key
  * @property string $access_token
+ * @property integer $active
  *
  * @property Incident[] $incidents
  * @property Log[] $logs
@@ -38,6 +39,7 @@ class User extends \yii\db\ActiveRecord implements
     public function rules()
     {
         return [            
+			[['active'], 'integer'],
 			[['user_name', 'name'], 'required'],
 			[['password'], 'required', 'except' => ['update']],
 			[['user_name', 'password'], 'string', 'max' => 20],
@@ -60,6 +62,7 @@ class User extends \yii\db\ActiveRecord implements
 			'password_repeat' => Yii::t('app', 'Password Repeat'),
             'auth_key' => Yii::t('app', 'Auth Key'),
             'access_token' => Yii::t('app', 'Access Token'),
+			'active' => Yii::t('app', 'Active'),
         ];
     }
 	

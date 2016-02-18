@@ -18,7 +18,7 @@ class EquipmentStatusSearch extends EquipmentStatus
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id', 'active'], 'integer'],
             [['status'], 'safe'],
         ];
     }
@@ -57,6 +57,7 @@ class EquipmentStatusSearch extends EquipmentStatus
 
         $query->andFilterWhere([
             'id' => $this->id,
+			'active' => $this->active,
         ]);
 
         $query->andFilterWhere(['like', 'status', $this->status]);

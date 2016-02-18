@@ -30,6 +30,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             //'id',
             'name',
+			[
+				'attribute' => 'active',
+				'value' => ($model->active) ? 'Si' : 'No',
+			],
         ],
     ]) ?>
 
