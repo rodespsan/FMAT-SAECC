@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Equipment;
+use app\models\Log;
 use app\models\EquipmentSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -70,10 +71,20 @@ class EquipmentController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Equipment();
+		$model = new Equipment();	
 		$model->available=true;
-
+		
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			//Las siguientes líneas de código almacenan en la tabla Log información de acerca de las altas de equipos
+			$modelLog = new Log();							
+			$modelLog->user_id = Yii::$app->user->id;
+			$modelLog->date = new \yii\db\Expression('NOW()');
+			$modelLog->log_type_id = 1;			
+			$modelLog->equipment_id = $model->id;			
+			$modelLog->location_id = $model->location_id;			
+			$modelLog->equipment_status_id = $model->equipment_status_id;
+			$modelLog->save();			
+			
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -93,6 +104,16 @@ class EquipmentController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			//Las siguientes líneas de código almacenan en la tabla Log información de acerca de las actualizaciones en los equipos
+			$modelLog = new Log();
+			$modelLog->user_id = Yii::$app->user->id;
+			$modelLog->date = new \yii\db\Expression('NOW()');
+			$modelLog->log_type_id = 3;
+			$modelLog->equipment_id = $model->id;
+			$modelLog->location_id = $model->location_id;
+			$modelLog->equipment_status_id = $model->equipment_status_id;
+			$modelLog->save();
+			
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

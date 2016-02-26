@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\AssignationSearch */
@@ -56,7 +57,37 @@ $this->params['breadcrumbs'][] = $this->title;
             'start_time',
             'end_time',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+				'class' => 'yii\grid\ActionColumn',
+				'template' => ' {update} {terminate} {report}',
+				'buttons' => [
+					//Actualiza la hora final y la duración de una asignación en base a la hora en que se de por terminada una asignación
+					'terminate' => function ($url, $model, $key) {						
+					return Html::a('<span class="glyphicon glyphicon-pause"></span>', $url, 
+						[
+							'title' => Yii::t('app', 'Terminate assignation'),
+						]);
+					},
+					
+					'update' => function ($url, $model) {
+							return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url,
+							[
+									'title' => Yii::t('app', 'Update'),
+							]);
+					},
+				],
+				'urlCreator' => function ($action, $model) {																				
+					if ($action === 'update') {						
+						return Url::to(['assignation/update?id=' . $model->id]);
+					}
+					
+					//Actualiza la hora final y la duración de una asignación en base a la hora en que se de por terminada una asignación
+					if ($action === 'terminate') {
+						return Url::to(['assignation/terminate?id=' . $model->id]);
+					}
+					
+				}
+			],
         ],
     ]); ?>
 

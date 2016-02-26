@@ -38,10 +38,8 @@ class Assignation extends \yii\db\ActiveRecord
      */
     public function rules()
     {
-        return [	
-			//[['date'], 'default', 'on'=>'insert', 'value' => new \yii\db\Expression('NOW()')],		
-			//[['date'], 'default', 'on'=>'insert', 'value' => new date()],		
-            [['client_id', 'room_id', 'location_id', 'equipment_id', 'duration', 'start_time', 'end_time'], 'required'],
+        return [				
+			[['client_id', 'room_id', 'location_id', 'equipment_id', 'duration'], 'required'],
             [['date', 'start_time', 'end_time'], 'safe'],			
             [['client_id', 'room_id', 'location_id', 'equipment_id', 'duration'], 'integer'],
             [['purpose'], 'string', 'max' => 170]
@@ -99,24 +97,81 @@ class Assignation extends \yii\db\ActiveRecord
         return $this->hasOne(Room::className(), ['id' => 'room_id']);
     }
 	
-	public function beforeSave($insert)
+	//Convierte horas a minutos: "03:34.11" a "214"
+	public function hoursToMinutes($hours)
 	{
+		$minutes = 0;
+		if (strpos($hours, ':') !== false)
+		{
+			// Split hours and minutes.
+			list($hours, $minutes) = explode(':', $hours);
+		}
+		return $hours * 60 + $minutes;
+	}
+	
+	public function beforeSave($insert)
+	{		
 		if(parent::beforeSave($insert))
 		{
 			if($this->isNewRecord)
-			{
-				date_default_timezone_set("America/Mexico_City");
-				$this->date = date("Y-m-d H:i:s"); // crear fecha
-				//$this->date = date('Y-m-d'); // crear fecha
-				//$this->start_time = date('H:i:s'); // crear hora inicial
-				// crear duracion
-				// calcular hora final y asignarla
+			{								
+				//registra la fecha en que se genera una asignación
+				$this->date = new \yii\db\Expression('NOW()');
+				
+				//registra la hora en que se inicia una asignación
+				$this->start_time = new \yii\db\Expression('NOW()');
+				
+				//Calcula y asigna la hora en que terminará una asignación en base a la duración seleccionada
+				switch($this->duration)
+				{
+					case 15:
+						$this->end_time = date("H:i:s", strtotime('+15 min'));
+						break; 
+					case 30:
+						$this->end_time = date("H:i:s", strtotime('+30 min'));
+						break;
+					case 45:
+						$this->end_time = date("H:i:s", strtotime('+45 min'));
+						break;
+					case 60:
+						$this->end_time = date("H:i:s", strtotime('+60 min'));
+						break;
+					case 90:
+						$this->end_time = date("H:i:s", strtotime('+90 min'));
+						break;
+					case 120:
+						$this->end_time = date("H:i:s", strtotime('+120 min'));
+						break; 
+				}				
 				
 				return true;
 			}
 			else
 			{
-				// actualizar hora final y duracion
+				//Actualiza la hora final y la duracion de la asignación
+				switch($this->duration)
+				{
+					case 15:
+						$this->end_time = date('H:i:s',strtotime( '+15 min' , strtotime ($this->start_time)));												
+						break;
+					case 30:
+						$this->end_time = date('H:i:s',strtotime( '+30 min' , strtotime ($this->start_time)));
+						break;
+					case 45:
+						$this->end_time = date('H:i:s',strtotime( '+45 min' , strtotime ($this->start_time)));
+						break;
+					case 60:
+						$this->end_time = date('H:i:s',strtotime( '+60 min' , strtotime ($this->start_time)));
+						break;
+					case 90:
+						$this->end_time = date('H:i:s',strtotime( '+90 min' , strtotime ($this->start_time)));
+						break;
+					case 120:
+						$this->end_time = date('H:i:s',strtotime( '+120 min' , strtotime ($this->start_time)));
+						break;
+				}
+
+				return true;
 			}
 		}
 	}

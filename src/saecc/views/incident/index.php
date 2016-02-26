@@ -66,7 +66,10 @@ $this->params['breadcrumbs'][] = $this->title;
 				'label' => Yii::t('app', 'User'),
 			],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+				'class' => 'yii\grid\ActionColumn',
+				'template' => '{view} {update}',
+			],
         ],
     ]); ?>
 
