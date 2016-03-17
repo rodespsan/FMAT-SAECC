@@ -41,17 +41,28 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'room_id')->dropDownList(
 		ArrayHelper::map(
-			Room::find()->all(),
+			Room::find()->where(['available' => 1])->all(),
 			'id',
-			'name')
-		)
-	?>
-
-    <?= $form->field($model, 'location_id')->dropDownList(
+			'name'
+		),
+		[	
+			'prompt' => 'Selecciona un Salón',
+			'onchange' => '$.post("'.Yii::$app->urlManager->createUrl('equipment/list-locations?id=').'"+$(this).val(), function(data){
+				$("#equipment-location_id").html(data);
+			})',
+		]
+	)?>			
+	
+    <!--?= $form->field($model, 'location_id')->dropDownList(
 		ArrayHelper::map(
 			Location::find()->all(),
 			'id',
 			'location')			
+		)
+	?-->
+	<?= $form->field($model, 'location_id')->dropDownList(
+		[],
+		[]
 		)
 	?>
 

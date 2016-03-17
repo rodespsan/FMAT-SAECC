@@ -13,7 +13,6 @@ use Yii;
  * @property string $description
  * @property string $serial_number
  * @property string $equipment_status_id
- * @property string $room_id
  * @property string $location_id
  * @property integer $available
  *
@@ -21,12 +20,12 @@ use Yii;
  * @property EquipmentStatus $equipmentStatus
  * @property EquipmentType $equipmentType
  * @property Location $location
- * @property Room $room
  * @property Incident[] $incidents
  * @property Log[] $logs
  */
 class Equipment extends \yii\db\ActiveRecord
 {
+	public $room_id;
     /**
      * @inheritdoc
      */
@@ -41,8 +40,8 @@ class Equipment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['inventory', 'equipment_type_id', 'description', 'serial_number', 'equipment_status_id', 'room_id'], 'required'],
-            [['equipment_type_id', 'equipment_status_id', 'room_id', 'location_id', 'available'], 'integer'],
+            [['inventory', 'equipment_type_id', 'description', 'serial_number', 'equipment_status_id'], 'required'],
+            [['equipment_type_id', 'equipment_status_id', 'location_id', 'available'], 'integer'],
             [['inventory'], 'string', 'max' => 30],
             [['description', 'serial_number'], 'string', 'max' => 175],
             [['inventory'], 'unique']
@@ -97,14 +96,6 @@ class Equipment extends \yii\db\ActiveRecord
     public function getLocation()
     {
         return $this->hasOne(Location::className(), ['id' => 'location_id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getRoom()
-    {
-        return $this->hasOne(Room::className(), ['id' => 'room_id']);
     }
 
     /**

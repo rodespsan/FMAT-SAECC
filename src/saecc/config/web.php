@@ -47,6 +47,11 @@ $config = [
         ],
         'db' => require(__DIR__ . '/db.php'),
     ],
+	'modules' => [
+	   'datecontrol' =>  [
+			'class' => '\kartik\datecontrol\Module'
+		]
+	],
     'params' => $params,
 ];
 

@@ -50,7 +50,7 @@ class LogSearch extends Log
     public function search($params)
     {
         $query = Log::find();		
-		$query->joinWith(['user', 'logType', 'equipment.equipmentType', 'equipment', 'equipment.room', 'location', 'equipmentStatus']);
+		$query->joinWith(['user', 'logType', 'equipment.equipmentType', 'equipment', 'location.room', 'location', 'equipmentStatus']);
 		
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

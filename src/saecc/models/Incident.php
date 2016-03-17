@@ -25,6 +25,8 @@ use yii\validators\DefaultValueValidators;
  */
 class Incident extends \yii\db\ActiveRecord
 {
+	public $location_id;
+	public $equipment_type_id;
     /**
      * @inheritdoc
      */
@@ -39,9 +41,9 @@ class Incident extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-			[['room_id', 'description', 'user_id'], 'required'],
-            [['date', 'date_solved'], 'safe'],			
-            [['equipment_id', 'room_id', 'solved', 'client_id', 'user_id'], 'integer'],
+			[['date', 'room_id', 'description', 'user_id'], 'required'],
+            [['date_solved', 'equipment_id', 'client_id'], 'safe'],			
+            [['equipment_id', 'room_id', 'solved', 'user_id'], 'integer'],			
             [['description'], 'string']
         ];
     }
@@ -61,6 +63,8 @@ class Incident extends \yii\db\ActiveRecord
             'date_solved' => Yii::t('app', 'Date Solved'),
             'client_id' => Yii::t('app', 'Client ID'),
             'user_id' => Yii::t('app', 'User ID'),
+			'equipment_type_id' => Yii::t('app', 'Equipment Type ID'),
+            'location_id' => Yii::t('app', 'Location ID'),
         ];
     }
 
@@ -96,7 +100,7 @@ class Incident extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 	
-	public function beforeSave($insert)
+	/* public function beforeSave($insert)
 	{
 		if(parent::beforeSave($insert))
 		{
@@ -115,5 +119,5 @@ class Incident extends \yii\db\ActiveRecord
 				// actualizar hora final y duracion
 			}
 		}
-	}
+	} */
 }

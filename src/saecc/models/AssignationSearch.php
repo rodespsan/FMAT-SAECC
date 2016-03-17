@@ -69,7 +69,7 @@ class AssignationSearch extends Assignation
 		$dataProvider->sort->attributes['location'] = [
 			// The tables are the ones our relation are configured to
 			// in my case they are prefixed with "tbl_"
-			'asc' => ['location.name' => SORT_ASC],
+			'asc' => ['location.location' => SORT_ASC],
 			'desc' => ['location.location' => SORT_DESC],
 		];
 		

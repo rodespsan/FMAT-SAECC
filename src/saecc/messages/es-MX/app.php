@@ -111,7 +111,8 @@ return [
 	'Solved' => 'Resuelto',
 	'Date Solved' => 'Fecha de Resolución',
 	'Create Incident' => 'Crear Incidente',
-	'Incidents' => 'Incidentes',		
+	'Incidents' => 'Incidentes',
+	'Equipment ID' => 'No. de Inventario',
 	
 	//Movimientos
 	'Create' => 'Crear',

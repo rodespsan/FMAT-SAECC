@@ -45,7 +45,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'room_id',
 			[
 				'attribute' => 'room',
-				'value' => 'room.name',
+				'value' => 'location.room.name',
 				'label' => Yii::t('app', 'Room ID'),
 			],
             //'location_id',

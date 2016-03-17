@@ -46,7 +46,7 @@ class EquipmentSearch extends Equipment
     public function search($params)
     {
         $query = Equipment::find();
-		$query->joinWith(['equipmentStatus', 'room', 'location', 'equipmentType']);
+		$query->joinWith(['equipmentStatus', 'location.room', 'location', 'equipmentType']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

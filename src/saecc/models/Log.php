@@ -14,7 +14,6 @@ use Yii;
  * @property string $equipment_type
  * @property string $inventory
  * @property string $equipment_id
- * @property string $room_id
  * @property string $location
  * @property string $equipment_status_id
  *

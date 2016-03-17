@@ -91,4 +91,9 @@ class Client extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Incident::className(), ['client_id' => 'id']);
     }
+	
+	/* public function getFullSearch()
+	{
+		return "(".$this->client_id.") ".$this->first_name." ".$this->last_name;
+	} */
 }

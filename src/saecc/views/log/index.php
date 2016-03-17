@@ -53,7 +53,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'room_id',
 			[
 				'attribute' => 'room',
-				'value' => 'equipment.room.name',
+				'value' => 'location.room.name',
 				'label' => Yii::t('app', 'Room'),
 			],
             //'location',
@@ -66,7 +66,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			[
 				'attribute' => 'equipmentStatus',
 				'value' => 'equipmentStatus.status',
-				'label' => Yii::t('app', 'Equipment Status'),
+				'label' => Yii::t('app', 'Equipment Status ID'),
 			],
 
             //['class' => 'yii\grid\ActionColumn'],

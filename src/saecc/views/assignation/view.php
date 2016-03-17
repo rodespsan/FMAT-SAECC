@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'id',
             'date',
             //'client_id',
-			'client.client_id:text:Clave',
+			'client.client_id:text:ID del Cliente',
             //'room_id',
 			'room.name:text:Salón',
             //'location_id',

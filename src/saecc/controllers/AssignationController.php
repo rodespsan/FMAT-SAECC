@@ -8,6 +8,8 @@ use app\models\AssignationSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Location;
+use app\models\Equipment;
 
 /**
  * AssignationController implements the CRUD actions for Assignation model.
@@ -28,7 +30,7 @@ class AssignationController extends Controller
 				'rules' => [
 					[
 						'allow' => true,
-						'actions' => ['index', 'view', 'update', 'create', 'terminate'],
+						'actions' => ['index', 'view', 'update', 'create', 'terminate', 'list-locations', 'show-inventory', 'extend'],
 						'roles' => ['@'],
 					],
 				],
@@ -100,6 +102,21 @@ class AssignationController extends Controller
         }
     }
 
+	public function actionListLocations($id)
+	{
+		$locations = Location::find()->where(['room_id'=>$id])->all();
+		echo "<option value=''>".Yii::t('app', 'Choose an option')."</option>";
+		foreach($locations as $location)
+			echo "<option value='".$location->id."'>".$location->location."</option>";
+	}
+	
+	public function actionShowInventory($id)
+	{
+		$equipments = Equipment::find()->where(['location_id'=>$id])->all();
+		foreach($equipments as $equipment)
+			echo "<option value='".$equipment->id."'>".$equipment->inventory."</option>";		
+	}
+	
 	//Actualiza la hora final y la duración de una asignación en base a la hora en que se de por terminada una asignación
 	public function actionTerminate($id)
 	{
@@ -112,6 +129,37 @@ class AssignationController extends Controller
 		return $this->redirect(['index']);
 	}
 
+	public function actionExtend($id)
+	{
+		$model = $this->findModel($id);
+		
+		switch($model->duration)
+		{
+			case 15:
+				$model->end_time = date('H:i:s',strtotime( '+15 min' , strtotime ($model->end_time)));
+				$model->duration = $model->hoursToMinutes(date('H:i',strtotime($model->end_time))) - $model->hoursToMinutes(date('H:i',strtotime($model->start_time)));
+				break; 
+			case 30: $model->end_time = date('H:i:s',strtotime( '+30 min' , strtotime ($model->end_time)));
+				$model->duration = $model->hoursToMinutes(date('H:i',strtotime($model->end_time))) - $model->hoursToMinutes(date('H:i',strtotime($model->start_time)));
+				break;
+			case 45: $model->end_time = date('H:i:s',strtotime( '+45 min' , strtotime ($model->end_time)));
+				$model->duration = $model->hoursToMinutes(date('H:i',strtotime($model->end_time))) - $model->hoursToMinutes(date('H:i',strtotime($model->start_time)));
+				break;
+			case 60: $model->end_time = date('H:i:s',strtotime( '+60 min' , strtotime ($model->end_time)));
+				$model->duration = $model->hoursToMinutes(date('H:i',strtotime($model->end_time))) - $model->hoursToMinutes(date('H:i',strtotime($model->start_time)));
+				break;
+			case 90: $model->end_time = date('H:i:s',strtotime( '+90 min' , strtotime ($model->end_time)));
+				$model->duration = $model->hoursToMinutes(date('H:i',strtotime($model->end_time))) - $model->hoursToMinutes(date('H:i',strtotime($model->start_time)));
+				break;
+			case 120: $model->end_time = date('H:i:s',strtotime( '+120 min' , strtotime ($model->end_time)));
+				$model->duration = $model->hoursToMinutes(date('H:i',strtotime($model->end_time))) - $model->hoursToMinutes(date('H:i',strtotime($model->start_time)));
+				break; 
+		}
+		$model->save();
+
+		return $this->redirect(['index']);
+	}
+	
     /**
      * Deletes an existing Assignation model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

@@ -9,6 +9,7 @@ use app\models\EquipmentSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Location;
 
 /**
  * EquipmentController implements the CRUD actions for Equipment model.
@@ -29,7 +30,7 @@ class EquipmentController extends Controller
 				'rules' => [
 					[
 						'allow' => true,
-						'actions' => ['index', 'view', 'update', 'create'],
+						'actions' => ['index', 'view', 'update', 'create', 'list-locations'],
 						'roles' => ['@'],
 					],
 				],
@@ -122,6 +123,14 @@ class EquipmentController extends Controller
         }
     }
 
+	public function actionListLocations($id)
+	{
+		$locations = Location::find()->where(['room_id'=>$id])->all();
+		echo "<option value=''>".Yii::t('app', 'Choose an option')."</option>";
+		foreach($locations as $location)
+			echo "<option value='".$location->id."'>".$location->location."</option>";
+	}
+	
     /**
      * Deletes an existing Equipment model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

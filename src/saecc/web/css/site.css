@@ -3,15 +3,24 @@ body {
     height: 100%;
 }
 
+a {
+	color: #2d2458;
+}
+
+a:hover {
+	color: #393939;
+}
+
 .wrap {
     min-height: 100%;
     height: auto;
     margin: 0 auto -60px;
     padding: 0 0 60px;
+	background-image: url(../images/template/background.gif);
 }
 
 .wrap > .container {
-    padding: 70px 15px 20px;
+    padding: 15px 15px 15px;
 }
 
 .footer {
@@ -88,4 +97,75 @@ a.desc:after {
     border-left: 3px solid #eed3d7;
     padding: 10px 20px;
     margin: 0 0 15px 0;
+}
+
+.header {
+	background-color: #c68d2a;
+	/*background-image: url(../images/template/header.png);
+	background-repeat: no-repeat;
+	height: 140px;*/
+}
+
+.navbar {
+	border: none;
+	background-color: #2d2558;
+	border-radius: 0px;
+	margin-bottom: 5px;
+}
+
+#nav > li > a {
+	color: #fff;
+	/*padding-top: 5px;
+	padding-bottom: 5px;*/
+}
+
+#nav > li > a:hover {
+	color: #2d2458;
+	border: 1px solid #2d2458;
+	padding: 14px 14px;
+	background-color: #fff;
+	border-radius: 3px;
+}
+
+#nav > li.active > a {
+	color: #2d2458;
+	border: 1px solid #2d2458;
+	border-bottom-color: #fff;
+	padding: 14px 14px;
+	background-color: #fff;
+	border-radius: 3px;
+	border-bottom-left-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+
+.navbar-header > .navbar-brand {
+	font-size: 18px;
+	padding: 15px 15px;
+	font-weight: bold;
+	color: #fff;
+}
+
+.navbar-inverse .navbar-toggle {
+	border-color: #fff;
+}
+
+#nav .glyphicon {
+	top: 0px;
+	font-family: inherit;
+	font-size: 10px;
+}
+
+#nav .glyphicon:before {
+	padding-right: 5px;
+	font-family: 'Glyphicons Halflings';
+	font-size: 16px;
+}
+
+.form-collapsed .form-group {
+	margin-bottom: 3px;
+}
+
+.form-collapsed .help-block {
+	margin-top: 2px;
+	margin-bottom: 2px;
 }

@@ -8,6 +8,7 @@ use app\models\Room;
 use app\models\Location;
 use app\models\Equipment;
 use yii\jui\AutoComplete;
+use kartik\widgets\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Assignation */
@@ -18,7 +19,7 @@ use yii\jui\AutoComplete;
 
     <?php $form = ActiveForm::begin(); ?>
 	
-	<?=	$form->field($model, 'client_id')->widget(\yii\jui\AutoComplete::classname(), [
+	<!--?=	$form->field($model, 'client_id')->widget(\yii\jui\AutoComplete::classname(), [
 		'clientOptions' => [
 			//'source' => ['usr', 'asr', 'pois'],
 			/* 'source' => ArrayHelper::map(
@@ -28,29 +29,50 @@ use yii\jui\AutoComplete;
 			'source' => ArrayHelper::getColumn(Client::find()->all(),
 			'client_id'),//[ArrayHelper::getColumn($model, 'id')],
 		],
-	]) ?>
+	]) ?-->
+	<?= $form->field($model, 'client_id')->widget(Select2::classname(), [
+		'data' => ArrayHelper::map(
+			Client::find()->all(),
+				'id',
+				'client_id', 'first_name'
+		),
+		'options' => ['placeholder' => 'Select a client...'],
+		'pluginOptions' => [
+			'allowClear' => true
+		],
+	]); ?>
     
     <?= $form->field($model, 'room_id')->dropDownList(
 		ArrayHelper::map(
 			Room::find()->where(['available' => 1])->all(),
 			'id',
-			'name')			
-		)
-	?>
+			'name'
+		),
+		[	
+			'prompt' => 'Selecciona un Salón',
+			'onchange' => '$.post("'.Yii::$app->urlManager->createUrl('assignation/list-locations?id=').'"+$(this).val(), function(data){
+				$("#assignation-location_id").html(data);
+			})',
+		]
+	)?>
 	
 	<?= $form->field($model, 'location_id')->dropDownList(
-		ArrayHelper::map(
-			Location::find()->all(),
-			'id',
-			'location')
+		[],
+		[
+			'prompt' => 'Selecciona una ubicación',
+			'onchange' => '$.post("'.Yii::$app->urlManager->createUrl('assignation/show-inventory?id=').'"+$(this).val(), function(data){
+				$("#assignation-equipment_id").html(data);
+				//$("#assignation-equipment_id").val(data);
+			})',
+		]
 		)
 	?>
 	
     <?= $form->field($model, 'equipment_id')->dropDownList(
-		ArrayHelper::map(
-			Equipment::find()->all(),
-			'id',
-			'inventory')			
+		[],
+		[
+			//'prompt' => 'Selecciona un Número de Inventario',
+		]
 		)
 	?>
 

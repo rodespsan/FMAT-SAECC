@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'equipment_status_id',
 			'equipmentStatus.status',
             //'room_id',
-			'room.name:text:Salón',
+			'location.room.name:text:Salón',
             //'location_id',
 			'location.location',
             //'available',
