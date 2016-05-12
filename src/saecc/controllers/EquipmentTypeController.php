@@ -29,7 +29,7 @@ class EquipmentTypeController extends Controller
 					[
 						'allow' => true,
 						'actions' => ['index', 'view', 'update', 'create'],
-						'roles' => ['@'],
+						'roles' => ['Administrador'],
 					],
 				],
 			],

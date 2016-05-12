@@ -29,7 +29,7 @@ class LocationController extends Controller
 					[
 						'allow' => true,
 						'actions' => ['index', 'view', 'update', 'create'],
-						'roles' => ['@'],
+						'roles' => ['Operador', 'Administrador'],
 					],
 				],
 			],

@@ -8,16 +8,16 @@ use yii\grid\GridView;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('app', 'Log Types');
-$this->params['breadcrumbs'][] = $this->title;
+//$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="log-type-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <p>
-        <?= Html::a(Yii::t('app', 'Create Log Type'), ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    
+        <!--?= Html::a(Yii::t('app', 'Create Log Type'), ['create'], ['class' => 'btn btn-success']) ?-->
+    
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -28,10 +28,10 @@ $this->params['breadcrumbs'][] = $this->title;
             //'id',
             'type',
 
-            [
+            /* [
 				'class' => 'yii\grid\ActionColumn',
 				'template' => '{view} {update}',
-			],
+			], */
         ],
     ]); ?>
 

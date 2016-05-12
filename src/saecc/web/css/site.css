@@ -156,7 +156,7 @@ a.desc:after {
 }
 
 #nav .glyphicon:before {
-	padding-right: 5px;
+	align-right: true;
 	font-family: 'Glyphicons Halflings';
 	font-size: 16px;
 }
@@ -168,4 +168,72 @@ a.desc:after {
 .form-collapsed .help-block {
 	margin-top: 2px;
 	margin-bottom: 2px;
+}
+
+.form-assign {
+	width: 700px;
+	margin-top: 22px;
+}
+
+.form-assign label {
+	width: 150px;
+	display: inline-block;
+	text-align: right;
+	margin-right: 10px;
+}
+
+.form-assign .form-control{
+	width: 350px;
+	display: inline-block;
+}
+.form-assign .form-group{
+	display: inline-block;
+	margin-right: 1px;
+	margin-bottom: 0px;
+	width: 74%;
+}
+.form-assign .btn-right {
+	display: inline-block;
+}
+.form-assign .help-block {
+	margin-bottom: 5px;
+	margin-top: 2px;
+	padding-left: 165px;
+}
+
+.select2-container {
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 0px;
+    position: relative;	
+    vertical-align: bottom;
+}
+.btn {
+    vertical-align: middle;
+    margin-bottom: 0px;
+	margin-left: -5px;
+}
+/* .bootstrap-timepicker {
+    width: 75%;
+} */
+#mas {
+    margin-bottom: -8px;
+}
+/* .bootstrap-timepicker {
+    width: 57%;
+} */
+#hora {
+    width: 118%;
+}
+#reserva {
+    display: inline;
+    margin-left: -93px;
+    color: red;
+}
+.help-block {
+    font-weight: bold;
+    color: red;
+}
+.form-assign .bootstrap-timepicker {
+    width: 350px;
 }

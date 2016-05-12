@@ -3,7 +3,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
-//use yii\widgets\Breadcrumbs;
+use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
 
@@ -54,102 +54,73 @@ AppAsset::register($this);
 					//['label' => 'Client', 'url' => ['/client/index']],
 					//Yii::$app->user->isGuest ?
                     //    ['label' => 'Client', 'url' => ['/site/login']] : ['label' => 'Client', 'url' => ['/client/index']],
-					
-					//NormalUser
-					['label' => Yii::t('app', 'Client'), 'url' => ['/client/index'],
-						'visible' => Yii::$app->user->can('normaluser')],
+
+					//Básico
 					['label' => Yii::t('app', 'Assignation'), 'url' => ['/assignation/index'],
-						'visible' => Yii::$app->user->can('normaluser')],
-					['label' => Yii::t('app', 'Incident'), 'url' => ['/incident/index'],
-						'visible' => Yii::$app->user->can('normaluser')],
-					
-					//Operator
+						'visible' => Yii::$app->user->can('Básico')],
 					['label' => Yii::t('app', 'Client'), 'url' => ['/client/index'],
-						'visible' => Yii::$app->user->can('operator')],						
-					['label' => Yii::t('app', 'ClientType'), 'url' => ['/client-type/index'],
-						'visible' => Yii::$app->user->can('operator')],
-					['label' => Yii::t('app', 'Discipline'), 'url' => ['/discipline/index'],
-						'visible' => Yii::$app->user->can('operator')],					
-					['label' => Yii::t('app', 'School'), 'url' => ['/school/index'],
-						'visible' => Yii::$app->user->can('operator')],
-					['label' => Yii::t('app', 'Equipment'), 'url' => ['/equipment/index'],						
-						'visible' => Yii::$app->user->can('operator')],															
-					['label' => Yii::t('app', 'Log'), 'url' => ['/log/index'],
-						'visible' => Yii::$app->user->can('operator')],					
+						'visible' => Yii::$app->user->can('Básico')],
 					['label' => Yii::t('app', 'Incident'), 'url' => ['/incident/index'],
-						'visible' => Yii::$app->user->can('operator')],					
+						'visible' => Yii::$app->user->can('Básico')],
+
+					//Operador
 					['label' => Yii::t('app', 'Assignation'), 'url' => ['/assignation/index'],
-						'visible' => Yii::$app->user->can('operator')],					
-					['label' => Yii::t('app', 'Location'), 'url' => ['/location/index'],
-						'visible' => Yii::$app->user->can('operator')],
-					
-					//Administrator
+						'visible' => Yii::$app->user->can('Operador')],
 					['label' => Yii::t('app', 'Client'), 'url' => ['/client/index'],
-						'visible' => Yii::$app->user->can('administrator')],						
-					['label' => Yii::t('app', 'ClientType'), 'url' => ['/client-type/index'],
-						'visible' => Yii::$app->user->can('administrator')],
-					['label' => Yii::t('app', 'Discipline'), 'url' => ['/discipline/index'],
-						'visible' => Yii::$app->user->can('administrator')],
-					['label' => Yii::t('app', 'Area'), 'url' => ['/area/index'],
-						'visible' => Yii::$app->user->can('administrator')],
+						'visible' => Yii::$app->user->can('Operador')],
+					['label' => Yii::t('app', 'Incident'), 'url' => ['/incident/index'],
+						'visible' => Yii::$app->user->can('Operador')],
 					['label' => Yii::t('app', 'School'), 'url' => ['/school/index'],
-						'visible' => Yii::$app->user->can('administrator')],
+						'visible' => Yii::$app->user->can('Operador')],
+					['label' => Yii::t('app', 'Discipline'), 'url' => ['/discipline/index'],
+						'visible' => Yii::$app->user->can('Operador')],
+					['label' => Yii::t('app', 'ClientType'), 'url' => ['/client-type/index'],
+						'visible' => Yii::$app->user->can('Operador')],
 					['label' => Yii::t('app', 'Equipment'), 'url' => ['/equipment/index'],
-						'visible' => Yii::$app->user->can('administrator')],
-					['label' => Yii::t('app', 'EquipmentType'), 'url' => ['/equipment-type/index'],
-						'visible' => Yii::$app->user->can('administrator')],
-					['label' => Yii::t('app', 'EquipmentStatus'), 'url' => ['/equipment-status/index'],
-						'visible' => Yii::$app->user->can('administrator')],
-					['label' => Yii::t('app', 'Room'), 'url' => ['/room/index'],
-						'visible' => Yii::$app->user->can('administrator')],
-					['label' => Yii::t('app', 'User'), 'url' => ['/user/index'],
-						'visible' => Yii::$app->user->can('administrator'), 'linkOptions' => ['class' => 'glyphicon glyphicon-user']],					
-					['label' => Yii::t('app', 'Log'), 'url' => ['/log/index'],
-						'visible' => Yii::$app->user->can('administrator')],
-					['label' => Yii::t('app', 'LogType'), 'url' => ['/log-type/index'],
-						'visible' => Yii::$app->user->can('administrator')],					
-					['label' => Yii::t('app', 'Incident'), 'url' => ['/incident/index'],
-						'visible' => Yii::$app->user->can('administrator')],					
-					['label' => Yii::t('app', 'Assignation'), 'url' => ['/assignation/index'],
-						'visible' => Yii::$app->user->can('administrator')],					
+						'visible' => Yii::$app->user->can('Operador')],
 					['label' => Yii::t('app', 'Location'), 'url' => ['/location/index'],
-						'visible' => Yii::$app->user->can('administrator')],
-					
-					/* ['label' => Yii::t('app', 'Client'), 'url' => ['/client/index'],
-						'visible' => Yii::$app->user->can('normaluser', 'operator', 'administrator')],						
-					['label' => Yii::t('app', 'ClientType'), 'url' => ['/client-type/index'],
-						'visible' => Yii::$app->user->can('operator', 'administrator')],
-					['label' => Yii::t('app', 'Discipline'), 'url' => ['/discipline/index'],
-						'visible' => Yii::$app->user->can('operator', 'administrator')],
-					['label' => Yii::t('app', 'Area'), 'url' => ['/area/index'],
-						'visible' => Yii::$app->user->can('administrator')],
+						'visible' => Yii::$app->user->can('Operador')],
+					['label' => Yii::t('app', 'Log'), 'url' => ['/log/index'],
+						'visible' => Yii::$app->user->can('Operador')],
+
+					//Administrador
+					['label' => Yii::t('app', 'Assignation'), 'url' => ['/assignation/index'],
+						'visible' => Yii::$app->user->can('Administrador')],
+					['label' => Yii::t('app', 'Client'), 'url' => ['/client/index'],
+						'visible' => Yii::$app->user->can('Administrador')],
+					['label' => Yii::t('app', 'Incident'), 'url' => ['/incident/index'],
+						'visible' => Yii::$app->user->can('Administrador')],
 					['label' => Yii::t('app', 'School'), 'url' => ['/school/index'],
-						'visible' => Yii::$app->user->can('operator', 'administrator')],
+						'visible' => Yii::$app->user->can('Administrador')],
+					['label' => Yii::t('app', 'Discipline'), 'url' => ['/discipline/index'],
+						'visible' => Yii::$app->user->can('Administrador')],
+					['label' => Yii::t('app', 'Area'), 'url' => ['/area/index'],
+						'visible' => Yii::$app->user->can('Administrador')],
+					['label' => Yii::t('app', 'ClientType'), 'url' => ['/client-type/index'],
+						'visible' => Yii::$app->user->can('Administrador')],
 					['label' => Yii::t('app', 'Equipment'), 'url' => ['/equipment/index'],
-						'visible' => Yii::$app->user->can('operator', 'administrator')],
+						'visible' => Yii::$app->user->can('Administrador')],
 					['label' => Yii::t('app', 'EquipmentType'), 'url' => ['/equipment-type/index'],
-						'visible' => Yii::$app->user->can('administrator')],
+						'visible' => Yii::$app->user->can('Administrador')],
 					['label' => Yii::t('app', 'EquipmentStatus'), 'url' => ['/equipment-status/index'],
-						'visible' => Yii::$app->user->can('administrator')],
+						'visible' => Yii::$app->user->can('Administrador')],
 					['label' => Yii::t('app', 'Room'), 'url' => ['/room/index'],
-						'visible' => Yii::$app->user->can('administrator')],
-					['label' => Yii::t('app', 'User'), 'url' => ['/user/index'],
-						'visible' => Yii::$app->user->can('administrator'), 'linkOptions' => ['class' => 'glyphicon glyphicon-user']],					
-					['label' => Yii::t('app', 'Log'), 'url' => ['/log/index'],
-						'visible' => Yii::$app->user->can('operator', 'administrator')],
-					['label' => Yii::t('app', 'LogType'), 'url' => ['/log-type/index'],
-						'visible' => Yii::$app->user->can('administrator')],					
-					['label' => Yii::t('app', 'Incident'), 'url' => ['/incident/index'],
-						'visible' => Yii::$app->user->can('normaluser', 'operator', 'administrator')],					
-					['label' => Yii::t('app', 'Assignation'), 'url' => ['/assignation/index'],
-						'visible' => Yii::$app->user->can('normaluser', 'operator', 'administrator')],					
+						'visible' => Yii::$app->user->can('Administrador')],
 					['label' => Yii::t('app', 'Location'), 'url' => ['/location/index'],
-						'visible' => Yii::$app->user->can('operator', 'administrator')], */															
-															
+						'visible' => Yii::$app->user->can('Administrador')],
+					['label' => Yii::t('app', 'Log'), 'url' => ['/log/index'],
+						'visible' => Yii::$app->user->can('Administrador')],
+					['label' => Yii::t('app', 'LogType'), 'url' => ['/log-type/index'],
+						'visible' => Yii::$app->user->can('Administrador')],
+					['label' => Yii::t('app', 'User'), 'url' => ['/user/index'],
+						'visible' => Yii::$app->user->can('Administrador')],
+					//['label' => Yii::t('app', 'User'), 'url' => ['/user/index'],
+						//'visible' => Yii::$app->user->can('Administrador'), 'linkOptions' => ['class' => 'glyphicon glyphicon-user']],
+																																					
                     //['label' => 'Home', 'url' => ['/site/index']],
-					['label' => Yii::t('app','Home'), 'url' => ['/site/index'], 'linkOptions' => ['class' => 'glyphicon glyphicon-home'], 'visible' => Yii::$app->user->isGuest],
-                    ['label' => 'About', 'url' => ['/site/about']],
-                    ['label' => 'Contact', 'url' => ['/site/contact']],
+					//['label' => Yii::t('app','Home'), 'url' => ['/site/index'], 'linkOptions' => ['class' => 'glyphicon glyphicon-home'], 'visible' => Yii::$app->user->isGuest],
+                    //['label' => 'About', 'url' => ['/site/about']],
+                    //['label' => 'Contact', 'url' => ['/site/contact']],
                     Yii::$app->user->isGuest ?
                         ['label' => Yii::t('app','Login'), 'url' => ['/site/login'], 'linkOptions' => ['class' => 'glyphicon glyphicon-log-in']] :
 						[
@@ -171,9 +142,9 @@ AppAsset::register($this);
         ?>
 
         <div class="container" style=" margin-top:-30px; max-width:1140px;">
-            <!--?= Breadcrumbs::widget([
+            <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-            ]) ?-->
+            ]) ?>
             <?= $content ?>
         </div>
     </div>

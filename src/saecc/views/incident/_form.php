@@ -6,6 +6,10 @@ use yii\helpers\ArrayHelper;
 use app\models\Room;
 use app\models\User;
 use app\models\Client;
+use app\models\Location;
+use app\models\EquipmentType;
+use app\models\Equipment;
+use app\models\Incident;
 use kartik\widgets\DateTimePicker;
 use kartik\widgets\Select2;
 
@@ -34,45 +38,91 @@ use kartik\widgets\Select2;
     <!--?= $form->field($model, 'room_id')->textInput(['maxlength' => 10]) ?-->
 	
 	<?= $form->field($model, 'room_id')->dropDownList(
-		ArrayHelper::map(
-			Room::find()->all(),
-			'id',
-			'name'
-		),
-		[
-			'prompt' => 'Seleecciona un Salón',
-			'onchange' => '$.post("'.Yii::$app->urlManager->createUrl('incident/list-locations?id=').'"+$(this).val(), function(data){
-				$("#incident-location_id").html(data);
-			})',
-		]
-	) ?>
-
-	<?= $form->field($model, 'location_id')->dropDownList(
-		[],
-		[
-			//'prompt' => 'Selecciona una Ubicación',
-			'onchange' => '$.post("'.Yii::$app->urlManager->createUrl('incident/list-equipment-types?id=').'"+$(this).val(), function(data){
-				$("#incident-equipment_type_id").html(data);
-			})',
-		]
+			ArrayHelper::map(
+				Room::find()->all(),
+				'id',
+				'name'
+			),
+			[
+				'prompt' => 'Selecciona un Salón',
+				'onchange' => '$.post("'.Yii::$app->urlManager->createUrl('incident/list-locations?id=').'"+$(this).val(), function(data){
+					$("#incident-location_id").html(data);
+				})',
+			]
 		)
 	?>
-		
-	<?= $form->field($model, 'equipment_type_id')->dropDownList(
-		[],
-		[
-			//'prompt' => 'Selecciona un Tipo de Equipo',
-			'onchange' => '$.post("'.Yii::$app->urlManager->createUrl('incident/show-inventory?id=').'"+$(this).val(), function(data){
-				$("#incident-equipment_id").html(data);
-				//$("#incident-equipment_id").val(data);
-			})',
-		]
+
+	<!--?= $form->field($model, 'location_id')->dropDownList(
+			ArrayHelper::map(
+				Location::find()->all(),
+				'id',
+				'location'
+			),
+			[
+				'prompt' => 'Selecciona una Ubicación',
+				'onchange' => '$.post("'.Yii::$app->urlManager->createUrl('incident/list-equipment-types?id=').'"+$(this).val(), function(data){
+					$("#incident-equipment_type_id").html(data);
+				})',
+			]
+		)
+	?-->
+	
+	<?php
+	$locationData = [];
+	if(!empty($model->room_id))
+	{
+		$locationData = ArrayHelper::map(
+			Location::find()->where(['room_id' => $model->room_id])->all(),
+			'id',
+			'location'
+		);
+	}
+	?>
+	
+	<?= $form->field($model, 'location_id')->dropDownList(
+			$locationData,
+			[
+				'prompt' => 'Selecciona una Ubicación',
+				'onchange' => '$.post("'.Yii::$app->urlManager->createUrl('incident/list-equipment-types?id=').'"+$(this).val(), function(data){
+					$("#incident-equipment_type_id").html(data);
+				})',
+			]
 		)
 	?>
 	
-	<?= $form->field($model, 'equipment_id')->dropDownList([]
-		//['readonly' => true]
-	) ?>
+	<?php
+	$equipmentTypeData = [];
+	if(!empty($model->location_id))
+	{
+		$equipmentTypeData = ArrayHelper::map(
+			Equipment::find()->where(['location_id' => $model->location_id])->all(),
+			'id',
+			'nameWithInventory'
+		);
+	}
+	?>
+	
+	<?= $form->field($model, 'equipment_type_id')->dropDownList(
+			$equipmentTypeData,
+			[
+				//'prompt' => 'Selecciona un Tipo de Equipo',
+				'onchange' => '$.post("'.Yii::$app->urlManager->createUrl('incident/show-inventory?id=').'"+$(this).val(), function(data){
+					$("#incident-equipment_id").html(data);
+					//$("#incident-equipment_id").val(data);
+				})',
+			]
+		)
+	?>
+	
+	<?= $form->field($model, 'equipment_id')->dropDownList(
+			//['readonly' => true]
+			ArrayHelper::map(
+				Equipment::find()->where(['id' => $model->equipment_id])->all(),
+				'id',
+				'inventory'
+			)
+		)
+	?>
 	
 	<?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
     
@@ -80,17 +130,31 @@ use kartik\widgets\Select2;
 		'clientOptions' => [
 			'source' => Yii::$app->urlManager->createUrl('incident/list-clients'),
 		],
-	]) ?-->	
-	<?= $form->field($model, 'client_id')->widget(Select2::classname(), [
+	]) ?-->
+	
+	<!--?= $form->field($model, 'client_id')->widget(Select2::classname(), [
 		'data' => ArrayHelper::map(
 			Client::find()->all(),
 				'id',
-				'client_id', 'first_name'
+				'client_id', 'full_name'
 		),
 		'options' => ['placeholder' => 'Selecciona una opción...'],
 		'pluginOptions' => [
 			'allowClear' => true
 		],
+	]); ?-->
+	
+	<?= $form->field($model, 'client_id')->widget(Select2::classname(), [
+		'data' => ArrayHelper::map(
+			Client::find()->all(),
+				'id',
+				'searchableName'
+		),
+		'options' => ['placeholder' => 'Selecciona un Cliente...'],
+		'pluginOptions' => [
+			//'width' => '349px',
+			'allowClear' => true
+		]
 	]); ?>
 	
     <?= $form->field($model, 'user_id')->dropDownList(

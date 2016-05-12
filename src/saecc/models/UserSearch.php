@@ -18,8 +18,8 @@ class UserSearch extends User
     public function rules()
     {
         return [
-            [['id', 'active'], 'integer'],
-            [['user_name', 'name', 'password_hash', 'auth_key', 'access_token'], 'safe'],
+            [['id', 'active'], 'integer'],            
+			[['user_name', 'name', 'password_hash', 'auth_key', 'access_token', 'rol'], 'safe'],
         ];
     }
 
@@ -42,10 +42,18 @@ class UserSearch extends User
     public function search($params)
     {
         $query = User::find();
+		//$query->joinWith(['rol']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+		
+		/* $dataProvider->sort->attributes['rol'] = [
+			// The tables are the ones our relation are configured to
+			// in my case they are prefixed with "tbl_"
+			'asc' => ['auth_assignment.item_name' => SORT_ASC],
+			'desc' => ['auth_assignment.item_name' => SORT_DESC],
+		]; */
 
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
@@ -59,7 +67,9 @@ class UserSearch extends User
         $query->andFilterWhere(['like', 'user_name', $this->user_name])
             ->andFilterWhere(['like', 'name', $this->name])
             ->andFilterWhere(['like', 'password_hash', $this->password_hash])
+			->andFilterWhere(['like', 'rol', $this->rol])
             ->andFilterWhere(['like', 'auth_key', $this->auth_key])
+			//->andFilterWhere(['like', 'auth_assignment.item_name', $this->rol])
             ->andFilterWhere(['like', 'access_token', $this->access_token]);
 
         return $dataProvider;

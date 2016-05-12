@@ -31,8 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             //'id',
             'client_id',
-            'first_name',
-            'last_name',
+            'full_name',            
             'clientType.type:text:Tipo de Cliente',
             'discipline.name:text:Plan de Estudio',            
 			[

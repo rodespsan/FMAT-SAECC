@@ -3,8 +3,7 @@ return [
 	//CLIENT
 	'Client' => 'Cliente',
 	'Client ID' => 'ID del Cliente',
-	'First Name' => 'Nombre(s)',
-	'Last Name' => 'Apellido(s)',
+	'Full Name' => 'Nombre Completo',
 	'Client Type ID' => 'Tipo de Cliente',
 	'Discipline ID' => 'Plan de Estudio',
 	'Active' => 'Activo',

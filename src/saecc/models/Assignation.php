@@ -22,6 +22,7 @@ use Yii;
  * @property Equipment $equipment
  * @property Location $location
  * @property Room $room
+ * @property First Name $first_name
  */
 class Assignation extends \yii\db\ActiveRecord
 {
@@ -118,31 +119,55 @@ class Assignation extends \yii\db\ActiveRecord
 				//registra la fecha en que se genera una asignación
 				$this->date = new \yii\db\Expression('NOW()');
 				
-				//registra la hora en que se inicia una asignación
-				$this->start_time = new \yii\db\Expression('NOW()');
-				
 				//Calcula y asigna la hora en que terminará una asignación en base a la duración seleccionada
-				switch($this->duration)
-				{
-					case 15:
-						$this->end_time = date("H:i:s", strtotime('+15 min'));
-						break; 
-					case 30:
-						$this->end_time = date("H:i:s", strtotime('+30 min'));
-						break;
-					case 45:
-						$this->end_time = date("H:i:s", strtotime('+45 min'));
-						break;
-					case 60:
-						$this->end_time = date("H:i:s", strtotime('+60 min'));
-						break;
-					case 90:
-						$this->end_time = date("H:i:s", strtotime('+90 min'));
-						break;
-					case 120:
-						$this->end_time = date("H:i:s", strtotime('+120 min'));
-						break; 
-				}				
+				if($this->start_time == "00:00:00"){
+					$this->start_time = new \yii\db\Expression('NOW()');
+					
+					switch($this->duration)
+					{
+						case 15:
+							$this->end_time = date("H:i:s", strtotime('+15 min'));
+							break; 
+						case 30:
+							$this->end_time = date("H:i:s", strtotime('+30 min'));
+							break;
+						case 45:
+							$this->end_time = date("H:i:s", strtotime('+45 min'));
+							break;
+						case 60:
+							$this->end_time = date("H:i:s", strtotime('+60 min'));							
+							break;
+						case 90:
+							$this->end_time = date("H:i:s", strtotime('+90 min'));
+							break;
+						case 120:
+							$this->end_time = date("H:i:s", strtotime('+120 min'));
+							break; 
+					}
+				}else{
+					//Permite reservar equipos tomando como hora inicical la de la reservación y calcula la hora final en base a esta.
+					switch($this->duration)
+					{
+						case 15:
+							$this->end_time = date('H:i:s',strtotime( '+15 min' , strtotime ($this->start_time)));												
+							break;
+						case 30:
+							$this->end_time = date('H:i:s',strtotime( '+30 min' , strtotime ($this->start_time)));
+							break;
+						case 45:
+							$this->end_time = date('H:i:s',strtotime( '+45 min' , strtotime ($this->start_time)));
+							break;
+						case 60:
+							$this->end_time = date('H:i:s',strtotime( '+60 min' , strtotime ($this->start_time)));
+							break;
+						case 90:
+							$this->end_time = date('H:i:s',strtotime( '+90 min' , strtotime ($this->start_time)));
+							break;
+						case 120:
+							$this->end_time = date('H:i:s',strtotime( '+120 min' , strtotime ($this->start_time)));
+							break;
+					}
+				}
 				
 				return true;
 			}

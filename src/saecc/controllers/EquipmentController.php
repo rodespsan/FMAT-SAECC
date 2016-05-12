@@ -31,7 +31,7 @@ class EquipmentController extends Controller
 					[
 						'allow' => true,
 						'actions' => ['index', 'view', 'update', 'create', 'list-locations'],
-						'roles' => ['@'],
+						'roles' => ['Operador', 'Administrador'],
 					],
 				],
 			],
@@ -103,6 +103,7 @@ class EquipmentController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+		$model->room_id = $model->location->room_id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			//Las siguientes líneas de código almacenan en la tabla Log información de acerca de las actualizaciones en los equipos
@@ -126,7 +127,7 @@ class EquipmentController extends Controller
 	public function actionListLocations($id)
 	{
 		$locations = Location::find()->where(['room_id'=>$id])->all();
-		echo "<option value=''>".Yii::t('app', 'Choose an option')."</option>";
+		echo "<option value=''>".Yii::t('app', 'Selecciona una Ubicación...')."</option>";
 		foreach($locations as $location)
 			echo "<option value='".$location->id."'>".$location->location."</option>";
 	}

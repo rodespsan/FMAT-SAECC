@@ -11,9 +11,8 @@ use app\models\EquipmentType;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-// use yii\helpers\Json;
-// use yii\helpers\ArrayHelper;
-//use app\models\Client;
+
+use app\models\Assignation;
 
 
 /**
@@ -35,8 +34,8 @@ class IncidentController extends Controller
 				'rules' => [
 					[
 						'allow' => true,
-						'actions' => ['index', 'view', 'update', 'create', 'list-locations', 'list-equipment-types', 'show-inventory', 'list-clients'],
-						'roles' => ['@'],
+						'actions' => ['index', 'view', 'update', 'create', 'list-locations', 'list-equipment-types', 'show-inventory', 'list-clients', 'create-from-assignation'],
+						'roles' => ['Básico', 'Operador', 'Administrador'],
 					],
 				],
 			],
@@ -90,6 +89,28 @@ class IncidentController extends Controller
         }
     }
 
+	public function actionCreateFromAssignation($id)
+    {
+        $model = new Incident();
+		$model->solved = false;
+		$model->user_id = Yii::$app->user->id;
+		
+		$assignationmodel = new Assignation();
+		$assignationmodel = Assignation::findOne($id);
+		$model->equipment_id = $assignationmodel->equipment_id;
+		$model->room_id = $assignationmodel->room_id;
+		$model->location_id = $assignationmodel->location_id;
+		$model->client_id = $assignationmodel->client_id;
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
+    }
+	
     /**
      * Updates an existing Incident model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -99,6 +120,8 @@ class IncidentController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+		$model->location_id = $model->equipment->location_id;
+		$model->equipment_type_id = $model->equipment->equipment_type_id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -136,7 +159,7 @@ class IncidentController extends Controller
 		echo "<option value=''>".Yii::t('app', 'Choose an option')."</option>";
 		foreach($equipments as $equipment)
 			//echo "<option value='".$equipment->id."'>".$equipment->equipment_type_id."</option>";		
-			echo "<option value='".$equipment->id."'>".$equipment->equipmentType->name." (".$equipment->inventory.")</option>";
+			echo "<option value='".$equipment->id."'>".$equipment->nameWithInventory."</option>";
 			//echo "<option value='".$equipment->id."'>".$equipment->equipment.equipment_type."</option>";
 	}
 	

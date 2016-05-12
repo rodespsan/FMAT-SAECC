@@ -9,8 +9,7 @@ use Yii;
  *
  * @property string $id
  * @property string $client_id
- * @property string $first_name
- * @property string $last_name
+ * @property string $full_name
  * @property string $client_type_id
  * @property string $discipline_id
  * @property integer $active
@@ -36,10 +35,10 @@ class Client extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['client_id', 'first_name', 'last_name', 'client_type_id'], 'required'],
+            [['client_id', 'full_name', 'client_type_id'], 'required'],
             [['client_type_id', 'discipline_id', 'active'], 'integer'],
             [['client_id'], 'string', 'max' => 30],
-            [['first_name', 'last_name'], 'string', 'max' => 175],
+            [['full_name'], 'string', 'max' => 175],
             [['client_id'], 'unique']
         ];
     }
@@ -52,8 +51,7 @@ class Client extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'client_id' => Yii::t('app', 'Client ID'),
-            'first_name' => Yii::t('app', 'First Name'),
-            'last_name' => Yii::t('app', 'Last Name'),
+            'full_name' => Yii::t('app', 'Full Name'),            
             'client_type_id' => Yii::t('app', 'Client Type ID'),
             'discipline_id' => Yii::t('app', 'Discipline ID'),
             'active' => Yii::t('app', 'Active'),
@@ -96,4 +94,9 @@ class Client extends \yii\db\ActiveRecord
 	{
 		return "(".$this->client_id.") ".$this->first_name." ".$this->last_name;
 	} */
+	
+	public function getSearchableName()
+	{
+		return "(" . $this->client_id . ") " . $this->full_name;
+	}
 }

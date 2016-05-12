@@ -113,8 +113,7 @@ INSERT INTO `client_type` (`id`, `type`, `active`) VALUES
 CREATE TABLE IF NOT EXISTS `client` (
   `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   `client_id` VARCHAR(30) NOT NULL COMMENT 'Puede ser matrícula, clave de empleado o e-mail',
-  `first_name` VARCHAR(175) NOT NULL,
-  `last_name` VARCHAR(175) NOT NULL,
+  `full_name` VARCHAR(175) NOT NULL,
   `client_type_id` INT(10) UNSIGNED NOT NULL,
   `discipline_id` INT(10) UNSIGNED NULL DEFAULT NULL,
   `active` TINYINT(1) NOT NULL DEFAULT '1',
@@ -133,7 +132,7 @@ CREATE TABLE IF NOT EXISTS `client` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
-AUTO_INCREMENT = 2
+AUTO_INCREMENT = 1
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -387,9 +386,9 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
 INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `created_at`, `updated_at`) VALUES
-('administrator', 1, NULL, NULL, NULL, 1447892934, 1447892934),
-('normaluser', 1, NULL, NULL, NULL, 1452113206, 1452113206),
-('operator', 1, NULL, NULL, NULL, 1453157257, 1453157257);
+('Administrador', 1, NULL, NULL, NULL, 1447892934, 1447892934),
+('Básico', 1, NULL, NULL, NULL, 1452113206, 1452113206),
+('Operador', 1, NULL, NULL, NULL, 1453157257, 1453157257);
 
 
 -- -----------------------------------------------------
@@ -410,13 +409,7 @@ DEFAULT CHARACTER SET = utf8
 COLLATE = utf8_unicode_ci;
 
 INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
-('administrator', '1', 1447892934),
-('normaluser', '2', 1452113206),
-('normaluser', '3', 1452113206),
-('normaluser', '4', 1452113206),
-('operator', '5', 1453157257),
-('operator', '6', 1453157257),
-('operator', '7', 1453157257);
+('Administrador', '1', 1447892934);
 
 
 -- -----------------------------------------------------
@@ -450,23 +443,18 @@ CREATE TABLE IF NOT EXISTS `user` (
   `user_name` VARCHAR(50) NOT NULL,
   `name` VARCHAR(175) NOT NULL,
   `password_hash` VARCHAR(175) NOT NULL,
+  `rol` VARCHAR(20) NOT NULL,
   `auth_key` VARCHAR(128) NOT NULL,
   `access_token` VARCHAR(128) NOT NULL,
   `active` TINYINT(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`id`),
   UNIQUE INDEX `access_token_UNIQUE` (`access_token` ASC))
 ENGINE = InnoDB
-AUTO_INCREMENT = 7
+AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8;
 
-INSERT INTO `user` (`id`, `user_name`, `name`, `password_hash`, `auth_key`, `access_token`, `active`) VALUES
-(1, 'admin', 'RGH', '$2y$13$rzPu0zS5g21n8b8XqxBPlO6jEe.2qas2Da4sfGDzhoMM98j1.NNNK', 'u5FJzG0dqAdLGIGQJIrv4T5Jgvhvn_3Y', '8hss6WKuAnBJJykrYEsl941N1PDN3FYr', 1),
-(2, 'UsuarioNormal1', 'usuarionormal1', '$2y$13$y8ekyKrQx4oEqGjB0o2eouGQkAapWOMoV6C4QNc/F4rZ9OkmDbUAO', 'tB8eOussHcH4V9LTUzEN9a2r-45mQ1hn', 'b4-xEo8l_85ymrnBWXMW0lGg5lhsLqWN', 1),
-(3, 'UsuarioNormal2', 'usuarionormal2', '$2y$13$GcTzVtUl99cTjOrBfU1aLe6ng/aL49nGxeW5tD0x5U41foKP5e2qC', 'k-ZrKPjhpU4ivtXpZeY5vVojMIiCnEgD', 'EoiX-gS-UP-8Pfw2ANb3UHre8M_EQUSU', 1),
-(4, 'UsuarioNormal3', 'usuarionormal3', '$2y$13$kBaNc0jpZMi8/6GzI9SomuCk6KQl75gkSHSdIvfYwLwZ3XrQxZbY.', 'CoJawZN4_G7jfcEGqH7aosbZFAuhkW7j', 'ivCrSRF2WvpbIt1198Y3Ctki0rEyMdp3', 1),
-(5, 'Operador1', 'operdor1', '$2y$13$.W6a/qgp6t3nqgxU1fL.j.2tiNl/1DGMQImqfp4mSVfXTO.TnQUQK', 'oAAE58Byl99NJ0PnZ-OOfYEZxwxQIgC3', '753HpCEXDQfdf1GqdwV5wq31pLLPtx9D', 1),
-(6, 'Operador2', 'operador2', '$2y$13$D7aiu1MgZPlYcJWOilGKvOXzZLcvkz0ERogOl.1.zK3AoI.wGlXsy', 'umTTrTeW_V8hW4Qd1txVbEkmiMJJDyqE', 'GwhSXFRzA6hxd2SfEyyH7k9Ojmuj1C4E', 1),
-(7, 'Operador3', 'operador3', '$2y$13$3xGaRiQ111vssjunGOAyseEUfYqTbzDwXh.dTFjpzE37ZC02UM41u', 'Bb68juHYfwOaWat5H5xEOrhb1A6Ce3WT', 'w9aOJkTS6Dk29eXmZsncWyiPeETQvblT', 1);
+INSERT INTO `user` (`id`, `user_name`, `name`, `password_hash`, `rol`, `auth_key`, `access_token`, `active`) VALUES
+(1, 'admin', 'RGH', '$2y$13$rzPu0zS5g21n8b8XqxBPlO6jEe.2qas2Da4sfGDzhoMM98j1.NNNK', 'Administrador', 'u5FJzG0dqAdLGIGQJIrv4T5Jgvhvn_3Y', '8hss6WKuAnBJJykrYEsl941N1PDN3FYr', 1);
 
 
 -- -----------------------------------------------------

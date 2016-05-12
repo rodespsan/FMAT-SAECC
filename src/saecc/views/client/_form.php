@@ -42,9 +42,7 @@ use app\models\Discipline;
 
     <?= $form->field($model, 'client_id')->textInput(['maxlength' => 30]) ?>
 
-    <?= $form->field($model, 'first_name')->textInput(['maxlength' => 175]) ?>
-
-    <?= $form->field($model, 'last_name')->textInput(['maxlength' => 175]) ?>
+    <?= $form->field($model, 'full_name')->textInput(['maxlength' => 175]) ?>
 
     <?= $form->field($model, 'client_type_id')->radioList(
 		ArrayHelper::map(

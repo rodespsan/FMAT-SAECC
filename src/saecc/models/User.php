@@ -11,6 +11,7 @@ use Yii;
  * @property string $user_name
  * @property string $name
  * @property string $password_hash
+ * @property string $rol
  * @property string $auth_key
  * @property string $access_token
  * @property integer $active
@@ -23,7 +24,6 @@ class User extends \yii\db\ActiveRecord implements
 {
 	public $password_repeat;
 	public $password;
-	public $rol;
 	
     /**
      * @inheritdoc
@@ -40,10 +40,10 @@ class User extends \yii\db\ActiveRecord implements
     {
         return [            
 			[['active'], 'integer'],
-			[['user_name', 'name'], 'required'],
-			[['password'], 'required', 'except' => ['update']],
+			[['user_name', 'name', 'rol'], 'required'],
+			[['password', 'password_repeat'], 'required', 'except' => ['update']],
 			[['user_name', 'password'], 'string', 'max' => 20],
-			[['rol'], 'in', 'range'=>['operator','administrator','normaluser']],
+			[['rol'], 'in', 'range'=>['Básico', 'Operador', 'Administrador']],
 			[['name'], 'string', 'max' => 175],
 			['password_repeat', 'compare', 'compareAttribute' => 'password'],
         ];
@@ -60,6 +60,7 @@ class User extends \yii\db\ActiveRecord implements
             'name' => Yii::t('app', 'Name'),
             'password' => Yii::t('app', 'Password'),
 			'password_repeat' => Yii::t('app', 'Password Repeat'),
+			'rol' => Yii::t('app', 'Rol'),
             'auth_key' => Yii::t('app', 'Auth Key'),
             'access_token' => Yii::t('app', 'Access Token'),
 			'active' => Yii::t('app', 'Active'),

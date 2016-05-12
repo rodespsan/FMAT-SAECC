@@ -19,9 +19,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'client_id') ?>
 
-    <?= $form->field($model, 'first_name') ?>
-
-    <?= $form->field($model, 'last_name') ?>
+    <?= $form->field($model, 'full_name') ?>
 
     <?= $form->field($model, 'client_type_id') ?>
 

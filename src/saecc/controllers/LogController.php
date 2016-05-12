@@ -23,6 +23,16 @@ class LogController extends Controller
                     'delete' => ['post'],
                 ],
             ],
+			'access' => [
+				'class' => 'yii\filters\AccessControl',
+				'rules' => [
+					[
+						'allow' => true,
+						'actions' => ['index'],
+						'roles' => ['Operador', 'Administrador'],
+					],
+				],
+			],
         ];
     }
 

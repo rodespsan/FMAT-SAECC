@@ -57,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
 			[
 				'attribute' => 'client',
 				'value' => 'client.client_id',
-				'label' => Yii::t('app', 'Client'),
+				'label' => Yii::t('app', 'Client ID'),
 			],
             //'user_id',
 			[

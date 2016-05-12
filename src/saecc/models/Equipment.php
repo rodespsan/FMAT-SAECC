@@ -113,4 +113,9 @@ class Equipment extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Log::className(), ['equipment_id' => 'id']);
     }
+	
+	public function getNameWithInventory()
+	{
+		return $this->equipmentType->name." (".$this->inventory.")";
+	}
 }

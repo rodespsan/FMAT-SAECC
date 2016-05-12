@@ -29,7 +29,7 @@ class UserController extends Controller
 					[
 						'allow' => true,
 						'actions' => ['index', 'view', 'update', 'create'],
-						'roles' => ['@'],
+						'roles' => ['Administrador'],
 					],
 				],
 			],
@@ -74,6 +74,24 @@ class UserController extends Controller
 
 		$model->active = true;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			if($model->rol == 'Básico'){
+				$auth = Yii::$app->authManager;
+				$roles = $auth->getRole('Básico');
+				$auth->assign($roles, $model->id);
+			}
+			
+			if($model->rol == 'Operador'){
+				$auth = Yii::$app->authManager;
+				$roles = $auth->getRole('Operador');
+				$auth->assign($roles, $model->id);
+			}
+			
+			if($model->rol == 'Administrador'){
+				$auth = Yii::$app->authManager;
+				$roles = $auth->getRole('Administrador');
+				$auth->assign($roles, $model->id);
+			}
+			
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -94,6 +112,26 @@ class UserController extends Controller
 		$model->scenario = 'update';
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			$auth = Yii::$app->authManager;
+			$auth->revokeAll($model->id);
+			
+			if($model->rol == 'Básico'){
+				$auth = Yii::$app->authManager;
+				$roles = $auth->getRole('Básico');
+				$auth->assign($roles, $model->id);
+			}
+			
+			if($model->rol == 'Operador'){
+				$auth = Yii::$app->authManager;
+				$roles = $auth->getRole('Operador');
+				$auth->assign($roles, $model->id);
+			}
+			
+			if($model->rol == 'Administrador'){
+				$auth = Yii::$app->authManager;
+				$roles = $auth->getRole('Administrador');
+				$auth->assign($roles, $model->id);				
+			}
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [

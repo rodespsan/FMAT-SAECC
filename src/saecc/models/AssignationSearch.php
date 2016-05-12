@@ -45,11 +45,14 @@ class AssignationSearch extends Assignation
      */
     public function search($params)
     {
-        $query = Assignation::find();
+		$query = Assignation::find();
 		$query->joinWith(['client', 'room', 'location', 'equipment']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+			'pagination' => [
+				'pageSize' => 1000,
+			],
         ]);
 		
 		$dataProvider->sort->attributes['client'] = [
@@ -101,9 +104,9 @@ class AssignationSearch extends Assignation
         ]);
 
         $query->andFilterWhere(['like', 'purpose', $this->purpose])
-			->andFilterWhere(['like', 'client.client_id', $this->client])
-            ->andFilterWhere(['like', 'room.name', $this->room])
-			->andFilterWhere(['like', 'location.location', $this->location])
+			->andFilterWhere(['like', 'client.client_id', $this->client])			
+            ->andFilterWhere(['like', 'room.id', $this->room])
+			->andFilterWhere(['like', 'location.id', $this->location])
 			->andFilterWhere(['like', 'equipment.inventory', $this->equipment]);
 
         return $dataProvider;

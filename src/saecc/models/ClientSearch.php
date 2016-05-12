@@ -21,7 +21,7 @@ class ClientSearch extends Client
     {
         return [
             [['id', 'active'], 'integer'],
-            [['client_id', 'first_name', 'last_name', 'clientType', 'discipline'], 'safe'],
+            [['client_id', 'full_name','clientType', 'discipline'], 'safe'],
             //[['id'], 'integer'],
             //[['client_id', 'first_name', 'last_name', 'clientType', 'discipline', 'active'], 'safe'],
         ];
@@ -83,8 +83,7 @@ class ClientSearch extends Client
         ]);
 
         $query->andFilterWhere(['like', 'client_id', $this->client_id])
-            ->andFilterWhere(['like', 'first_name', $this->first_name])
-            ->andFilterWhere(['like', 'last_name', $this->last_name])
+			->andFilterWhere(['like', 'full_name', $this->full_name])
 			->andFilterWhere(['like', 'client_type.type', $this->clientType])
 			->andFilterWhere(['like', 'discipline.name', $this->discipline]);
 			//->andFilterWhere(['like', 'active', ($this->active) ? 'Si' : 'No']);

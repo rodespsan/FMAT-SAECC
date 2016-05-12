@@ -74,4 +74,9 @@ class Location extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Room::className(), ['id' => 'room_id']);
     }
+	
+	public function getFullLocation()
+	{
+		return '(' . $this->room->name . ') ' . $this->location;
+	}
 }

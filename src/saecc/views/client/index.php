@@ -28,8 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             //'id',
             'client_id',
-            'first_name',
-            'last_name',
+            'full_name',
             [
 				'attribute' => 'clientType',
 				'value' => 'clientType.type',
@@ -51,7 +50,10 @@ $this->params['breadcrumbs'][] = $this->title;
 				], 'id', 'text'),
 			],
 
-            ['class' => 'yii\grid\ActionColumn'],
+			[
+				'class' => 'yii\grid\ActionColumn',
+				'template' => '{view} {update}',
+			],
         ],
     ]); ?>
 
