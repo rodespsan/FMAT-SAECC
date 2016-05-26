@@ -40,7 +40,7 @@ class Assignation extends \yii\db\ActiveRecord
     public function rules()
     {
         return [				
-			[['client_id', 'room_id', 'location_id', 'equipment_id', 'duration'], 'required'],
+			[['client_id', 'room_id', 'location_id', 'equipment_id', 'duration', 'purpose'], 'required'],
             [['date', 'start_time', 'end_time'], 'safe'],			
             [['client_id', 'room_id', 'location_id', 'equipment_id', 'duration'], 'integer'],
             [['purpose'], 'string', 'max' => 170]
@@ -117,11 +117,15 @@ class Assignation extends \yii\db\ActiveRecord
 			if($this->isNewRecord)
 			{								
 				//registra la fecha en que se genera una asignación
-				$this->date = new \yii\db\Expression('NOW()');
+				//$this->date = new \yii\db\Expression('NOW()');
+				date_default_timezone_set(Yii::$app->formatter->timeZone);
+				$this->date = date('Y-m-d H:i:s');
+				
 				
 				//Calcula y asigna la hora en que terminará una asignación en base a la duración seleccionada
 				if($this->start_time == "00:00:00"){
-					$this->start_time = new \yii\db\Expression('NOW()');
+					//$this->start_time = new \yii\db\Expression('NOW()');
+					$this->start_time = $this->date;
 					
 					switch($this->duration)
 					{

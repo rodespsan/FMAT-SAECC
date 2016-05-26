@@ -74,8 +74,8 @@ AppAsset::register($this);
 						'visible' => Yii::$app->user->can('Operador')],
 					['label' => Yii::t('app', 'Discipline'), 'url' => ['/discipline/index'],
 						'visible' => Yii::$app->user->can('Operador')],
-					['label' => Yii::t('app', 'ClientType'), 'url' => ['/client-type/index'],
-						'visible' => Yii::$app->user->can('Operador')],
+					/* ['label' => Yii::t('app', 'ClientType'), 'url' => ['/client-type/index'],
+						'visible' => Yii::$app->user->can('Operador')], */
 					['label' => Yii::t('app', 'Equipment'), 'url' => ['/equipment/index'],
 						'visible' => Yii::$app->user->can('Operador')],
 					['label' => Yii::t('app', 'Location'), 'url' => ['/location/index'],
@@ -141,7 +141,7 @@ AppAsset::register($this);
 ]); */
         ?>
 
-        <div class="container" style=" margin-top:-30px; max-width:1140px;">
+        <div class="container-fluid">
             <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             ]) ?>

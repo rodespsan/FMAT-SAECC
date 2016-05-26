@@ -18,11 +18,11 @@ use app\models\Discipline;
 		var clientType = $("[name=\'Client[client_type_id]\']:checked").val();
 		switch( clientType )
 		{
-			case "1": 
-			case "2": 
-			case "3": $("[name=\'Client[discipline_id]\']").removeAttr("disabled");
+			case "1": $("[name=\'Client[discipline_id]\']").removeAttr("disabled");
 			$(".field-client-discipline_id").show();
-			break;
+			break; 
+			case "2": 
+			case "3":
 			case "4": $("[name=\'Client[discipline_id]\']").attr("disabled","disabled");
 			$(".field-client-discipline_id").hide();
 			break;

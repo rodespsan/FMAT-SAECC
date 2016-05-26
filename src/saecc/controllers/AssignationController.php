@@ -170,11 +170,20 @@ class AssignationController extends Controller
 	//Actualiza la hora final y la duración de una asignación en base a la hora en que se de por terminada una asignación
 	public function actionTerminate($id)
 	{
+		date_default_timezone_set(Yii::$app->formatter->timeZone);
+		
 		$model = $this->findModel($id);
-		$model->end_time = date('H:i');
-		$model->duration = $model->hoursToMinutes(date('H:i',strtotime($model->end_time)))
-				- $model->hoursToMinutes(date('H:i',strtotime($model->start_time)));									
-		$model->end_time = new \yii\db\Expression('NOW()');
+		
+		$dateBegin = $model->date;
+		$dateEnd = date('Y-m-d H:i:s');
+		
+		$timeBegin = strtotime($dateBegin);
+		$timeEnd = strtotime($dateEnd);
+		
+		$diff = (int)(($timeEnd - $timeBegin)/60);
+		
+		$model->end_time = $dateEnd;
+		$model->duration = $diff;
 		$model->save();	
 		return $this->redirect(['index']);
 	}

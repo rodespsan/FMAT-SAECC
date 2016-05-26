@@ -16,7 +16,7 @@ $this->title = Yii::t('app', 'Log Types');
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     
-        <!--?= Html::a(Yii::t('app', 'Create Log Type'), ['create'], ['class' => 'btn btn-success']) ?-->
+        <?= Html::a(Yii::t('app', 'Create Log Type'), ['create'], ['class' => 'btn btn-success']) ?>
     
 
     <?= GridView::widget([
@@ -28,10 +28,10 @@ $this->title = Yii::t('app', 'Log Types');
             //'id',
             'type',
 
-            /* [
+            [
 				'class' => 'yii\grid\ActionColumn',
 				'template' => '{view} {update}',
-			], */
+			],
         ],
     ]); ?>
 

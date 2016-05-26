@@ -55,12 +55,18 @@ $this->title = Yii::t('app', 'Assignations');
             ['class' => 'yii\grid\SerialColumn'],
 
             //'id',
-            'date',
+            //'date',
             //'client_id',
 			[
 				'attribute' => 'client',
 				'value' => 'client.client_id',
 				'label' => Yii::t('app', 'Client ID'),
+			],
+			//'full_name',
+			[
+				'attribute' => 'full_name',
+				'value' => 'client.full_name',
+				'label' => Yii::t('app', 'Full Name'),
 			],
             //'room_id',
 			[
@@ -92,20 +98,26 @@ $this->title = Yii::t('app', 'Assignations');
 				],
 			],
             //'equipment_id',
-			[
+			/* [
 				'attribute' => 'equipment',
 				'value' => 'equipment.inventory',
 				'label' => Yii::t('app', 'Inventory'),
-			],
-            'purpose',
-            'duration',
+			], */
+            //'purpose',
+            //'duration',
             'start_time',
             'end_time',
 
             [
 				'class' => 'yii\grid\ActionColumn',
-				'template' => ' {update} {delete} {extend_time} {terminate} {report}',
+				'template' => ' {view} {update} {delete} {extend_time} {terminate} {report}',
 				'buttons' => [										
+					'view' => function ($url, $model) {
+						return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url,
+						[
+								'title' => Yii::t('app', 'View'),
+						]);
+					},
 					'update' => function ($url, $model) {
 						return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url,
 						[
@@ -137,10 +149,12 @@ $this->title = Yii::t('app', 'Assignations');
 					},
 				],
 				'urlCreator' => function ($action, $model, $key, $index) {																				
+					if ($action === 'view') {						
+						return Url::to(['assignation/view?id=' . $model->id]);
+					}
 					if ($action === 'update') {						
 						return Url::to(['assignation/update?id=' . $model->id]);
 					}
-
 					if ($action === 'delete') {						
 						return Url::to(['assignation/delete?id=' . $model->id]);
 					}						
@@ -195,6 +209,10 @@ $this->title = Yii::t('app', 'Assignations');
 	]);
 ?>
 
+<?php $this->registerJs("
+	$('#createAssignation').removeAttr('tabindex');
+"); ?>
+
 <div class="form-assign center-block">
 
 	<?php $form = ActiveForm::begin([
@@ -219,13 +237,13 @@ $this->title = Yii::t('app', 'Assignations');
 	<?= $form->field($model, 'client_id')->widget(Select2::classname(), [
 		'data' => ArrayHelper::map(
 			Client::find()->all(),
-				'id',
-				'searchableName'
+			'id',
+			'searchableName'
 		),
 		'options' => ['placeholder' => 'Selecciona un Cliente...'],
 		'pluginOptions' => [
 			'width' => '349px',
-			'allowClear' => true
+			'allowClear' => true,
 		]
 	]); ?>
 	<a id="mas" data-toggle="modal" href="#createClient" class="btn btn-info btn-xs btn-right"><span class="glyphicon glyphicon-plus"></span></a>
@@ -245,7 +263,7 @@ $this->title = Yii::t('app', 'Assignations');
 		]
 	)
 	?>		
-	<a id="mas" data-toggle="modal" href="#createRoom" class="btn btn-info btn-xs btn-right"><span class="glyphicon glyphicon-plus"></span></a>
+	
 	<br>
 	<?= $form->field($model, 'location_id')->dropDownList(
 			ArrayHelper::map(
@@ -262,7 +280,7 @@ $this->title = Yii::t('app', 'Assignations');
 			]
 		)
 	?>
-	<a id="mas" data-toggle="modal" href="#createLocation" class="btn btn-info btn-xs"><span class="glyphicon glyphicon-plus"></span></a>
+	
 	<br>
 	<?= $form->field($model, 'equipment_id')->dropDownList(
 			[],
@@ -403,11 +421,11 @@ $this->title = Yii::t('app', 'Assignations');
 		var clientType = $("[name=\'Client[client_type_id]\']:checked").val();
 		switch( clientType )
 		{
-			case "1": 
-			case "2": 
-			case "3": $("[name=\'Client[discipline_id]\']").removeAttr("disabled");
+			case "1": $("[name=\'Client[discipline_id]\']").removeAttr("disabled");
 			$(".field-client-discipline_id").show();
-			break;
+			break; 
+			case "2": 
+			case "3":
 			case "4": $("[name=\'Client[discipline_id]\']").attr("disabled","disabled");
 			$(".field-client-discipline_id").hide();
 			break;

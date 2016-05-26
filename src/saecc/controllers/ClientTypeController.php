@@ -29,7 +29,7 @@ class ClientTypeController extends Controller
 					[
 						'allow' => true,
 						'actions' => ['index', 'view', 'update', 'create'],
-						'roles' => ['Operador', 'Administrador'],
+						'roles' => ['Administrador'],
 					],
 				],
 			],

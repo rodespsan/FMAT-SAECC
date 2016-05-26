@@ -13,6 +13,7 @@ use app\models\Log;
 class LogSearch extends Log
 {
 	public $user;
+	public $available;
 	public $logType;
 	public $equipmentType;	
 	public $equipment;
@@ -27,7 +28,7 @@ class LogSearch extends Log
     {
         return [            
 			[['id'], 'integer'],
-            [['user', 'date', 'logType', 'equipmentType', 'equipment', 'room', 'location', 'equipmentStatus'], 'safe'],
+            [['user', 'date', 'logType', 'equipmentType', 'equipment', 'room', 'location', 'equipmentStatus', 'available'], 'safe'],
         ];
     }
 
@@ -84,6 +85,13 @@ class LogSearch extends Log
 			'desc' => ['equipment.inventory' => SORT_DESC],
 		];
 		
+		$dataProvider->sort->attributes['available'] = [
+			// The tables are the ones our relation are configured to
+			// in my case they are prefixed with "tbl_"
+			'asc' => ['equipment.available' => SORT_ASC],
+			'desc' => ['equipment.available' => SORT_DESC],
+		];
+		
 		$dataProvider->sort->attributes['room'] = [
 			// The tables are the ones our relation are configured to
 			// in my case they are prefixed with "tbl_"
@@ -115,15 +123,17 @@ class LogSearch extends Log
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'date' => $this->date,
+            //'date' => $this->date,
         ]);
 
         $query->andFilterWhere(['like', 'user.name', $this->user])
 			->andFilterWhere(['like', 'log_type.type', $this->logType])
 			->andFilterWhere(['like', 'equipment_type.name', $this->equipmentType])
 			->andFilterWhere(['like', 'equipment.inventory', $this->equipment])
+			->andFilterWhere(['like', 'equipment.available', $this->available])
 			->andFilterWhere(['like', 'room.name', $this->room])
 			->andFilterWhere(['like', 'location.location', $this->location])
+			->andFilterWhere(['like', 'date', $this->date])
 			->andFilterWhere(['like', 'equipment_status.status', $this->equipmentStatus]);            
 
         return $dataProvider;

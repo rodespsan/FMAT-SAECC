@@ -16,6 +16,7 @@ class AssignationSearch extends Assignation
 	public $room;
 	public $location;
 	public $equipment;
+	public $full_name;
     /**
      * @inheritdoc
      */
@@ -23,7 +24,7 @@ class AssignationSearch extends Assignation
     {
         return [
             [['id', 'duration'], 'integer'],
-            [['date', 'purpose', 'start_time', 'end_time', 'client', 'room', 'location', 'equipment'], 'safe'],
+            [['date', 'purpose', 'start_time', 'end_time', 'client', 'room', 'location', 'equipment', 'full_name'], 'safe'],
         ];
     }
 
@@ -62,6 +63,13 @@ class AssignationSearch extends Assignation
 			'desc' => ['client.client_id' => SORT_DESC],
 		];
 		
+		$dataProvider->sort->attributes['full_name'] = [
+			// The tables are the ones our relation are configured to
+			// in my case they are prefixed with "tbl_"
+			'asc' => ['client.full_name' => SORT_ASC],
+			'desc' => ['client.full_name' => SORT_DESC],
+		];
+		
 		$dataProvider->sort->attributes['room'] = [
 			// The tables are the ones our relation are configured to
 			// in my case they are prefixed with "tbl_"
@@ -93,7 +101,7 @@ class AssignationSearch extends Assignation
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'date' => $this->date,
+            //'date' => $this->date,
             //'client_id' => $this->client_id,
             //'room_id' => $this->room_id,
             //'location_id' => $this->location_id,
@@ -104,7 +112,9 @@ class AssignationSearch extends Assignation
         ]);
 
         $query->andFilterWhere(['like', 'purpose', $this->purpose])
-			->andFilterWhere(['like', 'client.client_id', $this->client])			
+			->andFilterWhere(['like', 'date', $this->date])
+			->andFilterWhere(['like', 'client.client_id', $this->client])		
+			->andFilterWhere(['like', 'client.full_name', $this->full_name])		
             ->andFilterWhere(['like', 'room.id', $this->room])
 			->andFilterWhere(['like', 'location.id', $this->location])
 			->andFilterWhere(['like', 'equipment.inventory', $this->equipment]);

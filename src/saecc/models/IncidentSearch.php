@@ -92,7 +92,7 @@ class IncidentSearch extends Incident
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'date' => $this->date,
+            //'date' => $this->date,
             //'equipment_id' => $this->equipment_id,
             //'room_id' => $this->room_id,
             'solved' => $this->solved,
@@ -102,6 +102,7 @@ class IncidentSearch extends Incident
         ]);
 
         $query->andFilterWhere(['like', 'incident.description', $this->description])
+		->andFilterWhere(['like', 'date', $this->date])
 		->andFilterWhere(['like', 'equipment.inventory', $this->equipment])
 		->andFilterWhere(['like', 'room.name', $this->room])
 		->andFilterWhere(['like', 'client.client_id', $this->client])

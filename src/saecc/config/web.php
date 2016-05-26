@@ -8,6 +8,11 @@ $config = [
     'bootstrap' => ['log'],
 	'language' => 'es-MX',
     'components' => [
+		'formatter' => [
+			'class' => 'yii\i18n\Formatter',
+			'defaultTimeZone' => 'America/Mexico_City',
+			'timeZone' => 'America/Mexico_City',
+		],
 		'authManager' => [
 			'class' => 'yii\rbac\DbManager',
 		],

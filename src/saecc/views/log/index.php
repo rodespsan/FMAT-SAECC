@@ -68,6 +68,15 @@ $this->params['breadcrumbs'][] = $this->title;
 				'value' => 'equipmentStatus.status',
 				'label' => Yii::t('app', 'Equipment Status ID'),
 			],
+			[
+				'attribute' => 'available',
+				// 'value' => 'equipment.available',
+				'value' => function ($model, $key, $index, $column) {
+					return ($model->equipment->available) ? 'Si' : 'No';
+				} ,
+				'label' => Yii::t('app', 'Available'),
+				'filter' => [0 => 'No', 1 => 'Si'],
+			],
 
             //['class' => 'yii\grid\ActionColumn'],
         ],

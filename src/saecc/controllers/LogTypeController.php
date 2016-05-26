@@ -28,7 +28,7 @@ class LogTypeController extends Controller
 				'rules' => [
 					[
 						'allow' => true,
-						'actions' => ['index'],
+						'actions' => ['index', 'view', 'update', 'create'],
 						'roles' => ['Administrador'],
 					],
 				],
