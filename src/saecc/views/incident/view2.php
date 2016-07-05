@@ -10,12 +10,13 @@ use yii\widgets\DetailView;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Incidents'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<br>
 <div class="incident-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <!--?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?-->
         <!--?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
@@ -23,6 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?-->
+		<?= Html::a('Regresar', ['assignation/index'], ['class' => 'btn btn-success btn-right']) ?>
     </p>
 
     <?= DetailView::widget([
@@ -31,10 +33,11 @@ $this->params['breadcrumbs'][] = $this->title;
             //'id',
             'date',
             //'equipment_id',
-			'equipment.inventory',
+			//'equipment.inventory',
             //'room_id',
 			'room.name:text:Salón',
 			'equipment.location.location',
+			'equipment.inventory',
             'description:ntext',
             //'solved',
 			[

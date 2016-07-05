@@ -1,10 +1,11 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+// use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use app\models\ClientType;
 use app\models\Discipline;
+use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Client */
@@ -38,7 +39,13 @@ use app\models\Discipline;
 
 <div class="client-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <!--?php $form = ActiveForm::begin(); ?-->
+	<?php $form = ActiveForm::begin([
+		'layout' => 'horizontal',
+		'options' => ['enctype' => 'multipart/form-data'],
+	]);
+	//$model->room_id = Room::find()->where(['name'=>Yii::$app->params['defaultRoom']])->one()->id;
+	?>
 
     <?= $form->field($model, 'client_id')->textInput(['maxlength' => 30, 'onkeyup' => 'javascript:this.value=this.value.toUpperCase();'])?>
 
@@ -61,8 +68,9 @@ use app\models\Discipline;
     <?= $form->field($model, 'active')->checkbox([],false); ?>
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-		<?= Html::a('Cancelar', ['index'], ['class' => 'btn btn-danger btn-md', 'style' => 'float:right;']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'float:left; margin-left:299px;']) ?>
+		<?= Html::a('Cancelar', ['assignation/create'], ['class' => 'btn btn-danger btn-md', 'style' => 'margin-left:396px;']) ?>
+		<!--?= Html::a('Cancelar', [Yii::$app->request->referrer], ['class' => 'btn btn-danger btn-md', 'style' => 'margin-left:396px;']) ?-->
     </div>
 
     <?php ActiveForm::end(); ?>

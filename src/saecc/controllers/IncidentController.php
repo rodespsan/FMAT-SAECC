@@ -11,7 +11,7 @@ use app\models\EquipmentType;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\helpers\Json;
 use app\models\Assignation;
 
 
@@ -34,7 +34,9 @@ class IncidentController extends Controller
 				'rules' => [
 					[
 						'allow' => true,
-						'actions' => ['index', 'view', 'update', 'create', 'list-locations', 'list-equipment-types', 'show-inventory', 'list-clients', 'create-from-assignation'],
+						'actions' => ['index', 'view', 'update', 'create', 'list-locations', 'list-equipment-types',
+						'show-inventory', 'list-clients', 'create-from-assignation', 'get-equipment-information', 'view2'
+							],
 						'roles' => ['Básico', 'Operador', 'Administrador'],
 					],
 				],
@@ -97,18 +99,28 @@ class IncidentController extends Controller
 		
 		$assignationmodel = new Assignation();
 		$assignationmodel = Assignation::findOne($id);
+		$model->date = $assignationmodel->date;
 		$model->equipment_id = $assignationmodel->equipment_id;
 		$model->room_id = $assignationmodel->room_id;
 		$model->location_id = $assignationmodel->location_id;
-		$model->client_id = $assignationmodel->client_id;
-
+		$model->client_id = $assignationmodel->client_id;		
+		$this->layout = '/main2';
+		
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['view2', 'id' => $model->id]);
         } else {
-            return $this->render('create', [
+            return $this->render('create2', [
                 'model' => $model,
             ]);
         }
+    }
+	
+	public function actionView2($id)
+    {
+		$this->layout = '/main2';
+        return $this->render('view2', [
+            'model' => $this->findModel($id),
+        ]);
     }
 	
     /**
@@ -165,28 +177,21 @@ class IncidentController extends Controller
 	
 	public function actionShowInventory($id)
 	{
-		$equipments = Equipment::find()->where(['id'=>$id])->all();
-		foreach($equipments as $equipment)
-			//echo "<option value='".$equipment->id."'>".$equipment->equipment_type_id."</option>";		
-			echo "<option value='".$equipment->id."'>".$equipment->inventory."</option>";		
-			//echo "<option value='".$equipment->id."'>".$equipment->equipment.equipment_type."</option>";
+		$equipment = Equipment::find()->where(['id'=>$id])->one();
+		echo $equipment->id;
 	}
-	/* public function actionShowInventory($id)
+	
+	public function actionGetEquipmentInformation($id)
 	{
 		$equipment = Equipment::find()->where(['id'=>$id])->one();
-		echo $equipment->inventory;
-	} */
-	
-	/* public function actionListClients($term)
-	{
-		$clients = Client::find()->where([
-			'or',
-			['like', 'client_id', $term],
-			['like', 'first_name', $term],
-			['like', 'last_name', $term]
-		])->limit(5)->all();
-		echo Json::encode(ArrayHelper::map($clients, 'id', 'fullSearch'));
-	} */
+		if(empty($equipment))
+			throw new NotFoundHttpException('The requested page does not exist.');
+		echo Json::encode([
+			'room_id' => $equipment->location->room_id,
+			'location_id' => $equipment->location_id,
+			'equipment_id' => $equipment->id,
+		]);
+	}
 	
     /**
      * Finds the Incident model based on its primary key value.

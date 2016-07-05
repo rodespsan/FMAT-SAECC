@@ -18,7 +18,7 @@ use app\models\Room;
 
     <?= $form->field($model, 'room_id')->dropDownList(
 		ArrayHelper::map(
-			Room::find()->all(),
+			Room::find()->orderBy('name ASC')->all(),
 			'id',
 			'name'))
 	?>
@@ -27,6 +27,7 @@ use app\models\Room;
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+		<?= Html::a('Cancelar', ['index'], ['class' => 'btn btn-danger btn-md', 'style' => 'float:right;']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

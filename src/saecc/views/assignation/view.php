@@ -14,17 +14,18 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
+    <div>
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <!--?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
+        <?= Html::a(Yii::t('app', 'Delete'), ['delete', 'id' => $model->id], [
+            'class' => 'btn btn-danger btn-right',
             'data' => [
-                'confirm' => Yii::t('app', 'Are you sure you want to delete this item?'),
+                'confirm' => Yii::t('app', '¿Borrar esta Asignación?'),
                 'method' => 'post',
             ],
-        ]) ?-->
-    </p>
-
+        ]) ?>
+		<?= Html::a('Regresar', ['index'], ['class' => 'btn btn-success btn-right']) ?>
+    </div>
+<br>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -33,6 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'client_id',
 			'client.client_id:text:ID del Cliente',
             //'room_id',
+			'client.full_name',
 			'room.name:text:Salón',
             //'location_id',
 			'location.location:text:Ubicación',

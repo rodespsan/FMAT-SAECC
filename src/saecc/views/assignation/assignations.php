@@ -17,6 +17,12 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Assignations'), 'url
 //$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Todas las asignaciones');
 ?>
+
+<h1 align="center"><?=	'Todas las Asignaciones',
+	Html::a('Regresar', ['index'], ['class' => 'btn btn-success btn-md', 'style' => 'float:right; margin-left:4px;']),	
+	Html::a('', ['assignations'], ['class' => 'btn btn-primary btn-md glyphicon glyphicon-refresh', 'style' => 'float:right;'])
+?></h1>	
+
 <div class="assignation-index">
 
     <h1><?= Html::encode($this->title) ?></h1>

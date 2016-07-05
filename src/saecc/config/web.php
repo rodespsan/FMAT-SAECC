@@ -7,6 +7,7 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
 	'language' => 'es-MX',
+	'timeZone' => 'America/Mexico_City',
     'components' => [
 		'formatter' => [
 			'class' => 'yii\i18n\Formatter',

@@ -21,7 +21,7 @@ use yii\helpers\ArrayHelper;
     
 	<?= $form->field($model, 'equipment_type_id')->dropDownList(
 		ArrayHelper::map(
-			EquipmentType::find()->all(),
+			EquipmentType::find()->orderBy('name ASC')->all(),
 			'id',
 			'name')
 		)
@@ -33,7 +33,7 @@ use yii\helpers\ArrayHelper;
     
 	<?= $form->field($model, 'equipment_status_id')->dropDownList(
 		ArrayHelper::map(
-			EquipmentStatus::find()->all(),
+			EquipmentStatus::find()->orderBy('status ASC')->all(),
 			'id',
 			'status')
 		)
@@ -41,7 +41,7 @@ use yii\helpers\ArrayHelper;
 
     <?= $form->field($model, 'room_id')->dropDownList(
 			ArrayHelper::map(
-				Room::find()->all(),
+				Room::find()->orderBy('name ASC')->all(),
 				'id',
 				'name'
 			),
@@ -67,7 +67,7 @@ use yii\helpers\ArrayHelper;
 	if(!empty($model->room_id))
 	{
 		$locationData = ArrayHelper::map(
-			Location::find()->where(['room_id' => $model->room_id])->all(),
+			Location::find()->orderBy('location ASC')->where(['room_id' => $model->room_id])->all(),
 			'id',
 			'location'
 		);
@@ -87,6 +87,7 @@ use yii\helpers\ArrayHelper;
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+		<?= Html::a('Cancelar', ['index'], ['class' => 'btn btn-danger btn-md', 'style' => 'float:right;']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

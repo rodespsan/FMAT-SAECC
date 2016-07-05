@@ -140,8 +140,8 @@ AppAsset::register($this);
     'body' => 'Say hello...',
 ]); */
         ?>
-
-        <div class="container-fluid">
+        
+		<div class="container" style=" margin-top:-30px; max-width:1140px;">
             <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             ]) ?>

@@ -21,7 +21,7 @@ use app\models\School;
 
     <?= $form->field($model, 'area_id')->dropDownList(
 		ArrayHelper::map(
-			Area::find()->all(),
+			Area::find()->orderBy('name ASC')->all(),
 			'id',
 			'name')
 		)
@@ -29,7 +29,7 @@ use app\models\School;
 	
 	<?= $form->field($model, 'school_id')->dropDownList(
 		ArrayHelper::map(
-			School::find()->all(),
+			School::find()->orderBy('name ASC')->all(),
 			'id',
 			'name')
 		)
@@ -39,6 +39,7 @@ use app\models\School;
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+		<?= Html::a('Cancelar', ['index'], ['class' => 'btn btn-danger btn-md', 'style' => 'float:right;']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

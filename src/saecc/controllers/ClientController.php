@@ -28,7 +28,7 @@ class ClientController extends Controller
 				'rules' => [
 					[
 						'allow' => true,
-						'actions' => ['index', 'view', 'update', 'create'],
+						'actions' => ['index', 'view', 'update', 'create', 'create-from-assignation'],
 						'roles' => ['Básico', 'Operador', 'Administrador'],
 					],
 				],
@@ -127,6 +127,25 @@ class ClientController extends Controller
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+	
+		
+	public function actionCreateFromAssignation()
+    {
+        $model = new Client();
+		$model->active = true;
+		$this->layout = '/main2';
+		//$newClient = $model->id;
+		//var_dump($newClient); die();
+		
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			//var_dump($model->id); die();
+            return $this->redirect(['assignation/create3', 'id' => $model->id]);
+        } else {
+            return $this->render('create2', [
+                'model' => $model,
+            ]);
         }
     }
 }

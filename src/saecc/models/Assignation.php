@@ -119,33 +119,36 @@ class Assignation extends \yii\db\ActiveRecord
 				//registra la fecha en que se genera una asignación
 				//$this->date = new \yii\db\Expression('NOW()');
 				date_default_timezone_set(Yii::$app->formatter->timeZone);
-				$this->date = date('Y-m-d H:i:s');
+				$assignationDate = new \DateTime();
+				// $this->date = date('Y-m-d H:i:s');
+				$this->date = $assignationDate->format('Y-m-d H:i:s');
 				
-				
+				$start_time = $this->start_time;
+				$end_time = $this->end_time;
 				//Calcula y asigna la hora en que terminará una asignación en base a la duración seleccionada
-				if($this->start_time == "00:00:00"){
+				if($start_time == "00:00:00"){
 					//$this->start_time = new \yii\db\Expression('NOW()');
-					$this->start_time = $this->date;
+					$start_time = $assignationDate->format('H:i:s');
 					
 					switch($this->duration)
 					{
 						case 15:
-							$this->end_time = date("H:i:s", strtotime('+15 min'));
+							$end_time = date("H:i:s", strtotime('+15 min'));
 							break; 
 						case 30:
-							$this->end_time = date("H:i:s", strtotime('+30 min'));
+							$end_time = date("H:i:s", strtotime('+30 min'));
 							break;
 						case 45:
-							$this->end_time = date("H:i:s", strtotime('+45 min'));
+							$end_time = date("H:i:s", strtotime('+45 min'));
 							break;
 						case 60:
-							$this->end_time = date("H:i:s", strtotime('+60 min'));							
+							$end_time = date("H:i:s", strtotime('+60 min'));							
 							break;
 						case 90:
-							$this->end_time = date("H:i:s", strtotime('+90 min'));
+							$end_time = date("H:i:s", strtotime('+90 min'));
 							break;
 						case 120:
-							$this->end_time = date("H:i:s", strtotime('+120 min'));
+							$end_time = date("H:i:s", strtotime('+120 min'));
 							break; 
 					}
 				}else{
@@ -153,25 +156,53 @@ class Assignation extends \yii\db\ActiveRecord
 					switch($this->duration)
 					{
 						case 15:
-							$this->end_time = date('H:i:s',strtotime( '+15 min' , strtotime ($this->start_time)));												
+							$end_time = date('H:i:s',strtotime( '+15 min' , strtotime ($start_time)));												
 							break;
 						case 30:
-							$this->end_time = date('H:i:s',strtotime( '+30 min' , strtotime ($this->start_time)));
+							$end_time = date('H:i:s',strtotime( '+30 min' , strtotime ($start_time)));
 							break;
 						case 45:
-							$this->end_time = date('H:i:s',strtotime( '+45 min' , strtotime ($this->start_time)));
+							$end_time = date('H:i:s',strtotime( '+45 min' , strtotime ($start_time)));
 							break;
 						case 60:
-							$this->end_time = date('H:i:s',strtotime( '+60 min' , strtotime ($this->start_time)));
+							$end_time = date('H:i:s',strtotime( '+60 min' , strtotime ($start_time)));
 							break;
 						case 90:
-							$this->end_time = date('H:i:s',strtotime( '+90 min' , strtotime ($this->start_time)));
+							$end_time = date('H:i:s',strtotime( '+90 min' , strtotime ($start_time)));
 							break;
 						case 120:
-							$this->end_time = date('H:i:s',strtotime( '+120 min' , strtotime ($this->start_time)));
+							$end_time = date('H:i:s',strtotime( '+120 min' , strtotime ($start_time)));
 							break;
 					}
 				}
+				
+				$colision = Assignation::find()->where([
+					'and',
+					['=','location_id',$this->location_id],
+					['like', 'date', $assignationDate->format('Y-m-d')],
+					[
+						'or',
+						[
+							'and',
+							['<=', 'start_time', $start_time],
+							['>=', 'end_time', $start_time]
+						],
+						[
+							'and',
+							['<=', 'start_time', $end_time],
+							['>=', 'end_time', $end_time]
+						]
+					]
+				])->one();
+				
+				if($colision)
+				{
+					Yii::$app->session->setFlash("error2", "La ubicación se encuentra en uso.");
+					return false;
+				}
+				
+				$this->start_time = $start_time;
+				$this->end_time = $end_time;
 				
 				return true;
 			}

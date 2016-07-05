@@ -211,7 +211,7 @@ a.desc:after {
 .btn {
     vertical-align: middle;
     margin-bottom: 0px;
-	margin-left: -5px;
+	margin-left: 0px;
 }
 /* .bootstrap-timepicker {
     width: 75%;
@@ -219,6 +219,13 @@ a.desc:after {
 #mas {
     margin-bottom: -6px;
 }
+
+#crearAsignacion {
+    /* margin-bottom: -6px; */
+	margin-bottom: -7px;
+	margin-left: 223px;
+}
+
 /* .bootstrap-timepicker {
     width: 57%;
 } */
@@ -238,11 +245,11 @@ a.desc:after {
     width: 350px;
 }
 .form-control[name=AssignationSearch\[room\]] {
-	min-width: 100px;
-	width: 170px;
+	min-width: 170px;
+	/* width: 170px; */
 }
 .form-control[name=AssignationSearch\[location\]] {
-	min-width: 100px;
+	min-width: 170px;
 	/* width: 170px; */
 }
 /* .form-control[name=AssignationSearch\[start_time\]] {

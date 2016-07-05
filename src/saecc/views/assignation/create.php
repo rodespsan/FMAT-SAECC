@@ -12,7 +12,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="assignation-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1 align="center"><?= Html::encode($this->title) ?></h1>
+	<hr>
 
     <?= $this->render('_form', [
         'model' => $model,

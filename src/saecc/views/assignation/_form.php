@@ -48,11 +48,15 @@ use kartik\widgets\TimePicker;
 		'pluginOptions' => [
 			'allowClear' => true
 		],
-	]); ?>
+		])->hint( Html::a('', ['client/create-from-assignation'],
+		['class' => 'btn btn-info btn-xs btn-right glyphicon glyphicon-plus'])
+	); ?>
+	
+	
     
     <?= $form->field($model, 'room_id')->dropDownList(
 		ArrayHelper::map(
-			Room::find()->all(),
+			Room::find()->orderBy('name ASC')->where(['available' => 1])->all(),
 			'id',
 			'name'
 		),
@@ -69,7 +73,7 @@ use kartik\widgets\TimePicker;
 	if(!empty($model->room_id))
 	{
 		$locationData = ArrayHelper::map(
-			Location::find()->where(['room_id' => $model->room_id])->all(),
+			Location::find()->orderBy('location ASC')->where(['room_id' => $model->room_id])->all(),
 			'id',
 			'location'
 		);
@@ -123,7 +127,7 @@ use kartik\widgets\TimePicker;
 		$inventoryData = ArrayHelper::map(
 			Equipment::find()->where(['id' => $model->equipment_id])->all(),
 			'id',
-			'inventory'
+			'nameWithInventory'
 		);
 	}
 	?>
@@ -136,7 +140,7 @@ use kartik\widgets\TimePicker;
 		)
 	?>
 	
-    <?= $form->field($model, 'purpose')->textarea(['maxlength' => 170]) ?>
+    <?= $form->field($model, 'purpose')->textarea(['maxlength' => 170, 'onkeyup' => 'javascript:this.value=this.value.toUpperCase();']) ?>
 
 	<?= $form->field($model, 'start_time')->widget(TimePicker::classname(), [
 			//'type'=>DateTimePicker::TYPE_INPUT,
@@ -166,9 +170,20 @@ use kartik\widgets\TimePicker;
 	?>
 	
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'),
+			['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'float:left; margin-left:299px;',
+                'data-method'=>'POST']
+		) ?>
+		<?= Html::a('Cancelar', ['index'], ['class' => 'btn btn-danger btn-md', 'style' => 'margin-left:396px;']) ?>		
     </div>
 
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<?php if (Yii::$app->session->hasFlash('error2')): ?>
+	<div class="alert alert-danger">
+		<?= Yii::$app->session->getFlash('error2') ?>
+		<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+	</div>
+<?php endif; ?>

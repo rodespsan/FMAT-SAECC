@@ -33,7 +33,7 @@ class AssignationController extends Controller
 					[
 						'allow' => true,
 						'actions' => ['index', 'view', 'update', 'delete', 'create', 'terminate', 'list-locations',
-									'show-inventory', 'extend', 'create-room', 'create-location', 'create-client', 'assignations', 'get-location-room'],
+									'show-inventory', 'extend', 'assignations', 'get-location-room', 'create3'],
 						'roles' => ['Básico', 'Operador', 'Administrador'],
 					],
 				],
@@ -51,7 +51,8 @@ class AssignationController extends Controller
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 		$dataProvider->query->andWhere(['like', 'assignation.date', date('Y-m-d')]);
 		
-        return $this->render('index', [
+		$this->layout = '/main2';
+		return $this->render('index', [		
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
@@ -61,7 +62,7 @@ class AssignationController extends Controller
     {
         $searchModel = new AssignationSearch();
 		$dataProvider = $searchModel->search(Yii::$app->request->queryParams);		
-		
+		$this->layout = '/main2';
         return $this->render('assignations', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -75,6 +76,7 @@ class AssignationController extends Controller
      */
     public function actionView($id)
     {
+		$this->layout = '/main2';
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -85,53 +87,36 @@ class AssignationController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+	public function actionCreate($room_id = null, $location_id = null)
     {
         $model = new Assignation();
-
-        /* if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+		$model->room_id = Room::find()->where(['name'=>Yii::$app->params['defaultRoom']])->one()->id;
+		
+		if( !empty($room_id) )
+			$model->room_id = $room_id;
+		
+		if( !empty($location_id) )
+		{
+			$model->location_id = $location_id;
+			$equipment = Equipment::find()->where(['location_id'=>$location_id,'available'=>1])->one();
+			$model->equipment_id = (empty($equipment))? null : $equipment->id;
+			
+			if(empty($room_id)){
+				$model->room_id = $equipment->location->room_id;
+			}
+		}
+		
+		$this->layout = '/main2';
+		
+		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect('index');
         } else {
             return $this->render('create', [
                 'model' => $model,
             ]);
-        } */
-		if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect('index');
-        }/*  else {
-            return $this->render('index');
-        } */
-    }
-
-	public function actionCreateRoom()
-    {
-        $model = new Room();
-		// $model->available=true;
-		
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
         }
     }
 	
-	public function actionCreateLocation()
-    {
-        $model = new Location();
-		// $model->available=true;
-		
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
-        }
-    }
-	
-	public function actionCreateClient()
-    {
-        $model = new Client();
-		// $model->available=true;
-		
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['index']);
-        }
-    }
     /**
      * Updates an existing Assignation model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -141,9 +126,11 @@ class AssignationController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+		$this->layout = '/main2';
+        
+		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            //return $this->redirect(['view', 'id' => $model->id]);
+			return $this->redirect(['index']);				
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -164,7 +151,7 @@ class AssignationController extends Controller
 		$equipments = Equipment::find()->where(['location_id'=>$id])->all();
 		//echo "<option value=''>".Yii::t('app', 'Selecciona un Número de Inventario...')."</option>";
 		foreach($equipments as $equipment)
-			echo "<option value='".$equipment->id."'>(".$equipment->inventory. ") ". $equipment->equipmentType->name ."</option>";		
+			echo "<option value='".$equipment->id."'>".$equipment->nameWithInventory."</option>";		
 	}
 	
 	//Actualiza la hora final y la duración de una asignación en base a la hora en que se de por terminada una asignación
@@ -228,7 +215,7 @@ class AssignationController extends Controller
 	
 	public function actionGetLocationRoom($id)
 	{
-		echo Location::find()->where(['id' => $id])->one()->room_id;
+		echo Location::find()->orderBy('location ASC')->where(['id' => $id])->one()->room_id;
 	}
 	
     /**
@@ -257,6 +244,21 @@ class AssignationController extends Controller
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+	
+	public function actionCreate3($id)
+    {
+        $model = new Assignation();
+		$model->client_id = $id;		
+		$this->layout = '/main2';
+		
+		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect('index');
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
         }
     }
 }

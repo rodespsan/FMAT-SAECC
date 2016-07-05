@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+// use yii\widgets\ActiveForm;
 use yii\helpers\ArrayHelper;
 use app\models\Room;
 use app\models\User;
@@ -12,6 +12,7 @@ use app\models\Equipment;
 use app\models\Incident;
 use kartik\widgets\DateTimePicker;
 use kartik\widgets\Select2;
+use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Incident */
@@ -20,7 +21,13 @@ use kartik\widgets\Select2;
 
 <div class="incident-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <!--?php $form = ActiveForm::begin(); ?-->
+	<?php $form = ActiveForm::begin([
+		'layout' => 'horizontal',
+		'options' => ['enctype' => 'multipart/form-data'],
+	]);
+	//$model->room_id = Room::find()->where(['name'=>Yii::$app->params['defaultRoom']])->one()->id;
+	?>
 
 	<!--?= $form->field($model, 'date')->textInput() ?-->
 	<?= $form->field($model, 'date')->widget(DateTimePicker::classname(), [
@@ -51,6 +58,21 @@ use kartik\widgets\Select2;
 			]
 		)
 	?>
+
+	<!--?= $form->field($model, 'location_id')->dropDownList(
+			ArrayHelper::map(
+				Location::find()->all(),
+				'id',
+				'location'
+			),
+			[
+				'prompt' => 'Selecciona una Ubicación',
+				'onchange' => '$.post("'.Yii::$app->urlManager->createUrl('incident/list-equipment-types?id=').'"+$(this).val(), function(data){
+					$("#incident-equipment_type_id").html(data);
+				})',
+			]
+		)
+	?-->
 	
 	<?php
 	$locationData = [];
@@ -95,6 +117,26 @@ use kartik\widgets\Select2;
 		]
 	) ?>
 	
+	<!--?= $form->field($model, 'equipment_type_id')->dropDownList(
+		$equipmentTypeData,
+		[
+			//'prompt' => 'Selecciona un Tipo de Equipo',
+			'onchange' => '$.post("'.Yii::$app->urlManager->createUrl('incident/show-inventory?id=').'"+$(this).val(), function(data){
+				// $("#incident-equipment_id").html(data);
+				// alert(data);
+				$("#incident-equipment_id").val(data).trigger("change");
+			})',
+		]
+	) ?-->
+	
+	<!--?= $form->field($model, 'equipment_id')->textInput([
+		'maxlength'=>true,
+		'onchange' => '$.post("'.Yii::$app->urlManager->createUrl('incident/get-equipment-information?inventory=').'"+$(this).val(), function(data){
+			// $("#incident-equipment_id").html(data);
+			$("#incident-equipment_id").val(data);
+		})',
+	]) ?-->
+	
 	<?= $form->field($model, 'equipment_id')->widget(Select2::classname(), [
 		'data' => ArrayHelper::map(
 			Equipment::find()->all(),
@@ -124,7 +166,35 @@ use kartik\widgets\Select2;
 		]
 	]); ?>
 	
+	<!--?= $form->field($model, 'equipment_id')->dropDownList(
+			//['readonly' => true]
+			ArrayHelper::map(
+				Equipment::find()->where(['id' => $model->equipment_id])->all(),
+				'id',
+				'inventory'
+			)
+		)
+	?-->
+	
 	<?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
+    
+	<!--?= $form->field($model, 'client_id')->widget(\yii\jui\AutoComplete::classname(), [
+		'clientOptions' => [
+			'source' => Yii::$app->urlManager->createUrl('incident/list-clients'),
+		],
+	]) ?-->
+	
+	<!--?= $form->field($model, 'client_id')->widget(Select2::classname(), [
+		'data' => ArrayHelper::map(
+			Client::find()->all(),
+				'id',
+				'client_id', 'full_name'
+		),
+		'options' => ['placeholder' => 'Selecciona una opción...'],
+		'pluginOptions' => [
+			'allowClear' => true
+		],
+	]); ?-->
 	
 	<?= $form->field($model, 'client_id')->widget(Select2::classname(), [
 		'data' => ArrayHelper::map(
@@ -166,8 +236,8 @@ use kartik\widgets\Select2;
     
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-		<?= Html::a('Cancelar', ['index'], ['class' => 'btn btn-danger btn-md', 'style' => 'float:right;']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'float:left; margin-left:299px;']) ?>
+		<?= Html::a('Cancelar', ['assignation/index'], ['class' => 'btn btn-danger btn-md', 'style' => 'margin-left:396px;']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -51,6 +51,11 @@ class AssignationSearch extends Assignation
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+			'sort' => [
+				'defaultOrder' => [
+					'date' => SORT_DESC,
+				]
+			],
 			'pagination' => [
 				'pageSize' => 1000,
 			],
